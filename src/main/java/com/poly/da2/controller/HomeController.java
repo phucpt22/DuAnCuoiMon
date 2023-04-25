@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 	@RequestMapping(value = {"/","/home/index"})
 	public String home() {
-		return "redirect:/product/list";
+		return "user/index";
 	}
 	
 	@RequestMapping(value = {"/admin","/admin/home/index"})
@@ -16,9 +16,4 @@ public class HomeController {
 		return "redirect:/assets/admin/index.html";
 	}
 
-	@RequestMapping("/home/thymeleaf2")
-	public String thymeleaf2(Model model) {
-		model.addAttribute("message","Thymeleaf - With Extras");
-		return "layout/thymeleaf2";
-	}
 }
