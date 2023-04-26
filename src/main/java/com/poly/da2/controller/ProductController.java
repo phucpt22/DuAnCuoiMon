@@ -34,7 +34,7 @@ public class ProductController {
 		List<Product> list = productService.findAll();
 		model.addAttribute("item", item);
 		model.addAttribute("items", list);
-		return "product/store";
+		return "product/detail";
 	}
 	
 	@RequestMapping("/product/list")
@@ -52,11 +52,7 @@ public class ProductController {
 			model.addAttribute("cates", listc);
 		return "product/store";
 	}
-	@RequestMapping("/product/list2")
-	public String listtest() {
 
-		return "product/store2";
-	}
 	@PostMapping("/product/find={name}")
 	public String search(Model model, @PathVariable("name") String s) {
 		String search = paramService.getString("name", "");
