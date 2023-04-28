@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"th:replace="~{/layout/index::dynamic(~{::main})}">
+
+<body>
+	<main>
+		<div th:replace="~{/cart/view::shopping_cart}"></div>
+		<div class="card text-center border-info">
+			<div class="card-header h3 text-bg-info">Thông tin đặt hàng</div>
+			<div class="card-body row text-start">
+				<div class="col-md-6">
+					<label for="inputEmail4" class="form-label">Người nhận:</label>
+					<div class="form-control" id="username">[[${#request.remoteUser}]]</div>
+				</div>
+				<div class="col-md-6">
+					<label for="inputPassword4" class="form-label">Ngày đặt:</label>
+					<div class="form-control">{{order.createDate|date:'dd-MM-yyyy'}}</div>
+				</div>
+				<div class="col-12">
+					<label for="inputAddress" class="form-label">Địa chỉ giao
+						hàng:</label>
+					<textarea ng-model="order.address" class="form-control" id="exampleFormControlTextarea1"
+						rows="3"></textarea>
+				</div>
+			</div>
+			<div class="card-footer text-end">
+				<button data-bs-toggle="modal" href="#exampleModalToggle" role="button" ng-click="order.purchase()" class="btn btn-success">Đặt hàng</button>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Thông báo:</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						Đặt hàng thành công!!
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

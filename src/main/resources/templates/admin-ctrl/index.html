@@ -20,6 +20,10 @@
 
     <!-- Bootstrap CSS-->
     <link href="/assert/admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
     <!-- Vendor CSS-->
     <link href="/assert/admin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
@@ -29,74 +33,24 @@
     <link href="/assert/admin/vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="/assert/admin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="/assert/admin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <!-- Main CSS-->
     <link href="/assert/admin/css/theme.css" rel="stylesheet" media="all">
 
 </head>
 
-<body class="animsition">
+<body class="animsition" ng-app="admin-app">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Orders</a>
-                        </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Accounts</a>
-                        </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Categories</a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">
-                                <i class="fas fa-calendar-alt"></i>Products</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Authority</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+
         <!-- END HEADER MOBILE-->
 
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                    <img src="../../static/assert/admin/images/icon/logo.png" alt="Cool Admin" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -107,29 +61,29 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="index.html">Dashboard 1</a>
+                                    <a href="/static">Dashboard 1</a>
                                 </li>
                                 
                             </ul>
                         </li>
                         <li>
-                            <a href="chart.html">
+                            <a href="">
                                 <i class="fas fa-chart-bar"></i>Orders</a>
                         </li>
                         <li>
-                            <a href="table.html">
+                            <a href="">
                                 <i class="fas fa-table"></i>Accounts</a>
                         </li>
                         <li>
-                            <a href="form.html">
+                            <a href="">
                                 <i class="far fa-check-square"></i>Categories</a>
                         </li>
                         <li>
-                            <a href="calendar.html">
+                            <a href="#!product">
                                 <i class="fas fa-calendar-alt"></i>Products</a>
                         </li>
                         <li>
-                            <a href="map.html">
+                            <a href="">
                                 <i class="fas fa-map-marker-alt"></i>Authority</a>
                         </li>
                     </ul>
@@ -162,7 +116,7 @@
                                             </div>
                                             <div class="mess__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                                    <img src="../../static/assert/admin/images/icon/avatar-06.jpg" alt="Michelle Moreno" />
                                                 </div>
                                                 <div class="content">
                                                     <h6>Michelle Moreno</h6>
@@ -172,7 +126,7 @@
                                             </div>
                                             <div class="mess__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                                    <img src="../../static/assert/admin/images/icon/avatar-04.jpg" alt="Diane Myers" />
                                                 </div>
                                                 <div class="content">
                                                     <h6>Diane Myers</h6>
@@ -194,7 +148,7 @@
                                             </div>
                                             <div class="email__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
+                                                    <img src="../../static/assert/admin/images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
                                                 </div>
                                                 <div class="content">
                                                     <p>Meeting about new dashboard...</p>
@@ -203,7 +157,7 @@
                                             </div>
                                             <div class="email__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
+                                                    <img src="../../static/assert/admin/images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
                                                 </div>
                                                 <div class="content">
                                                     <p>Meeting about new dashboard...</p>
@@ -212,7 +166,7 @@
                                             </div>
                                             <div class="email__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
+                                                    <img src="../../static/assert/admin/images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
                                                 </div>
                                                 <div class="content">
                                                     <p>Meeting about new dashboard...</p>
@@ -267,7 +221,7 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            <img src="../../static/assert/admin/images/icon/avatar-01.jpg" alt="John Doe" />
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">john doe</a>
@@ -276,7 +230,7 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                        <img src="../../static/assert/admin/images/icon/avatar-01.jpg" alt="John Doe" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
@@ -476,7 +430,15 @@
         </div>
             </div>
         </div>
+        <section class="bg-light col p-0 m-3 border rounded-2">
+            <article class="border rounded-2">
+                <div ng-view></div>
+
+            </article>
+
+        </section>
     </div>
+
 
     <!-- Jquery JS-->
     <script src="/assert/admin/vendor/jquery-3.2.1.min.js"></script>
@@ -498,10 +460,15 @@
     <script src="/assert/admin/vendor/chartjs/Chart.bundle.min.js"></script>
     <script src="/assert/admin/vendor/select2/select2.min.js">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+            crossorigin="anonymous"></script>
+
 
     <!-- Main JS-->
     <script src="/assert/admin/js/main.js"></script>
-
+    <script src="/admin-ctrl/index.js"></script>
+    <script src="/admin-ctrl/product/index.js"></script>
 </body>
 
 </html>

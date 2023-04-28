@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 	@RequestMapping(value = {"/","/home/index"})
 	public String home() {
-		return "user/index";
+		return "redirect:/product/list";
 	}
-	
+
 	@RequestMapping(value = {"/admin","/admin/home/index"})
 	public String admin() {
-		return "admin/index";
+		return "redirect:/admin-ctrl/index.html";
+	}
+	@RequestMapping(value = {"/homepage"})
+	public String aa() {
+		return "user/index";
 	}
 
 }

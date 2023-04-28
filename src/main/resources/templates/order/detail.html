@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<body>
+	<main class="mt-3 p-0" th:object="${order}">
+		<div class="card text-center border-info">
+			<div class="card-header h3 text-bg-info">Thông tin đặt hàng</div>
+			<div class="card-body row text-start">
+				<div class="col-md-4">
+					<label for="inputEmail4" class="form-label">Mã hóa đơn:</label> <input
+						th:field="*{id}" class="form-control" readonly>
+				</div>
+				<div class="col-md-4">
+					<label for="inputEmail4" class="form-label">Người nhận:</label> <input
+						th:field="*{account.username}" class="form-control"
+						readonly="readonly">
+				</div>
+				<div class="col-md-4">
+					<label for="inputPassword4" class="form-label">Ngày đặt:</label> <input
+						th:field="*{createDate}" class="form-control" readonly="readonly">
+				</div>
+				<div class="col-12">
+					<label for="inputAddress" class="form-label">Địa chỉ giao
+						hàng:</label>
+					<textarea th:field="*{address}"
+						class="form-control" readonly="readonly" rows="3"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="card text-center border-info mt-3">
+			<div class="card-header h3 text-bg-info">Thông tin đơn hàng</div>
+			<div class="card-body text-start p-0">
+				<table class="table table-bordered border-info text-center m-0">
+					<thead class="table-info border-info">
+						<tr>
+							<th scope="col">Id</th>
+							<th class="text-start" scope="col">Name</th>
+							<th scope="col">Price</th>
+							<th scope="col">Quantity</th>
+							<th scope="col">Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="detail:*{orderDetails}" th:object="${detail}">
+							<th>[[*{product.id}]]</th>
+							<td class="text-start">[[*{product.name}]]</td>
+							<td>$[[*{#numbers.formatDecimal(price,0,'COMMA',2,'POINT')}]]</td>
+							<td >[[*{quantity}]]</td>
+							<td>$[[*{#numbers.formatDecimal(price*quantity,0,'COMMA',2,'POINT')}]]</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
