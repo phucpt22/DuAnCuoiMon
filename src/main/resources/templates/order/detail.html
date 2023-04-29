@@ -30,10 +30,10 @@
 			<div class="card-header h3 text-bg-white-50">Thông tin đơn hàng</div>
 			<div class="card-body text-white-50 p-0">
 				<table class="table  table-hover text-center m-0">
-					<thead class="table-info border-black-50">
+					<thead class="table-info border-black-50 p-3">
 						<tr>
-							<th scope="col m-2">Image</th>
-							<th class="text-start p-2" scope="col">Name</th>
+							<th scope="col">Image</th>
+							<th class="col" scope="col">Name</th>
 							<th scope="col">Price</th>
 							<th scope="col">Quantity</th>
 							<th scope="col">Amount</th>
@@ -41,9 +41,11 @@
 					</thead>
 					<tbody>
 						<tr th:each="detail:*{orderDetails}" th:object="${detail}">
-							<td> <div class="m-2">
-								<img src="/assert/user/img/{{product.image}}" alt="" width="70" class="img-fluid rounded shadow-sm">
-							</div> </td>
+							<td>
+								<div>
+									<img th:src="@{/assert/user/img/__${detail.product.image}__}" alt="" width="70" class="img-fluid rounded shadow-sm">
+								</div>
+							</td>
 							<td class="text-start">[[*{product.name}]]</td>
 							<td>$[[*{#numbers.formatDecimal(price,0,'COMMA',2,'POINT')}]]</td>
 							<td >[[*{quantity}]]</td>
