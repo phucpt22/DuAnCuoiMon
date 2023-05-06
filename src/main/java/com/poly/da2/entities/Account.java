@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -22,6 +23,13 @@ public class Account implements Serializable{
 	private String fullname;
 	private String email;
 	private String photo;
+	private Date createDate;
+	private Date updateDate;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idUser", referencedColumnName = "id")
+	private User user;
+
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "account")
 	List<Authority> authorities;
