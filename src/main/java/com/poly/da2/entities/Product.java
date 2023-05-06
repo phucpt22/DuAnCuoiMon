@@ -22,10 +22,14 @@ public class Product implements Serializable {
 	private Integer id;
 	private String name;
 	private String image;
-	private double price;
+	private Double price;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")
 	private Date createDate = new Date();
+	@Temporal(TemporalType.DATE)
+	private Date updateDate;
+
 	private Boolean available;
 	@ManyToOne
 	@JoinColumn(name = "Categoryid")

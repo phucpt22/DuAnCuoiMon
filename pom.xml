@@ -8,11 +8,11 @@
         <version>2.6.10</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.poly</groupId>
-    <artifactId>DuAnCuoiMon</artifactId>
+    <groupId>com.phucnguyen</groupId>
+    <artifactId>TechStore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>DuAnCuoiMon</name>
-    <description>DuAnCuoiMon</description>
+    <name>TechStore</name>
+    <description>Your technology world</description>
     <properties>
         <java.version>11</java.version>
     </properties>

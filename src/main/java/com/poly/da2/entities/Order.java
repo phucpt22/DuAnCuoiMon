@@ -16,18 +16,30 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "Orders")
-public class Order implements Serializable{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String address;
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Createdate")
-	private Date createDate= new Date();
-	@ManyToOne
-	@JoinColumn(name = "Username")
-	private Account account;
-	@JsonIgnore
-	@OneToMany(mappedBy = "order")
-	List<OrderDetail> orderDetails;
+public class Order implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String address;
+
+    @Temporal(TemporalType.DATE)
+    private Date createDate = new Date();
+
+    @Temporal(TemporalType.DATE)
+    private Date updateDate = new Date();
+
+    private Double totalPrice;
+
+    private Double discount;
+
+    private Double origninalPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    private Account account;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "order")
+    List<OrderDetail> orderDetails;
 }
