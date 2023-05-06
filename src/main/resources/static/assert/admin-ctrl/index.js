@@ -3,11 +3,11 @@ var app = angular.module("admin-app", ["ngRoute"]);
 app.config(function($routeProvider) {
     $routeProvider
         .when("/product", {
-            templateUrl: "/admin-ctrl/product/index.html",
+            templateUrl: "/assert/admin-ctrl/product/index.html",
             controller: "product-ctrl"
         })
         .when("/authorize", {
-            templateUrl: "/admin-ctrl/authority/index.html",
+            templateUrl: "/admin-ctrl/authorit1y/index.html",
             controller: "authority-ctrl"
         })
         .when("/unauthorized", {
@@ -25,10 +25,10 @@ app.config(function($routeProvider) {
             templateUrl: "/admin-ctrl/category/index.html",
             controller: "category-ctrl"
         }).when("/homeadmin", {
-        templateUrl: "/admin-ctrl/index.html",
+        templateUrl: "/assert/admin-ctrl/index.html",
     })
         .otherwise({
             //template: "<h1 class='text-center'>FPT Polytechnic Administrator</h1>",
-            templateUrl: "/admin-ctrl/index.html"
+            templateUrl: "/assert/admin-ctrl/index.html"
         })
 })

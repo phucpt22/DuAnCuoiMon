@@ -46,16 +46,24 @@
 							<div class="price-filter">
 								<div id="price-slider"></div>
 								<div class="input-number price-min">
-									<input id="price-min" type="number">
+									<input id="price-min" type="number" name="priceMin">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
 								<span>-</span>
 								<div class="input-number price-max">
-									<input id="price-max" type="number">
+									<input id="price-max" type="number" name="priceMax">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
+								<button onclick="searchProduct()"></button>
+<!--								<script>-->
+<!--									function searchProduct(){-->
+<!--										var x = document.getElementById("price-min").value;-->
+<!--										console.log(x)-->
+<!--										window.location.href = "/abc?x="+x;-->
+<!--									}-->
+<!--								</script>-->
 							</div>
 						</div>
 						<!-- /aside Widget -->
@@ -84,6 +92,7 @@
 									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 								</div>
 							</div>
+
 
 							<div class="product-widget">
 								<div class="product-img">

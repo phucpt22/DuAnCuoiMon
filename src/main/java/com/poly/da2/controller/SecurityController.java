@@ -45,7 +45,7 @@ public class SecurityController {
 	@RequestMapping("/security/logoff/success")
 	public String logoff(Model model) {
 		model.addAttribute("message", "Đăng xuất thành công!");
-		return "security/login";
+		return "product/store";
 	}
 	
 	@RequestMapping("/security/unauthoried")
