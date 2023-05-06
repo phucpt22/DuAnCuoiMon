@@ -60,7 +60,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 			.authorizationEndpoint()
 			.baseUri("/oauth2/authorization").authorizationRequestRepository(getRepository())
 				.and().tokenEndpoint().accessTokenResponseClient(getToken());
-
 	}
 	@Bean
 	public AuthorizationRequestRepository<OAuth2AuthorizationRequest> getRepository() {
