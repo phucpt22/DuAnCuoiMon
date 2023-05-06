@@ -14,7 +14,7 @@ app.config(function($routeProvider) {
             templateUrl: "/admin-ctrl/authority/unauthorized.html",
         })
         .when("/account", {
-            templateUrl: "/admin-ctrl/account/index.html",
+            templateUrl: "/assert/admin-ctrl/account/index.html",
             controller: "account-ctrl"
         })
         .when("/orders", {
@@ -28,7 +28,7 @@ app.config(function($routeProvider) {
         templateUrl: "/assert/admin-ctrl/index.html",
     })
         .otherwise({
-            //template: "<h1 class='text-center'>FPT Polytechnic Administrator</h1>",
-            templateUrl: "/assert/admin-ctrl/index.html"
+            template: "<h1 class='text-center'>FPT Polytechnic Administrator</h1>",
+            //templateUrl: "/assert/admin-ctrl/index.html"
         })
 })
