@@ -43,10 +43,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.findById(id).get();
 	}
 
-	@Override
-	public List<Order> findByUsername(String username) {
-		return orderDAO.findByUsername(username);
-	}
+//	@Override
+//	public List<Order> findByUsername(String username) {
+//		return orderDAO.findByUsername(username);
+//	}
 
 	@Override
 	public List<Order> findAll() {

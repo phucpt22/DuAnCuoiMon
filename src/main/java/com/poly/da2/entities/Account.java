@@ -15,14 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Accounts")
+@Table(name = "accounts")
 public class Account implements Serializable{
 	@Id
 	private String username;
 	private String password;
-	private String fullname;
-	private String email;
-	private String photo;
+	private String gmail;
 	private Date createDate;
 	private Date updateDate;
 
@@ -30,7 +28,4 @@ public class Account implements Serializable{
 	@JoinColumn(name = "idUser", referencedColumnName = "id")
 	private User user;
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "account")
-	List<Authority> authorities;
 }

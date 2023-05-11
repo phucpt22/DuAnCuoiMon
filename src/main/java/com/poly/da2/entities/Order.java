@@ -15,13 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String address;
 
     @Temporal(TemporalType.DATE)
     private Date createDate = new Date();
@@ -36,8 +34,8 @@ public class Order implements Serializable {
     private Double origninalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "Username")
-    private Account account;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")

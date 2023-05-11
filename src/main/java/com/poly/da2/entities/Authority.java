@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Authorities",uniqueConstraints = {@UniqueConstraint(columnNames = {"Username","Roleid"})})
+@Table(name = "authorities",uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","role_id"})})
 public class Authority implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,11 @@ public class Authority implements Serializable{
 	private Date updateDate;
 
 	@ManyToOne
-	@JoinColumn(name = "Username")
-	private Account account;
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	@ManyToOne
-	@JoinColumn(name = "Roleid")
+	@JoinColumn(name = "role_id")
 	private Role role;
 	 
 }

@@ -33,15 +33,16 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		try {
-			Account account = dao.findById(username).get();
-			String password = account.getPassword();
-			String[] roles = account.getAuthorities().stream().map(au -> au.getRole().getId())
-					.collect(Collectors.toList()).toArray(new String[0]);
-			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
-		} catch (Exception e) {
-			throw new UsernameNotFoundException(username + " not found!");
-		}
+//		try {
+//			Account account = dao.findById(username).get();
+//			String password = account.getPassword();
+//			String[] roles = account.getAuthorities().stream().map(au -> au.getRole().getId())
+//					.collect(Collectors.toList()).toArray(new String[0]);
+//			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
+//		} catch (Exception e) {
+//			throw new UsernameNotFoundException(username + " not found!");
+//		}
+		return  null;
 	}
 
 	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {
