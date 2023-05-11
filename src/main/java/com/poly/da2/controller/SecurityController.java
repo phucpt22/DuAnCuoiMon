@@ -56,7 +56,7 @@ public class SecurityController {
 	@RequestMapping("/oauth2/login/success")
 	public String success(OAuth2AuthenticationToken oauth2) {
 		userService.loginFormOAuth2(oauth2);
-		return "forward:/security/login/success";
+		return "redirect:/security/login/success";
 	}
 	@PostMapping("/register")
 	public String register(Account nd) {
@@ -68,7 +68,7 @@ public class SecurityController {
 			if (nd.getPassword().equals(re_pass)) {
 				nd.setFullname("NoName");
 				nd.setEmail(email);
-				nd.setPhoto("Photo.jpg");
+				nd.setPhoto("noimage.png");
 				nd.setPassword(password);
 				nd.setUsername(username);
 				dao.save(nd);

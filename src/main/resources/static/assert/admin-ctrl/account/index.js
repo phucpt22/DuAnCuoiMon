@@ -1,28 +1,12 @@
-app.controller("product-ctrl", function($scope, $http) {
+app.controller("account-ctrl", function($scope, $http) {
     $scope.items = [];
     $scope.cates = [];
     $scope.form = {};
 
     $scope.initialize = function() {
-        $http.get("/rest/products").then((resp) => {
+        $http.get("/rest/accounts/all").then((resp) => {
             $scope.items = resp.data;
-            $scope.items.forEach((item) => {
-                item.createDate = new Date(item.createDate);
-            });
         });
-        $http.get("/rest/categories").then((resp) => {
-            $scope.cates = resp.data;
-        });
-    };
-    $scope.search = function(p) {
-        //debugger;
-        //console.log(${item.order.id});
-        $http
-            .get(`/rest/products/find/${p.name}`, p)
-            .then((resp) => {
-                //debugger;
-                $scope.items = resp.data;
-            });
     };
 
     $scope.initialize();
@@ -34,23 +18,21 @@ app.controller("product-ctrl", function($scope, $http) {
 
     $scope.reset = function() {
         $scope.form = {
-            createDate: new Date(),
-            image: "cloud-upload.jpg",
-            available: true,
+
         };
     };
+
     $scope.create = function() {
         var item = angular.copy($scope.form);
         $http
-            .post("/rest/products", item)
+            .post("/rest/accounts", item)
             .then((resp) => {
-                resp.data.createDate = new Date(resp.data.createDate);
                 $scope.items.push(resp.data);
                 $scope.reset();
-                alert("Thêm mới sản phẩm thành công!");
+                alert("Thêm mới tài khoản thành công!");
             })
             .catch((error) => {
-                alert("Lỗi thêm mới sản phẩm!");
+                alert("Lỗi thêm mới tài khoản!");
                 console.log("Error", error);
             });
     };
@@ -58,30 +40,29 @@ app.controller("product-ctrl", function($scope, $http) {
     $scope.update = function() {
         var item = angular.copy($scope.form);
         $http
-            .put("/rest/products/${item.id}", item)
+            .put(`/rest/accounts/${item.username}`, item)
             .then((resp) => {
-                var index = $scope.items.findIndex((p) => p.id == item.id);
+                var index = $scope.items.findIndex((p) => p.username == item.username);
                 $scope.items[index] = item;
-                alert("Cập nhật sản phẩm thành công!");
+                alert("Cập nhật tài khoản thành công!");
             })
             .catch((error) => {
-                alert("Lỗi cập nhật sản phẩm!");
+                alert("Lỗi cập nhật tài khoản!");
                 console.log("Error", error);
             });
     };
 
     $scope.delete = function(item) {
-
         $http
-            .delete("/rest/products/${item.id}", item)
+            .delete(`/rest/accounts/${item.username}`, item)
             .then((resp) => {
-                var index = $scope.items.findIndex((p) => p.id == item.id);
+                var index = $scope.items.findIndex((p) => p.username == item.username);
                 $scope.items.splice(index, 1);
                 $scope.reset();
-                alert("Xóa sản phẩm thành công!");
+                alert("Xóa tài khoản thành công!");
             })
             .catch((error) => {
-                alert("Lỗi xóa sản phẩm!");
+                alert("Lỗi xóa tài khoản!");
                 console.log("Error", error);
             });
     };

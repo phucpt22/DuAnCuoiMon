@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<<<<<<< HEAD
-<body >
-
-=======
 <body class="animsition">
 <div class="page-wrapper">
     <!-- MAIN CONTENT-->
@@ -17,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- DATA TABLE -->
-                        <h3 class="title-5 m-b-35">Danh sách sản phẩm</h3>
+                        <h3 class="title-5 m-b-35">Danh sách tài khoản</h3>
                         <div class="table-data__tool">
                             <div class="table-data__tool-left">
                                 <div class="rs-select2--light rs-select2--md">
@@ -62,33 +58,31 @@
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Fullname</th>
+                                    <th scope="col">Email</th>
 
-                                    <th scope="col">Category</th>
-
-                                    <th scope="col">Tools</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="tr-shadow" ng-repeat="p in pager.items">
+                                <tr class="tr-shadow" ng-repeat="acc in pager.items">
                                     <td>
                                         <label class="au-checkbox">
                                             <input type="checkbox">
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
-                                    <td><img src="/assert/user/img/{{p.image}}" alt="" width="170" class="img-fluid rounded shadow-sm"></td>
+                                    <td><img src="/assert/user/img/{{acc.photo}}" alt="" width="170" class="img-fluid rounded shadow-sm"></td>
                                     <td>
-                                        <span class="block-email">{{p.name}}</span>
+                                        <span class="block-email">{{acc.username}}</span>
                                     </td>
-                                    <td class="desc">{{p.price|number:2}}</td>
-                                    <td class="desc">{{p.createDate|date:'dd-MM-yyyy'}}</td>
+                                    <td class="desc">{{acc.password}}</td>
+                                    <td class="desc">{{acc.fullname}}</td>
 
                                     <td>
-                                        <span class="status--process">{{p.category.name}}</span>
+                                        <span class="status--process">{{acc.email}}</span>
                                     </td>
 
                                     <td>
@@ -135,6 +129,5 @@
         <i class="fa-solid fa-circle-chevron-right"></i>
     </button>
 </div>
->>>>>>> phúc
 </body>
 </html>

@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<<<<<<< HEAD
-<body >
-
-=======
 <body class="animsition">
 <div class="page-wrapper">
     <!-- MAIN CONTENT-->
@@ -62,53 +58,73 @@
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Date</th>
-
-                                    <th scope="col">Category</th>
-
-                                    <th scope="col">Tools</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Fullname</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">CreateDate</th>
+                                    <th class="col">Tool</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="tr-shadow" ng-repeat="p in pager.items">
+                                <tr class="tr-shadow"  ng-repeat="p in pager_order.items">
                                     <td>
                                         <label class="au-checkbox">
                                             <input type="checkbox">
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
-                                    <td><img src="/assert/user/img/{{p.image}}" alt="" width="170" class="img-fluid rounded shadow-sm"></td>
+                                    <td>{{p.id}}</td>
                                     <td>
-                                        <span class="block-email">{{p.name}}</span>
+                                        <span class="block-email">{{p.account.username}}</span>
                                     </td>
-                                    <td class="desc">{{p.price|number:2}}</td>
-                                    <td class="desc">{{p.createDate|date:'dd-MM-yyyy'}}</td>
-
+                                    <td class="desc">{{p.account.fullname}}</td>
+                                    <td class="desc">{{p.address}}</td>
                                     <td>
-                                        <span class="status--process">{{p.category.name}}</span>
+                                        <span class="status--process">{{p.createDate|date:'dd-MM-yyyy'}}</span>
                                     </td>
-
                                     <td>
                                         <div class="table-data-feature">
-
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                <i class="zmdi zmdi-more"></i>
-                                            </button>
+                                            <a ng-click="show(p)"><span class="material-symbols-sharp btn btn-default" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" data-bs-placement="bottom" title="Xem chi tiết"> <i class="fa-solid fa-eye"></i> Show</span></a>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr class="spacer"></tr>
                                 </tbody>
                             </table>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body row">
+                                            <div class="col">
+                                                <div class="card-body p-0">
+                                                    <table class="table table-bordered m-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Image</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Price</th>
+                                                            <th scope="col">Quantity</th>
+                                                            <th scope="col">Amount</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="item in items">
+                                                            <th><img th:src="@{/assert/user/img/__${item.product.image}__}" alt="" width="170" class="img-fluid rounded shadow-sm"></th>
+                                                            <td>{{item.product.name}}</td>
+                                                            <td>{{item.price}}</td>
+                                                            <td>{{item.quantity}}</td>
+                                                            <td>{{item.price*item.quantity}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- END DATA TABLE -->
                     </div>
@@ -135,6 +151,5 @@
         <i class="fa-solid fa-circle-chevron-right"></i>
     </button>
 </div>
->>>>>>> phúc
 </body>
 </html>
