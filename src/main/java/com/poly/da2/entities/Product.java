@@ -21,8 +21,9 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	private String image;
 	private Double price;
+
+	private int image_id;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")

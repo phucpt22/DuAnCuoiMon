@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,6 +19,8 @@ public class User {
 
     private String phone;
 
+    private String photo;
+
     private String gmail;
 
     private String address;
@@ -29,4 +32,12 @@ public class User {
     @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Account account;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    List<Authority> authorities;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+    List<Order> orders;
 }

@@ -17,11 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 public class Role implements Serializable{
 	@Id
 	private String id;
 	private String name;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "role")
 	List<Authority> authorities;

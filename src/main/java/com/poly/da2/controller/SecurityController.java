@@ -65,9 +65,12 @@ public class SecurityController {
 		String email = paramService.getString("email", "");
 		String re_pass = paramService.getString("repass", "");
 			if (nd.getPassword().equals(re_pass)) {
+<<<<<<< HEAD
 				nd.setFullname("NoName");
 				nd.setEmail(email);
 				nd.setPhoto("noimage.png");
+=======
+>>>>>>> nguyên
 				nd.setPassword(password);
 				nd.setUsername(username);
 				dao.save(nd);

@@ -19,7 +19,8 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public List<Account> getAdministrators() {
-		return accountDAO.getAdministrators();
+		return null;
+//		return accountDAO.getAdministrators();
 	}
 
 	@Override
