@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.dao.AuthorityDAO;
+import com.poly.da2.repository.AuthorityDAO;
 import com.poly.da2.entities.Account;
 import com.poly.da2.entities.Authority;
 import com.poly.da2.service.AccountService;

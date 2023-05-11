@@ -1,6 +1,6 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.dao.AccountDAO;
+import com.poly.da2.repository.AccountDAO;
 import com.poly.da2.entities.Account;
 import com.poly.da2.service.ParamService;
 import com.poly.da2.service.UserService;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 

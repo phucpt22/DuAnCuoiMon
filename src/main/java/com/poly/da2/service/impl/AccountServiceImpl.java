@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.dao.AccountDAO;
+import com.poly.da2.repository.AccountDAO;
 import com.poly.da2.entities.Account;
 import com.poly.da2.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.dao.RoleDAO;
+import com.poly.da2.repository.RoleDAO;
 import com.poly.da2.entities.Role;
 import com.poly.da2.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

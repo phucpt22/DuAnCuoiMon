@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.dao.OrderDetailDAO;
+import com.poly.da2.repository.OrderDetailDAO;
 import com.poly.da2.entities.OrderDetail;
 import com.poly.da2.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;

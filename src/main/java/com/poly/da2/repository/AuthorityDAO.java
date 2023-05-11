@@ -1,4 +1,4 @@
-package com.poly.da2.dao;
+package com.poly.da2.repository;
 
 import com.poly.da2.entities.Account;
 import com.poly.da2.entities.Authority;

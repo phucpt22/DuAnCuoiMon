@@ -1,6 +1,6 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.dao.ProductDAO;
+import com.poly.da2.repository.ProductDAO;
 import com.poly.da2.entities.Category;
 import com.poly.da2.entities.Product;
 import com.poly.da2.service.CategoryService;

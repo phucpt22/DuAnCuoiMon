@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.dao.CategoryDAO;
+import com.poly.da2.repository.CategoryDAO;
 import com.poly.da2.entities.Category;
 import com.poly.da2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
