@@ -20,7 +20,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product findById(Integer id) {
-		productRepository.findA
 		return productRepository.findById(id).get();
 	}
 
