@@ -12,6 +12,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	AccountRepository acc;
+
 	@Override
 	public List<Account> findAll() {
 		return null;

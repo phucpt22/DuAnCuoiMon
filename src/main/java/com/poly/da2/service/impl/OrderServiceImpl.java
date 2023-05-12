@@ -43,6 +43,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findById(id).get();
 	}
 
+	@Override
+	public List<Order> findByUsername(String username) {
+		return null;
+	}
+
 //	@Override
 //	public List<Order> findByUsername(String username) {
 //		return orderDAO.findByUsername(username);
