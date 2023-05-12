@@ -1,7 +1,7 @@
 package com.poly.da2.service;
 
+import com.poly.da2.model.Account;
 import com.poly.da2.repository.AccountRepository;
-import com.poly.da2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class LoginService implements UserDetailsService {
 	@Autowired
-	UserRepository userRepository;
+	AccountRepository accRepository;
 	@Autowired
 	BCryptPasswordEncoder pe;
 
@@ -33,15 +33,14 @@ public class LoginService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			User account = userRepository.findById(username).get();
+			Account account = accRepository.getById(username);
 			String password = account.getPassword();
-			String[] roles = account.getAuthorities().stream().map(au -> au.getRole().getId())
+			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
 					.collect(Collectors.toList()).toArray(new String[0]);
 			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(username + " not found!");
 		}
-		return  null;
 	}
 
 	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {

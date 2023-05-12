@@ -1,7 +1,8 @@
 package com.poly.da2.controller;
 
+import com.poly.da2.model.User;
 import com.poly.da2.repository.AccountRepository;
-import com.poly.da2.entities.Account;
+import com.poly.da2.model.Account;
 import com.poly.da2.service.ParamService;
 import com.poly.da2.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,19 +59,18 @@ public class SecurityController {
 		return "redirect:/security/login/success";
 	}
 	@PostMapping("/register")
-	public String register(Account nd) {
+	public String register(Account nd, User u) {
 		// Đọc các tham số từ form sign up (username, email, password, repeat pass, check agree)
 		String username = paramService.getString("username", "");
 		String password = paramService.getString("password", "");
 		String email = paramService.getString("email", "");
 		String re_pass = paramService.getString("repass", "");
 			if (nd.getPassword().equals(re_pass)) {
-<<<<<<< HEAD
-				nd.setFullname("NoName");
-				nd.setEmail(email);
-				nd.setPhoto("noimage.png");
-=======
->>>>>>> nguyên
+
+				u.setFullName("NoName");
+				nd.setGmail(email);
+				u.setGmail(email);
+				u.setPhoto("noimage.png");
 				nd.setPassword(password);
 				nd.setUsername(username);
 				dao.save(nd);

@@ -1,7 +1,7 @@
 package com.poly.da2.repository;
 
-import com.poly.da2.entities.Authority;
-import com.poly.da2.entities.User;
+import com.poly.da2.model.Authority;
+import com.poly.da2.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,7 +1,7 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.repository.AccountRepository;
-import com.poly.da2.entities.Account;
+import com.poly.da2.model.Account;
 import com.poly.da2.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,26 +14,26 @@ public class AccountServiceImpl implements AccountService {
 	AccountRepository acc;
 	@Override
 	public List<Account> findAll() {
-		return null;
+		return acc.findAll();
 	}
 
 	@Override
 	public Account findById(String id) {
-		return null;
+		return acc.findById(id).get();
 	}
 
 	@Override
 	public Account create(Account account) {
-		return null;
+		return acc.save(account);
 	}
 
 	@Override
 	public Account update(Account account) {
-		return null;
+		return acc.save(account);
 	}
 
 	@Override
 	public void delete(String id) {
-
+		acc.deleteById(id);
 	}
 }

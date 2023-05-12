@@ -1,4 +1,4 @@
-package com.poly.da2.entities;
+package com.poly.da2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

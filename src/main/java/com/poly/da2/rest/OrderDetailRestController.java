@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.entities.OrderDetail;
+import com.poly.da2.model.OrderDetail;
 import com.poly.da2.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

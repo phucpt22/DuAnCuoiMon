@@ -1,6 +1,6 @@
 package com.poly.da2.service;
 
-import com.poly.da2.entities.Product;
+import com.poly.da2.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

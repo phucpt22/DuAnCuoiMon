@@ -1,7 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.entities.User;
-import com.poly.da2.repository.CategoryRepository;
+import com.poly.da2.model.User;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,31 +13,31 @@ public class UserServiceImpl implements UserService {
     UserRepository u;
     @Override
     public List<User> findAll() {
-        return null;
+        return u.findAll();
     }
 
     @Override
     public List<User> getAdministrators() {
-        return null;
+        return u.getAdministrators();
     }
 
     @Override
-    public User findById(String id) {
-        return null;
+    public User findById(Integer id) {
+        return u.findById(id).get();
     }
 
     @Override
     public User create(User user) {
-        return null;
+        return u.save(user);
     }
 
     @Override
     public User update(User user) {
-        return null;
+        return u.save(user);
     }
 
     @Override
-    public void delete(String id) {
-
+    public void delete(Integer id) {
+        u.deleteById(id);
     }
 }

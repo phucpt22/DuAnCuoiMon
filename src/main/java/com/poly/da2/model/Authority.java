@@ -1,4 +1,4 @@
-package com.poly.da2.entities;
+package com.poly.da2.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
