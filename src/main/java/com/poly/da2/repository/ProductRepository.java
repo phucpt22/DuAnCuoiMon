@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query("SELECT p FROM Product p WHERE p.category.id=?1")
 	List<Product> getByCategoryId(String cid);
 	@Query("SELECT o FROM Product o WHERE o.price BETWEEN ?1 AND ?2")
