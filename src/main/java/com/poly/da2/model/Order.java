@@ -35,7 +35,7 @@ public class Order implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Userss user;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")

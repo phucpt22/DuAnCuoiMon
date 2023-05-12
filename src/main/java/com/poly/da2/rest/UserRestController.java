@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.model.User;
+import com.poly.da2.model.Userss;
 import com.poly.da2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class UserRestController {
     UserService uService;
 
     @GetMapping
-    public List<User> getUsers(@RequestParam("admin") Optional<Boolean> admin) {
+    public List<Userss> getUsers(@RequestParam("admin") Optional<Boolean> admin) {
         if (admin.orElse(false)) {
             return uService.getAdministrators();
         }
@@ -24,23 +24,23 @@ public class UserRestController {
     }
 
     @GetMapping("/all")
-    public List<User> getAll() {
+    public List<Userss> getAll() {
         return uService.findAll();
     }
 
     @GetMapping("{id}")
-    public User getOne(@PathVariable("id" )Integer id) {
+    public Userss getOne(@PathVariable("id" )Integer id) {
         return uService.findById(id);
     }
 
     @PostMapping
-    public User create(@RequestBody User User ) {
-        return uService.create(User);
+    public Userss create(@RequestBody Userss Userss) {
+        return uService.create(Userss);
     }
 
     @PutMapping("{id}")
-    public User update(@PathVariable("id")String id,@RequestBody User User ) {
-        return uService.update(User);
+    public Userss update(@PathVariable("id")String id, @RequestBody Userss Userss) {
+        return uService.update(Userss);
     }
 
     @DeleteMapping("{id}")

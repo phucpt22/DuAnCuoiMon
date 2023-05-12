@@ -1,11 +1,17 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.model.User;
-import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.model.Account;
-import com.poly.da2.service.ParamService;
+import com.poly.da2.model.Userss;
+import com.poly.da2.repository.AccountRepository;
+import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.LoginService;
+import com.poly.da2.service.ParamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +27,9 @@ public class SecurityController {
 	@Autowired
 	ParamService paramService;
 	@Autowired
-	AccountRepository dao;
+	AccountRepository accdao;
+	@Autowired
+	UserRepository udao;
 	@Autowired
 	HttpServletRequest request;
 	@RequestMapping("/security/login/form")
@@ -54,12 +62,29 @@ public class SecurityController {
 		return "security/login";
 	}
 	@RequestMapping("/oauth2/login/success")
-	public String success(OAuth2AuthenticationToken oauth2) {
-		loginService.loginFormOAuth2(oauth2);
+	public String success(OAuth2AuthenticationToken oauth2, Account a) {
+		String email = oauth2.getPrincipal().getAttribute("email");
+		String fullname = oauth2.getPrincipal().getAttribute("fullname");
+		//String password = Long.toHexString(System.currentTimeMillis());
+		UserDetails user = User.withUsername(email).disabled(true).password("123").roles("CUS").build();
+		//UserDetails user2 = User.wit;
+		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		Userss o = new Userss();
+		if(o.getGmail() != email){
+			a.setGmail(email);
+			o.setGmail(email);
+			o.setFullName(fullname);
+			o.setAccount(a);
+			udao.save(o);
+		}else{
+			return "redirect:/security/login/success";
+		}
+
 		return "redirect:/security/login/success";
 	}
 	@PostMapping("/register")
-	public String register(Account nd, User u) {
+	public String register(Account nd, Userss u) {
 		// Đọc các tham số từ form sign up (username, email, password, repeat pass, check agree)
 		String username = paramService.getString("username", "");
 		String password = paramService.getString("password", "");
@@ -73,7 +98,8 @@ public class SecurityController {
 				u.setPhoto("noimage.png");
 				nd.setPassword(password);
 				nd.setUsername(username);
-				dao.save(nd);
+				accdao.save(nd);
+				udao.save(u);
 				request.setAttribute("messageS", "Đăng ký thành công bạn có thể đăng nhập ngay bây giờ!");
 
 			}else {

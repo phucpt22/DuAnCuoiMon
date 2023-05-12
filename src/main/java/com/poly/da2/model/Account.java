@@ -22,8 +22,8 @@ public class Account implements Serializable{
 	private Date createDate;
 	private Date updateDate;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idUser", referencedColumnName = "id")
-	private User user;
-
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idUser")
+	private Userss user;
+//, referencedColumnName = "id"
 }

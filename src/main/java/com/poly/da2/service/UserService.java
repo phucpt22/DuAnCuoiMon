@@ -1,19 +1,19 @@
 package com.poly.da2.service;
 
-import com.poly.da2.model.User;
+import com.poly.da2.model.Userss;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> findAll();
+    List<Userss> findAll();
 
-    List<User> getAdministrators();
+    List<Userss> getAdministrators();
 
-    User findById(Integer id);
+    Userss findById(Integer id);
 
-    User create(User user);
+    Userss create(Userss userss);
 
-    User update(User user);
+    Userss update(Userss userss);
 
     void delete(Integer id);
 }
