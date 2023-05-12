@@ -1,8 +1,8 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.repository.AccountDAO;
-import com.poly.da2.repository.OrderDAO;
-import com.poly.da2.repository.OrderDetailDAO;
+import com.poly.da2.repository.AccountRepository;
+import com.poly.da2.repository.OrderRepository;
+import com.poly.da2.repository.OrderDetailRepository;
 import com.poly.da2.entities.Order;
 import com.poly.da2.entities.OrderDetail;
 import com.poly.da2.service.OrderService;
@@ -18,29 +18,29 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
-	OrderDAO orderDAO;
+	OrderRepository orderRepository;
 	@Autowired
-	OrderDetailDAO orderDetailDAO;
+	OrderDetailRepository orderDetailRepository;
 	@Autowired
-	AccountDAO accountDAO;
+    AccountRepository accountRepository;
 	
 	@Override
 	public Order create(JsonNode orderData) {
 		
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
-		orderDAO.save(order);
+		orderRepository.save(order);
 		
 		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};
 		List<OrderDetail> details=mapper.convertValue(orderData.get("orderDetails"), type).stream()
 				.peek(d->d.setOrder(order)).collect(Collectors.toList());
-		orderDetailDAO.saveAll(details);
+		orderDetailRepository.saveAll(details);
 		return order;
 	}
 
 	@Override
 	public Order findById(Integer id) {
-		return orderDAO.findById(id).get();
+		return orderRepository.findById(id).get();
 	}
 
 //	@Override
@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findAll() {
-		return orderDAO.findAll();
+		return orderRepository.findAll();
 	}
 
 	

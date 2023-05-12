@@ -1,9 +1,9 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.repository.AccountDAO;
+import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.entities.Account;
 import com.poly.da2.service.ParamService;
-import com.poly.da2.service.UserService;
+import com.poly.da2.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class SecurityController {
 	@Autowired
-	UserService userService;
+    LoginService loginService;
 	@Autowired
 	ParamService paramService;
 	@Autowired
-	AccountDAO dao;
+	AccountRepository dao;
 	@Autowired
 	HttpServletRequest request;
 	@RequestMapping("/security/login/form")
@@ -54,7 +54,7 @@ public class SecurityController {
 	}
 	@RequestMapping("/oauth2/login/success")
 	public String success(OAuth2AuthenticationToken oauth2) {
-		userService.loginFormOAuth2(oauth2);
+		loginService.loginFormOAuth2(oauth2);
 		return "redirect:/security/login/success";
 	}
 	@PostMapping("/register")

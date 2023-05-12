@@ -1,6 +1,6 @@
 package com.poly.da2;
 
-import com.poly.da2.service.UserService;
+import com.poly.da2.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,14 +22,14 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	UserService userService;
+    LoginService loginService;
 //	@Bean
 //	public BCryptPasswordEncoder getPasswordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService);
+		auth.userDetailsService(loginService);
 	}
 
 	@Override

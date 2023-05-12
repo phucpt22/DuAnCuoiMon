@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface OrderDetailDAO extends JpaRepository<OrderDetail, Integer> {
+public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
     @Query("SELECT p FROM OrderDetail p WHERE p.order.id = ?1")
     List<OrderDetail> findOrderDetailByOrdOrderById(Integer cid);
 }

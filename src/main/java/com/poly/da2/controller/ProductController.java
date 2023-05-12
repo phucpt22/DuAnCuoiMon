@@ -1,6 +1,6 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.repository.ProductDAO;
+import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entities.Category;
 import com.poly.da2.entities.Product;
 import com.poly.da2.service.CategoryService;
@@ -26,7 +26,7 @@ public class ProductController {
 	@Autowired
 	ParamService paramService;
 	@Autowired
-	ProductDAO dao;
+    ProductRepository dao;
 
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {

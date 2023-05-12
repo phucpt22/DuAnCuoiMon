@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.repository.OrderDetailDAO;
+import com.poly.da2.repository.OrderDetailRepository;
 import com.poly.da2.entities.OrderDetail;
 import com.poly.da2.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,16 @@ import java.util.List;
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
-	OrderDetailDAO orderDetailDAO;
+    OrderDetailRepository orderDetailRepository;
 	
 	@Override
 	public List<OrderDetail> findAll() {
-		return orderDetailDAO.findAll();
+		return orderDetailRepository.findAll();
 	}
 
 	@Override
 	public List<OrderDetail> getOrderDetailByOrdOrderById(Integer orderId) {
-		return orderDetailDAO.findOrderDetailByOrdOrderById(orderId);
+		return orderDetailRepository.findOrderDetailByOrdOrderById(orderId);
 	}
 
 

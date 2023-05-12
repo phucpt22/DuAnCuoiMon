@@ -9,8 +9,6 @@ public interface AccountService {
 
 	List<Account> findAll();
 
-	List<Account> getAdministrators();
-
 	Account findById(String id);
 
 	Account create(Account account);

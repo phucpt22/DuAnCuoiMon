@@ -1,7 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.repository.AuthorityDAO;
-import com.poly.da2.entities.Account;
+import com.poly.da2.repository.AuthorityRepository;
 import com.poly.da2.entities.Authority;
 import com.poly.da2.service.AccountService;
 import com.poly.da2.service.AuthorityService;
@@ -13,7 +12,7 @@ import java.util.List;
 @Service
 public class AuthorityServiceImpl implements AuthorityService {
 	@Autowired
-	AuthorityDAO authorityDAO;
+    AuthorityRepository authorityRepository;
 	@Autowired
 	AccountService accountService;
 
@@ -26,17 +25,17 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	@Override
 	public List<Authority> findAll() {
-		return authorityDAO.findAll();
+		return authorityRepository.findAll();
 	}
 
 	@Override
 	public Authority create(Authority auth) {
-		return authorityDAO.save(auth);
+		return authorityRepository.save(auth);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		authorityDAO.deleteById(id);
+		authorityRepository.deleteById(id);
 	}
 
 }
