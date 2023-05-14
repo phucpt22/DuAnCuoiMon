@@ -1,14 +1,14 @@
 package com.poly.da2.repository;
 
-import com.poly.da2.entities.User;
+import com.poly.da2.model.Userss;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<Userss,Integer> {
 
     @Query("select distinct a.user from Authority a where a.role.id IN ('1','2')")
-    List<User> getAdministrators();
-    @Query("SELECT a FROM User a WHERE a.fullName = ?1")
-    User findByFullname(String username);
+    List<Userss> getAdministrators();
+    @Query("SELECT a FROM Userss a WHERE a.fullName = ?1")
+    Userss findByFullname(String username);
 }

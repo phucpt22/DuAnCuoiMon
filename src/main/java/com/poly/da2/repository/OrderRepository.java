@@ -1,7 +1,7 @@
 package com.poly.da2.repository;
 
 
-import com.poly.da2.entities.Order;
+import com.poly.da2.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

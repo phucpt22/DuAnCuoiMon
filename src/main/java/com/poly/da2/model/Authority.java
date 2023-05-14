@@ -1,4 +1,4 @@
-package com.poly.da2.entities;
+package com.poly.da2.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +24,7 @@ public class Authority implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Userss user;
 
 	@ManyToOne
 	@JoinColumn(name = "role_id")

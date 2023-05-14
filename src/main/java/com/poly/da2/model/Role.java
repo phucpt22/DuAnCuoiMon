@@ -1,4 +1,4 @@
-package com.poly.da2.entities;
+package com.poly.da2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -14,15 +14,16 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Categories")
-public class Category implements Serializable {
+@Table(name = "roles")
+public class Role implements Serializable{
 	@Id
 	private String id;
 	private String name;
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "category")
-	List<Product> products;
+	@OneToMany(mappedBy = "role")
+	List<Authority> authorities;
 }

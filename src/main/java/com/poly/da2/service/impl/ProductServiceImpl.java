@@ -1,7 +1,7 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.repository.ProductRepository;
-import com.poly.da2.entities.Product;
+import com.poly.da2.model.Product;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

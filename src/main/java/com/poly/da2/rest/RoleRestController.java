@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.entities.Role;
+import com.poly.da2.model.Role;
 import com.poly.da2.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org " th:replace="~{/user/layout :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org " th:replace="~{/userss/layout :: dynamic(~{::main})}">
 <body>
 	<main class="mt-3 p-0" th:object="${order}">
 		<div class="card text-center border-black-50">
@@ -43,7 +43,7 @@
 						<tr th:each="detail:*{orderDetails}" th:object="${detail}">
 							<td>
 								<div>
-									<img th:src="@{/assert/user/img/__${detail.product.image}__}" alt="" width="70" class="img-fluid rounded shadow-sm">
+									<img th:src="@{/assert/userss/img/__${detail.product.image}__}" alt="" width="70" class="img-fluid rounded shadow-sm">
 								</div>
 							</td>
 							<td class="text-start">[[*{product.name}]]</td>

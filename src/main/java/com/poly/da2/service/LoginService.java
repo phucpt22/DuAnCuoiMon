@@ -1,5 +1,7 @@
 package com.poly.da2.service;
 
+import com.poly.da2.model.Account;
+import com.poly.da2.model.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import java.util.stream.Collectors;
 @Service
 public class LoginService implements UserDetailsService {
 	@Autowired
-	UserRepository userRepository;
+	AccountRepository accRepository;
+	@Autowired
+	UserRepository uRepository;
 	@Autowired
 	BCryptPasswordEncoder pe;
 
@@ -33,25 +37,38 @@ public class LoginService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			User account = userRepository.findById(username).get();
+			Account account = accRepository.getById(username);
 			String password = account.getPassword();
-			String[] roles = account.getAuthorities().stream().map(au -> au.getRole().getId())
+			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
 					.collect(Collectors.toList()).toArray(new String[0]);
 			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(username + " not found!");
 		}
-		return  null;
 	}
 
 	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {
 		String email = oauth2.getPrincipal().getAttribute("email");
-		String fullname = oauth2.getPrincipal().getAttribute("username");
+		String fullname = oauth2.getPrincipal().getAttribute("fullname");
 		//String password = Long.toHexString(System.currentTimeMillis());
-		UserDetails user = User.withUsername(email).password("123").roles("GUEST").build();
+		UserDetails user = User.withUsername(email).disabled(true).password("123").roles("CUS").build();
 		//UserDetails user2 = User.wit;
 		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
+		Userss o = new Userss();
+		Account a = new Account();
+		if(a.getGmail() != email){
+			a.setGmail(email);
+			o.setGmail(email);
+			o.setFullName(fullname);
+			//o.setAccount(a);
+			uRepository.save(o);
+		}else{
+
+		}
+
 	}
+
+
 
 }

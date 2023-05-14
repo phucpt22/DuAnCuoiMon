@@ -1,6 +1,5 @@
-package com.poly.da2.entities;
+package com.poly.da2.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @SuppressWarnings("serial")
 @Data
@@ -24,8 +22,8 @@ public class Account implements Serializable{
 	private Date createDate;
 	private Date updateDate;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idUser", referencedColumnName = "id")
-	private User user;
-
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idUser")
+	private Userss user;
+//, referencedColumnName = "id"
 }

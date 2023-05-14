@@ -1,7 +1,7 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.repository.AuthorityRepository;
-import com.poly.da2.entities.Authority;
+import com.poly.da2.model.Authority;
 import com.poly.da2.service.AccountService;
 import com.poly.da2.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;

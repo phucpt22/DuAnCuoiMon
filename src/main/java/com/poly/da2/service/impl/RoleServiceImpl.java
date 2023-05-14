@@ -1,7 +1,7 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.repository.RoleRepository;
-import com.poly.da2.entities.Role;
+import com.poly.da2.model.Role;
 import com.poly.da2.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

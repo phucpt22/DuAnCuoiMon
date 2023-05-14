@@ -1,7 +1,7 @@
 package com.poly.da2.service;
 
 
-import com.poly.da2.entities.Account;
+import com.poly.da2.model.Account;
 
 import java.util.List;
 
