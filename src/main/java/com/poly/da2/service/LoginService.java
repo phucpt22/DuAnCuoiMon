@@ -52,17 +52,17 @@ public class LoginService implements UserDetailsService {
 		String fullname = oauth2.getPrincipal().getAttribute("fullname");
 		//String password = Long.toHexString(System.currentTimeMillis());
 		UserDetails user = User.withUsername(email).disabled(true).password("123").roles("CUS").build();
-		//UserDetails user2 = User.wit;
 		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		Userss o = new Userss();
 		Account a = new Account();
-		if(a.getGmail() != email){
+		if(uRepository.findByEmail(email) != null){
 			a.setGmail(email);
 			o.setGmail(email);
-			o.setFullName(fullname);
-			//o.setAccount(a);
+			o.setAccount(a);
+			//a.setUser(o);
 			uRepository.save(o);
+			//accRepository.save(a);
 		}else{
 
 		}

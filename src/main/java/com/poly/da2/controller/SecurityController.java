@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,28 +62,14 @@ public class SecurityController {
 		model.addAttribute("message", "Bạn không có quyền truy xuất!");
 		return "security/login";
 	}
+
 	@RequestMapping("/oauth2/login/success")
-	public String success(OAuth2AuthenticationToken oauth2, Account a) {
-		String email = oauth2.getPrincipal().getAttribute("email");
-		String fullname = oauth2.getPrincipal().getAttribute("fullname");
-		//String password = Long.toHexString(System.currentTimeMillis());
-		UserDetails user = User.withUsername(email).disabled(true).password("123").roles("CUS").build();
-		//UserDetails user2 = User.wit;
-		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);
-		Userss o = new Userss();
-		if(o.getGmail() != email){
-			a.setGmail(email);
-			o.setGmail(email);
-			o.setFullName(fullname);
-			o.setAccount(a);
-			udao.save(o);
-		}else{
-			return "redirect:/security/login/success";
-		}
+	public String success(OAuth2AuthenticationToken oauth2) {
+		loginService.loginFormOAuth2(oauth2);
 
 		return "redirect:/security/login/success";
 	}
+	//tôi có class User có Id khóa chính tự tăng, và id đó là khóa ngoại của account, user mà account có mối quan hệ 1:1, đã dùng JPA reposity, tôi đã lưu thông tin tài khoản nhưng vẫn chưa lưu vào sql được vì Id tự tăng, tôi muốn khi đăng nhập bằng tài khoản google với Oauth2 lưu cả 2 đối tượng vào sql cùng lúc với spring boot
 	@PostMapping("/register")
 	public String register(Account nd, Userss u) {
 		// Đọc các tham số từ form sign up (username, email, password, repeat pass, check agree)
