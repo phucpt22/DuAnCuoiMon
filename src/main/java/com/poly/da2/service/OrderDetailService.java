@@ -1,7 +1,7 @@
 package com.poly.da2.service;
 
 
-import com.poly.da2.model.OrderDetail;
+import com.poly.da2.entity.OrderDetail;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.poly.da2.service;
 
-import com.poly.da2.model.Userss;
+import com.poly.da2.entity.Userss;
 
 import java.util.List;
 

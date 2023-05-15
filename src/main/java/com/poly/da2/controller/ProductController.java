@@ -1,8 +1,8 @@
 package com.poly.da2.controller;
 
 import com.poly.da2.repository.ProductRepository;
-import com.poly.da2.model.Category;
-import com.poly.da2.model.Product;
+import com.poly.da2.entity.Category;
+import com.poly.da2.entity.Product;
 import com.poly.da2.service.CategoryService;
 import com.poly.da2.service.ParamService;
 import com.poly.da2.service.ProductService;

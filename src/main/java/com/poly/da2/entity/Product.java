@@ -1,4 +1,4 @@
-package com.poly.da2.model;
+package com.poly.da2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -22,8 +22,11 @@ public class Product implements Serializable {
 	private Integer id;
 	private String name;
 	private Double price;
-
-	private int image_id;
+	private String description;
+	private String thumbnail_url;
+	private Double rating_average;
+	private Integer review_count;
+	private String image_urls;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")

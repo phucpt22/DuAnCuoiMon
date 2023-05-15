@@ -1,7 +1,7 @@
 package com.poly.da2.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.poly.da2.model.Order;
+import com.poly.da2.entity.Order;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.model.Authority;
+import com.poly.da2.entity.Authority;
 import com.poly.da2.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

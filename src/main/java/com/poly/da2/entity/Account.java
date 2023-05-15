@@ -1,4 +1,4 @@
-package com.poly.da2.model;
+package com.poly.da2.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +25,5 @@ public class Account implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idUser")
 	private Userss user;
-//, referencedColumnName = "id"
+
 }

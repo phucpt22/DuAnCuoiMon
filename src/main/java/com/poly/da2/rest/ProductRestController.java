@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.model.Product;
+import com.poly.da2.entity.Product;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.repository.AccountRepository;
-import com.poly.da2.model.Account;
+import com.poly.da2.entity.Account;
 import com.poly.da2.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
