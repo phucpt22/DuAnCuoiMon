@@ -1,20 +1,14 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.model.Account;
-import com.poly.da2.model.Userss;
+import com.poly.da2.entity.Account;
+import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.LoginService;
 import com.poly.da2.service.ParamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

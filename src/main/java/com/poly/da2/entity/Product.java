@@ -1,4 +1,4 @@
-package com.poly.da2.model;
+package com.poly.da2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -23,18 +23,23 @@ public class Product implements Serializable {
 	private String name;
 	private Double price;
 
-	private int image_id;
-
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")
 	private Date createDate = new Date();
 	@Temporal(TemporalType.DATE)
+	@Column(name="update_date")
 	private Date updateDate;
 
 	private Boolean available;
 	@ManyToOne
 	@JoinColumn(name = "Categoryid")
 	private Category category;
+	private String rating_average;
+	private Integer review_count;
+	private String thumbnail_url;
+	private String description;
+	private String image_urls;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	List<OrderDetail> orderDetails;

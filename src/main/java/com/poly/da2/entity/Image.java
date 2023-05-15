@@ -1,4 +1,4 @@
-package com.poly.da2.model;
+package com.poly.da2.entity;
 
 import lombok.Data;
 

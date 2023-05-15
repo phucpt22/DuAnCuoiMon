@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.model.Order;
+import com.poly.da2.entity.Order;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.da2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

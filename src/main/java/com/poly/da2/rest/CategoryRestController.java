@@ -1,6 +1,6 @@
 package com.poly.da2.rest;
 
-import com.poly.da2.model.Category;
+import com.poly.da2.entity.Category;
 import com.poly.da2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

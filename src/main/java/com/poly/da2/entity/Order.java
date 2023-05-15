@@ -1,4 +1,4 @@
-package com.poly.da2.model;
+package com.poly.da2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

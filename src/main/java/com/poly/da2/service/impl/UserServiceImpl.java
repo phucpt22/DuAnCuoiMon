@@ -1,6 +1,6 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.model.Userss;
+import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.repository.OrderDetailRepository;
-import com.poly.da2.model.OrderDetail;
+import com.poly.da2.entity.OrderDetail;
 import com.poly.da2.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
