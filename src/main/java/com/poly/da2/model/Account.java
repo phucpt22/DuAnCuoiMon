@@ -23,7 +23,10 @@ public class Account implements Serializable{
 	private Date updateDate;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser")
+	@JoinColumn(name = "id_user")
 	private Userss user;
+	public Account(String gmail){
+		this.gmail = gmail;
+	}
 //, referencedColumnName = "id"
 }

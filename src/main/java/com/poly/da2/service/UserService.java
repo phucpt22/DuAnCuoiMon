@@ -10,6 +10,7 @@ public interface UserService {
     List<Userss> getAdministrators();
 
     Userss findById(Integer id);
+    Userss findByEmail(String email);
 
     Userss create(Userss userss);
 

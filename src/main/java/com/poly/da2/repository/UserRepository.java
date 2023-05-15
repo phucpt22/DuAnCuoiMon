@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<Userss,Integer> {
     List<Userss> getAdministrators();
     @Query("SELECT a FROM Userss a WHERE a.fullName = ?1")
     Userss findByFullname(String username);
+    @Query("SELECT a FROM Userss a WHERE a.gmail = ?1")
+    Userss findByEmail(String email);
 }
