@@ -32,6 +32,7 @@ public class Product implements Serializable {
 	@Column(name = "Createdate")
 	private Date createDate = new Date();
 	@Temporal(TemporalType.DATE)
+	@Column(name="update_date")
 	private Date updateDate;
 
 	private Boolean available;
