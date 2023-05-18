@@ -7,12 +7,13 @@ import com.poly.da2.service.CategoryService;
 import com.poly.da2.service.ParamService;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,22 +37,40 @@ public class ProductController {
 		model.addAttribute("items", list);
 		return "product/detail";
 	}
-	
-	@RequestMapping("/product/list")
-	public String list(Model model, @RequestParam("cid")Optional<String> cid) {
-		List<Product> list;
-		List<Category> listc;
-
-		if (cid.isPresent()) {
-			list= productService.findByCategoryId(cid.get());
-		}else {
-			list = productService.findAll();
-		}
-		listc = categoryService.findAll();
-			model.addAttribute("items", list);
-			model.addAttribute("cates", listc);
+	@PostMapping("/search")
+	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
+								 @RequestParam(defaultValue = "0") int page,
+								 @RequestParam(defaultValue = "6") int size,
+								 Model model) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
+		model.addAttribute("searchTerm", searchTerm);
+		model.addAttribute("items", productPage.getContent());
+		model.addAttribute("totalPages", productPage.getTotalPages());
+		model.addAttribute("currentPage", page);
 		return "product/store";
 	}
+
+	@GetMapping("/products")
+	public String getProducts(@RequestParam(defaultValue = "0") int page,
+							  @RequestParam(defaultValue = "6") int size,
+							  @RequestParam("cid")Optional<String> cid,
+							  Model model) {
+		Pageable pageable = PageRequest.of(page, size);
+		List<Category> listc = categoryService.findAll();
+		Page<Product> productPage;
+		if (cid.isPresent()) {
+			productPage = productService.findByCategoryId(cid.get(), pageable);
+		}else {
+			productPage = productService.findAll(pageable);
+		}
+		model.addAttribute("items", productPage.getContent());
+		model.addAttribute("cates", listc);
+		model.addAttribute("totalPages", productPage.getTotalPages());
+		model.addAttribute("currentPage", page);
+		return "product/store";
+	}
+
 
 	@PostMapping("/product/find={name}")
 	public String search(Model model, @PathVariable("name") String s) {

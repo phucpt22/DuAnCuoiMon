@@ -1,6 +1,7 @@
 var app = angular.module("admin-app", ["ngRoute"]);
 
 app.config(function($routeProvider) {
+
     $routeProvider
         .when("/product", {
             templateUrl: "/assert/admin-ctrl/product/index.html",
@@ -31,4 +32,5 @@ app.config(function($routeProvider) {
             template: "<h1 class='text-center'>FPT Polytechnic Administrator</h1>",
             //templateUrl: "/assert/admin-ctrl/index.html"
         })
+
 })

@@ -4,6 +4,10 @@ import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entity.Product;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +21,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findAll() {
 		return productRepository.findAll();
 	}
+	@Override
+	public Page<Product> findAll(Pageable pageable) {
+		return productRepository.findAll(pageable);
+	}
 
 	@Override
 	public Product findById(Integer id) {
@@ -24,8 +32,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findByCategoryId(String cid) {
-		return productRepository.getByCategoryId(cid);
+	public Page<Product> findByCategoryId(String cid, Pageable pageable) {
+		return productRepository.getByCategoryId(cid,pageable);
 	}
 
 	@Override
@@ -49,9 +57,28 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findByName(String name) {
-		return productRepository.findSanPhamByName(name);
+	public List<Product> findByName(String searchTerm, int pageNumber) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, 10, Sort.by("name"));
+		if (searchTerm != null && !searchTerm.isBlank()) {
+			return productRepository.findByNameContainingIgnoreCase(searchTerm, pageable).getContent();
+		} else {
+			return productRepository.findAll(pageable).getContent();
+		}
 	}
+
+	@Override
+	public Page<Product> searchProducts(String name, Pageable pageable) {
+		return productRepository.getByName(name,pageable);
+	}
+
+	@Override
+	public int getPageCount(String searchTerm) {
+		long productCount = searchTerm != null && !searchTerm.isBlank()
+				? productRepository.countByNameContainingIgnoreCase(searchTerm)
+				: productRepository.count();
+		return (int) Math.ceil((double) productCount / 10);
+	}
+
 
 
 }

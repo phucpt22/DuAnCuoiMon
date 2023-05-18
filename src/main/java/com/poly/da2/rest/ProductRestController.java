@@ -3,6 +3,10 @@ package com.poly.da2.rest;
 import com.poly.da2.entity.Product;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,19 +29,14 @@ public class ProductRestController {
 	public Product getOne(@PathVariable("id")Integer id) {
 		return productService.findById(id);
 	}
-//	@GetMapping("/find/{name}")
-//	public List <Product> getName(@PathVariable("name")String name) {
-//		return productService.findByName(name);
-//	}
-
-	@GetMapping("/find/{name}")
-	public ResponseEntity<List<Product>> findProductsByName(@PathVariable String name) {
-		List<Product> products = productService.findByName(name);
-		if (products == null || products.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(products, HttpStatus.OK);
+	@RequestMapping ("/api/products")
+	@ResponseBody
+	public Page<Product> getProductsApi(@RequestParam(defaultValue = "0") int page,
+										@RequestParam(defaultValue = "9") int size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+		return productService.findAll(pageable);
 	}
+
 	@PostMapping
 	public Product creat(@RequestBody Product product ) {
 		return productService.create(product);

@@ -1,6 +1,7 @@
 const app = angular.module("shopping-cart", []);
 
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
+
     $scope.cart = {
         items: [],
         add(id) {
@@ -73,3 +74,4 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         },
     };
 });
+
