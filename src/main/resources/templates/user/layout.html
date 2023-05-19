@@ -92,7 +92,7 @@
 											bạn</a>
 										</li>
 										<li  class="nav-item"
-											th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}">
+											th:if="${#request.isUserInRole('r1')}">
 											<a style="color: red" class="dropdown-item" th:href="@{/admin/home/index}">Trang quản trị</a>
 										</li>
 									</th:block>

@@ -52,8 +52,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findByPrice(double min, double max) {
-		return productRepository.findByPrice(min,max);
+	public Page<Product> findByPrice(double min, double max, Pageable pageable) {
+		return productRepository.findByPrice(min,max,pageable);
 	}
 
 	@Override

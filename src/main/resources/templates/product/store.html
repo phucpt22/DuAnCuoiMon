@@ -58,7 +58,7 @@
 								</div>
 
 							</div>
-							<button style="width: 100%; margin-top: 10px" class="btn btn-danger"> Filter </button>
+							<button style="width: 100%; margin-top: 10px" class="btn btn-danger searchsp"> Filter </button>
 						</div>
 						<!-- /aside Widget -->
 
@@ -172,19 +172,6 @@
 						</div>
 						<!-- /store products -->
 
-						<!-- store bottom filter -->
-<!--						<div class="store-filter clearfix">-->
-
-<!--							<ul class="store-pagination">-->
-<!--								<li class="active"> <a></a> </li>-->
-<!--								<li><a href="#">  </a></li>-->
-
-<!--								<li><a href="#"> </a> </li>-->
-<!--								<li><a href="#">  </a></li>-->
-<!--								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
-<!--							</ul>-->
-<!--						</div>-->
-
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
 								<li th:if="${currentPage > 0}">
@@ -216,7 +203,32 @@
 		</div>
 		<!-- /SECTION -->
 	</main>
+	<script>
+		// Lấy giá trị của input chọn giá tương ứng và gửi yêu cầu tìm kiếm
+		const priceMinInput = document.getElementById("price-min");
+		const priceMaxInput = document.getElementById("price-max");
+		const searchBtn = document.querySelector(".searchsp");
 
+		searchBtn.addEventListener("click", function() {
+			const searchTerm = document.querySelector("[name=searchTerm]").value;
+			const priceMin = priceMinInput.value ? parseInt(priceMinInput.value) : null;
+			const priceMax = priceMaxInput.value ? parseInt(priceMaxInput.value) : null;
+			const queryParams = new URLSearchParams();
+			if (searchTerm) {
+				queryParams.append("searchTerm", searchTerm)
+			}
+			if (priceMin) {
+				queryParams.append("priceMin", priceMin);
+			}
+			if (priceMax) {
+				queryParams.append("priceMax", priceMax);
+			}
+			const url = "/search?" + queryParams.toString();
+			window.location.href = url;
+		});
+
+
+	</script>
 	</body>
 
 </html>

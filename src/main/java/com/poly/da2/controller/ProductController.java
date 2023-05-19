@@ -81,38 +81,4 @@ public class ProductController {
 		return "product/list";
 	}
 
-	@RequestMapping("/product/filter")
-	public String filter(Model model, @RequestParam("price") Double price) {
-		List<Product> list;
-		list = productService.findAll();
-		try {
-			List<Product> sr_price = null;
-			if (price == 0) {
-				model.addAttribute("price", price);
-				sr_price = productService.findByPrice(0, 600000000);
-			}else if(price == 1) {
-				model.addAttribute("price", price);
-				sr_price = productService.findByPrice(0,30);
-			}
-			else if (price == 2) {
-				model.addAttribute("price", price);
-				sr_price = productService.findByPrice(30, 49);
-			} else if (price == 3) {
-				model.addAttribute("price", price);
-				sr_price = productService.findByPrice(50, 69);
-			} else if (price == 4) {
-				model.addAttribute("price", price);
-				sr_price = productService.findByPrice(70, 89);
-			} else if (price == 5) {
-				model.addAttribute("price", price);
-				sr_price = productService.findByPrice(90, 10000);
-			}
-			model.addAttribute("items", list);
-			model.addAttribute("items", sr_price);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "prodcut/store";
-	}
 }

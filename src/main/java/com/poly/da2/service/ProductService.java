@@ -22,7 +22,7 @@ public interface ProductService {
 	Product update(Product product);
 
 	void delete(Integer id);
-	List<Product> findByPrice(double min, double max);
+	Page<Product> findByPrice(double min, double max,Pageable pageable);
 	List<Product> findByName(String name, int pageNumber);
 	Page<Product> searchProducts(String name, Pageable pageable);
 

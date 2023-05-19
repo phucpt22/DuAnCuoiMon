@@ -14,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
 	Page<Product> getByName(String name, Pageable pageable);
 	@Query("SELECT o FROM Product o WHERE o.price BETWEEN ?1 AND ?2")
-	List<Product> findByPrice(double min, double max);
+	Page<Product> findByPrice(double min, double max, Pageable pageable);
 	@Query( "SELECT o FROM Product o WHERE o.name LIKE %?1%")
 	List<Product> findSanPhamByName(String keywords);
 	Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
