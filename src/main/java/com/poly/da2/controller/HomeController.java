@@ -12,14 +12,9 @@ public class HomeController {
 
 	@RequestMapping(value = {"/","/home/index"})
 	public String home() {
-		return "redirect:/product/list";
+		return "redirect:/products";
 	}
 
-	@RequestMapping(value = {"/abc"})
-	public String dsds(@RequestParam String x) {
-		System.out.println(x);
-		return null;
-	}
 	@RequestMapping(value = {"/admin","/admin/home/index"})
 	public String admin() {
 
