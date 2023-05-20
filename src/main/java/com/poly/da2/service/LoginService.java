@@ -54,15 +54,14 @@ public class LoginService implements UserDetailsService {
 		UserDetails user = User.withUsername(email).disabled(true).password("123").roles("CUS").build();
 		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		Userss o = new Userss();
-		Account a = new Account();
-		if(uRepository.findByEmail(email) != null){
-			a.setGmail(email);
+		if(uRepository.findByEmail(email) == null){
+			Userss o = new Userss();
+			Account a = new Account();
 			o.setGmail(email);
-			o.setAccount(a);
-			//a.setUser(o);
+			a.setUser(o);
+			a.setUsername(email);
 			uRepository.save(o);
-			//accRepository.save(a);
+			accRepository.save(a);
 		}else{
 
 		}

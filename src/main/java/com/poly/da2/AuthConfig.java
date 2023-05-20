@@ -41,8 +41,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/rest/authorities").hasRole("DIRE")
 		.anyRequest().permitAll();
 
-//		http.httpBasic();
-
 		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
 				.defaultSuccessUrl("/", true)
 				.failureUrl("/security/login/error");
@@ -52,7 +50,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		http.exceptionHandling().accessDeniedPage("/security/unauthoried");
 
 		http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/security/logoff/success");
-//		
+
 		http.oauth2Login()
 			.loginPage("/security/login/form")
 			.defaultSuccessUrl("/oauth2/login/success", true)
