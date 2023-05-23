@@ -4,7 +4,7 @@ app.controller("account-ctrl", function($scope, $http) {
     $scope.form = {};
 
     $scope.initialize = function() {
-        $http.get("/rest/accounts/all").then((resp) => {
+        $http.get("/rest/users/all").then((resp) => {
             $scope.items = resp.data;
         });
     };
@@ -25,7 +25,7 @@ app.controller("account-ctrl", function($scope, $http) {
     $scope.create = function() {
         var item = angular.copy($scope.form);
         $http
-            .post("/rest/accounts", item)
+            .post("/rest/users", item)
             .then((resp) => {
                 $scope.items.push(resp.data);
                 $scope.reset();
@@ -40,7 +40,7 @@ app.controller("account-ctrl", function($scope, $http) {
     $scope.update = function() {
         var item = angular.copy($scope.form);
         $http
-            .put(`/rest/accounts/${item.username}`, item)
+            .put(`/rest/users/${item.username}`, item)
             .then((resp) => {
                 var index = $scope.items.findIndex((p) => p.username == item.username);
                 $scope.items[index] = item;
@@ -54,7 +54,7 @@ app.controller("account-ctrl", function($scope, $http) {
 
     $scope.delete = function(item) {
         $http
-            .delete(`/rest/accounts/${item.username}`, item)
+            .delete(`/rest/users/${item.username}`, item)
             .then((resp) => {
                 var index = $scope.items.findIndex((p) => p.username == item.username);
                 $scope.items.splice(index, 1);

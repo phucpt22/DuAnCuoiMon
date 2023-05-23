@@ -58,13 +58,11 @@
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </th>
-                                    <th scope="col">Image</th>
+<!--                                    <th scope="col">Image</th>-->
                                     <th scope="col">Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Date</th>
-
                                     <th scope="col">Category</th>
-
                                     <th scope="col">Tools</th>
                                 </tr>
                                 </thead>
@@ -76,13 +74,12 @@
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
-                                    <td><img src="{{p.thumbnail_url}}" alt="" width="170" class="img-fluid rounded shadow-sm"></td>
+<!--                                    <td><img src="{{p.thumbnail_url}}" alt="" width="170" class="img-fluid rounded shadow-sm"></td>-->
                                     <td>
                                         <span class="block-email">{{p.name}}</span>
                                     </td>
                                     <td class="desc">{{p.price|number:2}}</td>
                                     <td class="desc">{{p.createDate|date:'dd-MM-yyyy'}}</td>
-
                                     <td>
                                         <span class="status--process">{{p.category.name}}</span>
                                     </td>

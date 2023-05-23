@@ -5,6 +5,7 @@ import com.poly.da2.repository.OrderRepository;
 import com.poly.da2.repository.OrderDetailRepository;
 import com.poly.da2.entity.Order;
 import com.poly.da2.entity.OrderDetail;
+import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.OrderService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -22,13 +23,17 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
 	@Autowired
-    AccountRepository accountRepository;
+	UserRepository userRepository;
 	
 	@Override
 	public Order create(JsonNode orderData) {
-		
+//		Long userId = orderData.get("userId").asLong();
+//		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+//		order.setUser(user);
+//		orderRepository.save(order);
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
+
 		orderRepository.save(order);
 		
 		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};

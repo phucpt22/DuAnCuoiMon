@@ -98,6 +98,6 @@ public class SecurityController {
             request.setAttribute("messageS", "Mật khẩu và nhập lại mật khẩu không trùng khớp!");
         }
 
-        return "redirect:/security/login/form";
+        return "redirect:/security/login/success";
     }
 }

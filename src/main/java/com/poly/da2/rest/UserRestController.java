@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/Users")
+@RequestMapping("/rest/users")
 public class UserRestController {
     @Autowired
     UserService uService;
