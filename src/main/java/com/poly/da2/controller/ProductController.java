@@ -72,13 +72,4 @@ public class ProductController {
 	}
 
 
-	@PostMapping("/product/find={name}")
-	public String search(Model model, @PathVariable("name") String s) {
-		String search = paramService.getString("name", "");
-		List<Product> searchsp = dao.findSanPhamByName(s);
-		model.addAttribute("searchsp", search);
-		model.addAttribute("items", searchsp);
-		return "product/list";
-	}
-
 }

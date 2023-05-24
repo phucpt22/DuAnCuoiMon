@@ -46,19 +46,19 @@
 							<div class="price-filter">
 								<div id="price-slider"></div>
 								<div class="input-number price-min">
-									<input id="price-min" type="number" name="priceMin">
+									<input id="minPrice" type="number" name="minPrice">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
 								<span>-</span>
 								<div class="input-number price-max">
-									<input id="price-max" type="number" name="priceMax">
+									<input id="maxPrice" type="number" name="maxPrice">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
 
 							</div>
-							<button style="width: 100%; margin-top: 10px" class="btn btn-danger searchsp"> Filter </button>
+							<button type="submit" class="btn btn-danger"> Filter </button>
 						</div>
 						<!-- /aside Widget -->
 
@@ -180,10 +180,9 @@
 								<li th:if="${currentPage > 0}">
 									<a th:href="@{/products(page=${currentPage-1}), search(searchTerm=${searchTerm}}">&lsaquo;</a>
 								</li>
-<!--								<li th:each="pageNum : ${#numbers.sequence(0, totalPages-1)}"-->
-<!--									th:classappend="${pageNum == currentPage} ? active">-->
-<!--									<a th:href="@{|/products?page=${pageNum}|}" th:text="${pageNum+1}"></a>-->
-<!--								</li>-->
+								 <li th:each="pageNum : ${#numbers.sequence(currentPage - 1, currentPage + 1)}" th:classappend="${pageNum == currentPage} ? active">
+     								 <a th:if="${pageNum >= 0 and pageNum < totalPages}" th:href="@{|/products?page=${pageNum}|}" th:text="${pageNum+1}" class="page-link"></a>
+    							</li>
 								<li th:if="${currentPage < totalPages-1}">
 									<a th:href="@{/products(page=${currentPage+1})}">&rsaquo;</a>
 								</li>
@@ -204,28 +203,6 @@
 		<!-- /SECTION -->
 	</main>
 	<script>
-		// Lấy giá trị của input chọn giá tương ứng và gửi yêu cầu tìm kiếm
-		const priceMinInput = document.getElementById("price-min");
-		const priceMaxInput = document.getElementById("price-max");
-		const searchBtn = document.querySelector(".searchsp");
-
-		searchBtn.addEventListener("click", function() {
-			const searchTerm = document.querySelector("[name=searchTerm]").value;
-			const priceMin = priceMinInput.value ? parseInt(priceMinInput.value) : null;
-			const priceMax = priceMaxInput.value ? parseInt(priceMaxInput.value) : null;
-			const queryParams = new URLSearchParams();
-			if (searchTerm) {
-				queryParams.append("searchTerm", searchTerm)
-			}
-			if (priceMin) {
-				queryParams.append("priceMin", priceMin);
-			}
-			if (priceMax) {
-				queryParams.append("priceMax", priceMax);
-			}
-			const url = "/search?" + queryParams.toString();
-			window.location.href = url;
-		});
 
 
 	</script>
