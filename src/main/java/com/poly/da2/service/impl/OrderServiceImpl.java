@@ -27,10 +27,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public Order create(JsonNode orderData) {
-//		Long userId = orderData.get("userId").asLong();
-//		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-//		order.setUser(user);
-//		orderRepository.save(order);
+
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
 
