@@ -47,5 +47,8 @@ public class Product implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	List<OrderDetail> orderDetails;
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "product_id")
+	List<Reviews> reviews;
 
 }

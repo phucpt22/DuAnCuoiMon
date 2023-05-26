@@ -17,5 +17,8 @@ public class Reviews {
 
     private Integer quanityStar;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product_id;
 
 }
