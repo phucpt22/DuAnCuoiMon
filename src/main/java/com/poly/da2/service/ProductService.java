@@ -23,8 +23,9 @@ public interface ProductService {
 
 	void delete(Integer id);
 	Page<Product> findByPrice(double min, double max,Pageable pageable);
-	List<Product> findByName(String name, int pageNumber);
+
 	Page<Product> searchProducts(String name, Pageable pageable);
 
 	int getPageCount(String searchTerm);
+	List<Product> sanphambanchay();
 }

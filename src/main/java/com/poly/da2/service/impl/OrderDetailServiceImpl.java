@@ -1,5 +1,6 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.Product;
 import com.poly.da2.repository.OrderDetailRepository;
 import com.poly.da2.entity.OrderDetail;
 import com.poly.da2.service.OrderDetailService;
@@ -22,6 +23,5 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public List<OrderDetail> getOrderDetailByOrdOrderById(Integer orderId) {
 		return orderDetailRepository.findOrderDetailByOrdOrderById(orderId);
 	}
-
 
 }

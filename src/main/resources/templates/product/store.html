@@ -46,60 +46,36 @@
 							<div class="price-filter">
 								<div id="price-slider"></div>
 								<div class="input-number price-min">
-									<input id="minPrice" type="number" name="minPrice">
+									<input id="price-min" type="number">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
 								<span>-</span>
 								<div class="input-number price-max">
-									<input id="maxPrice" type="number" name="maxPrice">
+									<input id="price-max" type="number">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
-
 							</div>
-							<button type="submit" class="btn btn-danger"> Filter </button>
+							<br>
+							<button type="submit" style="width: 100%" class="btn btn-danger"> Filter </button>
 						</div>
 						<!-- /aside Widget -->
 
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
+							<div th:each="bs : ${bestseller}" class="product-widget">
 								<div class="product-img">
-									<img src="/assert/user/img/product01.png" alt="">
+									<img th:src="@{|${bs.thumbnail_url}|}"  alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="/assert/user/img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="/assert/user/img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<h3 class="product-name"><a href="#" th:text="${bs.name}"></a></h3>
+									<h4 class="product-price" th:text="${bs.price}"> <del class="product-old-price">$990.00</del></h4>
 								</div>
 							</div>
 						</div>
-						<!-- /aside Widget -->
+						<!--	 /aside Widget-->
 					</div>
 					<!-- /ASIDE -->
 
@@ -144,7 +120,7 @@
 										</div>
 									</div>
 									<div class="product-body">
-<!--										<p class="product-category">Category</p>-->
+										<p class="product-category" th:text="${p.category.name}"></p>
 										<h3 class="product-name" th:text="${p.name}"> </h3>
 										<h4 class="product-price" > $[[${p.price}]]  <del class="product-old-price">$990.00</del></h4>
 										<div class="product-rating">

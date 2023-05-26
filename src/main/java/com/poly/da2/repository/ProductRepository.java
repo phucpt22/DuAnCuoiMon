@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findSanPhamByName(String keywords);
 	Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 	long countByNameContainingIgnoreCase(String searchTerm);
+	@Transactional(readOnly = true)
+	@Procedure(name="Product.sp_SpDuoc_Mua_nhieu")
+	List<Product> sanphambanchay();
 }

@@ -15,6 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@NamedStoredProcedureQuery(
+		name = "Product.sp_SpDuoc_Mua_nhieu",
+		procedureName = "sp_SpDuoc_Mua_nhieu",
+		resultClasses = { Product.class }
+)
 @Table(name = "Products")
 public class Product implements Serializable {
 	@Id
