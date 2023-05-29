@@ -117,3 +117,10 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
+.product-name{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
