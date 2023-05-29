@@ -37,11 +37,11 @@ public class LoginService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			Account account = accRepository.getById(username);
+			Account account = accRepository.findAcc(username);
 			String password = account.getPassword();
-			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
-					.collect(Collectors.toList()).toArray(new String[0]);
-			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
+//			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
+//					.collect(Collectors.toList()).toArray(new String[0]);
+			return User.withUsername(username).password(password).build();
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(username + " not found!");
 		}
