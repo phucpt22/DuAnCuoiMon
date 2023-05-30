@@ -73,7 +73,7 @@ public class SecurityController {
 
     //tôi có class User có Id khóa chính tự tăng, và id đó là khóa ngoại của account, user mà account có mối quan hệ 1:1, đã dùng JPA reposity, tôi đã lưu thông tin tài khoản nhưng vẫn chưa lưu vào sql được vì Id tự tăng, tôi muốn khi đăng nhập bằng tài khoản google với Oauth2 lưu cả 2 đối tượng vào sql cùng lúc với spring boot
     @PostMapping("/register")
-    public String register(Account nd, Userss u, Authority authority, Role r) {
+    public String register(Account nd, Userss u) {
         // Đọc các tham số từ form sign up (username, email, password, repeat pass, check agree)
         String username = paramService.getString("username", "");
         String password = paramService.getString("password", "");
@@ -86,12 +86,8 @@ public class SecurityController {
             u.setPhoto("noimage.png");
             nd.setPassword(password);
             nd.setUsername(username);
-            r.setId("r2");
-            authority.setRole(r);
-            authority.setUser(u);
             accdao.save(nd);
             udao.save(u);
-            adao.save(authority);
             request.setAttribute("messageS", "Đăng ký thành công bạn có thể đăng nhập ngay bây giờ!");
 
         } else {

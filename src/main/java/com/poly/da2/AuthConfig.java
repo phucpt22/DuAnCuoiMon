@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -23,10 +24,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
     LoginService loginService;
-//	@Bean
-//	public BCryptPasswordEncoder getPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(loginService);
@@ -37,8 +35,8 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().cors().disable();
 		http.authorizeRequests()
 		.antMatchers("/order/**").authenticated()
-//		.antMatchers("/admin/**").hasAnyRole("r1")
-//		.antMatchers("/rest/authorities").hasRole("r1")
+		.antMatchers("/admin/**").hasAnyRole("r1")
+		.antMatchers("/rest/authorities").hasRole("r1")
 		.anyRequest().permitAll();
 
 		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
@@ -53,7 +51,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
 		http.oauth2Login()
 			.loginPage("/security/login/form")
-			.defaultSuccessUrl("/oauth2/login/success", true)
+			.defaultSuccessUrl("/", true)
 			.failureUrl("/security/login/error")
 			.authorizationEndpoint()
 			.baseUri("/oauth2/authorization").authorizationRequestRepository(getRepository())

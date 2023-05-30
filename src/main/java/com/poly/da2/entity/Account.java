@@ -1,15 +1,14 @@
 package com.poly.da2.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,8 +21,9 @@ public class Account implements Serializable{
 	private Date createDate;
 	private Date updateDate;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser")
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_user")
 	private Userss user;
+
 
 }

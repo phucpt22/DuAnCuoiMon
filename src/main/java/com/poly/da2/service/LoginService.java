@@ -1,6 +1,7 @@
 package com.poly.da2.service;
 
 import com.poly.da2.entity.Account;
+import com.poly.da2.entity.Authority;
 import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.UserRepository;
@@ -14,9 +15,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -34,19 +40,32 @@ public class LoginService implements UserDetailsService {
 		return new BCryptPasswordEncoder();
 	}
 
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		try {
+//			Account account = accRepository.findAcc(username);
+//			String password = account.getPassword();
+//			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
+//					.collect(Collectors.toList()).toArray(new String[0]);
+//			return User.withUsername(username).password(password).roles(roles).build();
+//		} catch (Exception e) {
+//			throw new UsernameNotFoundException(username + " not found!");
+//		}
+//	}
+	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			Account account = accRepository.findAcc(username);
+			Account account = accRepository.findById(username).get();
 			String password = account.getPassword();
-//			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
-//					.collect(Collectors.toList()).toArray(new String[0]);
-			return User.withUsername(username).password(password).build();
+			List<Authority> a =account.getUser().getAuthorities();
+			String[] roles = a.stream().map(au -> au.getRole().getId())
+					.collect(Collectors.toList()).toArray(new String[0]);
+			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(username + " not found!");
 		}
 	}
-
 	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {
 		String email = oauth2.getPrincipal().getAttribute("email");
 		String fullname = oauth2.getPrincipal().getAttribute("fullname");
@@ -67,7 +86,5 @@ public class LoginService implements UserDetailsService {
 		}
 
 	}
-
-
 
 }
