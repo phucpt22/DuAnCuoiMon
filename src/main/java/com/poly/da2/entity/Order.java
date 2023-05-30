@@ -32,6 +32,7 @@ public class Order implements Serializable {
     private Double discount;
 
     private Double origninalPrice;
+    private String  address;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

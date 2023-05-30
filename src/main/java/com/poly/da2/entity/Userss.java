@@ -45,6 +45,4 @@ public class Userss {
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
     List<Order> orders;
-
-
 }

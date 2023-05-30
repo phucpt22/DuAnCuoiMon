@@ -50,7 +50,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     $scope.order = {
         createDate: new Date(),
         address: "",
-        account: { username: $("#username").text() },
+        user: { id: $("#id").text() },
         get orderDetails() {
             return $scope.cart.items.map((item) => {
                 return {
