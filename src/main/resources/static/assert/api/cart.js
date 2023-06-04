@@ -47,7 +47,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         },
     };
     $scope.cart.loadFormLocalStrorage();
-    debugger
     $scope.order = {
         createDate: new Date(),
         address: "",

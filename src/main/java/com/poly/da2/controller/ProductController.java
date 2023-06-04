@@ -35,9 +35,10 @@ public class ProductController {
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		Product item = productService.findById(id);
-		List<Product> list = productService.findAll();
+		String imgs = item.getImage_urls();
+		String[] strings = imgs.split(",");
+		model.addAttribute("images", strings);
 		model.addAttribute("item", item);
-		model.addAttribute("items", list);
 		return "product/detail";
 	}
 	@PostMapping("/search")
