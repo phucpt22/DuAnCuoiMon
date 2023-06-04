@@ -40,32 +40,23 @@ public class LoginService implements UserDetailsService {
 		return new BCryptPasswordEncoder();
 	}
 
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		try {
-//			Account account = accRepository.findAcc(username);
-//			String password = account.getPassword();
-//			String[] roles = account.getUser().getAuthorities().stream().map(au -> au.getRole().getId())
-//					.collect(Collectors.toList()).toArray(new String[0]);
-//			return User.withUsername(username).password(password).roles(roles).build();
-//		} catch (Exception e) {
-//			throw new UsernameNotFoundException(username + " not found!");
-//		}
-//	}
 	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
 			Account account = accRepository.findById(username).get();
+			Integer userID = accRepository.findAcc(username).getUser().getId();
 			String password = account.getPassword();
 			List<Authority> a =account.getUser().getAuthorities();
 			String[] roles = a.stream().map(au -> au.getRole().getId())
 					.collect(Collectors.toList()).toArray(new String[0]);
 			return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
+
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(username + " not found!");
 		}
 	}
+
 	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {
 		String email = oauth2.getPrincipal().getAttribute("email");
 		String fullname = oauth2.getPrincipal().getAttribute("fullname");

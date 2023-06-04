@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}"
+	  xmlns:sec="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +53,7 @@
 							</div>
 							<div class="form-group">
 								<label>ID User</label>
-								<div class="form-control" ng-model="order.user.id" id="id"></div>
+								<div class="form-control" sec:authentication="principal" th:value="${#authentication.principal}" id="id"></div>
 							</div>
 							<div class="form-group">
 								<label>Recipient</label>
