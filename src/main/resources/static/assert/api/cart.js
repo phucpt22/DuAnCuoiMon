@@ -1,7 +1,6 @@
 const app = angular.module("shopping-cart", []);
 
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
-
     $scope.cart = {
         items: [],
         add(id) {
@@ -12,6 +11,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             } else {
                 $http.get(`/rest/products/${id}`).then((resp) => {
                     resp.data.qty = 1;
+                    // resp.data.amount =
                     this.items.push(resp.data);
                     this.saveToLocalStorage();
                 });
@@ -47,17 +47,20 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         },
     };
     $scope.cart.loadFormLocalStrorage();
-    debugger
     $scope.order = {
         createDate: new Date(),
         address: "",
-        user: { id: $("#id").text() },
+        // origninal_price: parseFloat($("#origninal_price").text()),
+        origninal_price: $scope.cart.amount,
+        user: { id: $("#id").text()
+               },
         get orderDetails() {
             return $scope.cart.items.map((item) => {
                 return {
                     product: { id: item.id },
                     price: item.price,
                     quantity: item.qty,
+                    amount: item.price * item.qty
                 };
             });
         },

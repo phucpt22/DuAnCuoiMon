@@ -6,20 +6,20 @@
 			<div class="card-header h3 text-bg-white fw-bold">Thông tin đặt hàng</div>
 			<div class="card-body row text-white-50">
 				<div class="col-md-4">
-					<label for="inputEmail4" class="form-label">Mã hóa đơn:</label> <input
+					<label  class="form-label">Mã hóa đơn:</label> <input
 						th:field="*{id}" class="form-control" readonly>
 				</div>
 				<div class="col-md-4">
-					<label for="inputEmail4" class="form-label">Người nhận:</label> <input
-						th:field="*{account.username}" class="form-control"
+					<label class="form-label">Người nhận:</label> <input
+						th:field="*{user.fullName}" class="form-control"
 						readonly="readonly">
 				</div>
 				<div class="col-md-4">
-					<label for="inputPassword4" class="form-label">Ngày đặt:</label> <input
+					<label class="form-label">Ngày đặt:</label> <input
 						th:field="*{createDate}" class="form-control" readonly="readonly">
 				</div>
 				<div class="col-12">
-					<label for="inputAddress" class="form-label">Địa chỉ giao
+					<label class="form-label">Địa chỉ giao
 						hàng:</label>
 					<textarea th:field="*{address}"
 						class="form-control" readonly="readonly" rows="3"></textarea>
@@ -43,7 +43,7 @@
 						<tr th:each="detail:*{orderDetails}" th:object="${detail}">
 							<td>
 								<div>
-									<img th:src="@{/assert/userss/img/__${detail.product.image}__}" alt="" width="70" class="img-fluid rounded shadow-sm">
+									<img th:src="@{__${detail.product.thumbnail_url}__}" alt="" width="70" class="img-fluid rounded shadow-sm">
 								</div>
 							</td>
 							<td class="text-start">[[*{product.name}]]</td>
