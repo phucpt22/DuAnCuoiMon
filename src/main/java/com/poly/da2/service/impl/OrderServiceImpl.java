@@ -1,5 +1,6 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.OrderRepository;
 import com.poly.da2.repository.OrderDetailRepository;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,22 +23,27 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderRepository orderRepository;
 	@Autowired
-	OrderDetailRepository orderDetailRepository;
-	@Autowired
 	UserRepository userRepository;
-	
+	@Autowired
+	OrderDetailRepository orderDetailRepository;
+
 	@Override
 	public Order create(JsonNode orderData) {
 
-		ObjectMapper mapper=new ObjectMapper();
-		Order order=mapper.convertValue(orderData, Order.class);
+		ObjectMapper mapper = new ObjectMapper();
+		Order order = mapper.convertValue(orderData, Order.class);
+
+		// Set the User based on the ID submitted with the order form
+		Integer userId = orderData.get("user").get("id").asInt();
+		Userss user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+		order.setUser(user);
 
 		orderRepository.save(order);
-		
-		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};
-		List<OrderDetail> details=mapper.convertValue(orderData.get("orderDetails"), type).stream()
-				.peek(d->d.setOrder(order)).collect(Collectors.toList());
+		TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {};
+		List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream()
+				.peek(d -> d.setOrder(order)).collect(Collectors.toList());
 		orderDetailRepository.saveAll(details);
+
 		return order;
 	}
 
@@ -50,10 +57,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findByUsername(username);
 	}
 
-//	@Override
-//	public List<Order> findByUsername(String username) {
-//		return orderDAO.findByUsername(username);
-//	}
 
 	@Override
 	public List<Order> findAll() {
