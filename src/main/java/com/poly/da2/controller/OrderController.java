@@ -1,6 +1,8 @@
 package com.poly.da2.controller;
 
+import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
+import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,15 @@ public class OrderController {
 	OrderService orderService;
 	@Autowired
 	AccountRepository accRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping("/order/checkout")
 	public String checkout(Model model, Principal principal) {
 		String username = principal.getName(); // Lấy tên đăng nhập
-		Integer userId = accRepository.findAcc(username).getUser().getId(); // Lấy ID của user
+		Integer userId = accRepository.findAcc(username).getUser().getId();
+		Userss userss = userRepository.getById(userId);
+		model.addAttribute("Userss", userss);
 		model.addAttribute("userId", userId); // Truyền ID của user qua Model
 		return "cart/checkout";
 	}
