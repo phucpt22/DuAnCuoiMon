@@ -1,5 +1,6 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.OrderRepository;
 import com.poly.da2.repository.OrderDetailRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
 	OrderRepository orderRepository;
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
+
 	@Autowired
 	UserRepository userRepository;
 	
@@ -30,7 +33,8 @@ public class OrderServiceImpl implements OrderService {
 
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
-
+		Userss user = userRepository.findOneById(order.getUser().getId());
+		order.setUser(user);
 		orderRepository.save(order);
 		
 		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};
