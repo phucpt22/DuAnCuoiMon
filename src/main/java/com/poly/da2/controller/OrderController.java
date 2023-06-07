@@ -25,9 +25,9 @@ public class OrderController {
 	@RequestMapping("/order/checkout")
 	public String checkout(Model model, Principal principal) {
 		String username = principal.getName(); // Lấy tên đăng nhập
-		Integer userId = accRepository.findAcc(username).getUser().getId();
-		Userss userss = userRepository.getById(userId);
-		model.addAttribute("Userss", userss);
+		System.out.println(username);
+		Userss userss = userRepository.findByUserName(username);
+		Integer userId = userss.getId();
 		model.addAttribute("userId", userId); // Truyền ID của user qua Model
 		return "cart/checkout";
 	}

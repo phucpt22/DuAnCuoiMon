@@ -30,20 +30,14 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Order create(JsonNode orderData) {
 
-		ObjectMapper mapper = new ObjectMapper();
-		Order order = mapper.convertValue(orderData, Order.class);
-
-		// Set the User based on the ID submitted with the order form
-		Integer userId = orderData.get("user").get("id").asInt();
-		Userss user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-		order.setUser(user);
-
+		ObjectMapper mapper=new ObjectMapper();
+		Order order=mapper.convertValue(orderData, Order.class);
 		orderRepository.save(order);
-		TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {};
-		List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream()
-				.peek(d -> d.setOrder(order)).collect(Collectors.toList());
-		orderDetailRepository.saveAll(details);
 
+		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};
+		List<OrderDetail> details=mapper.convertValue(orderData.get("orderDetails"), type).stream()
+				.peek(d->d.setOrder(order)).collect(Collectors.toList());
+		orderDetailRepository.saveAll(details);
 		return order;
 	}
 
