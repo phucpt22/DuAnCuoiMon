@@ -1,5 +1,6 @@
 package com.poly.da2.repository;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.da2.entity.Userss;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

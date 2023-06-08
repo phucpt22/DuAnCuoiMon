@@ -31,7 +31,8 @@ public class OrderServiceImpl implements OrderService {
 
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
-		Userss user = userRepository.findOneById(order.getUser().getId());
+		int idUser = orderData.get("user").get("id").asInt();
+		Userss user = userRepository.findOneById(idUser);
 		order.setUser(user);
 		orderRepository.save(order);
 		
