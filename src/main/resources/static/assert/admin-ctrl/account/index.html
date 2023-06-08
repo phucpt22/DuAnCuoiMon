@@ -1,112 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{/assert/admin-ctrl/account/index.html :: dynamic(~{::body})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body class="animsition">
+<body class="animsition" th-fragment="">
 <div class="page-wrapper">
     <!-- MAIN CONTENT-->
-    <div class="main-content">
-        <div class="section__content section__content--p30">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- DATA TABLE -->
-                        <h3 class="title-5 m-b-35">Danh sách tài khoản</h3>
-                        <div class="table-data__tool">
-                            <div class="table-data__tool-left">
-                                <div class="rs-select2--light rs-select2--md">
-                                    <select class="js-select2" name="property">
-                                        <option selected="selected">All Properties</option>
-                                        <option value="">Option 1</option>
-                                        <option value="">Option 2</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                                <div class="rs-select2--light rs-select2--sm">
-                                    <select class="js-select2" name="time">
-                                        <option selected="selected">Today</option>
-                                        <option value="">3 Days</option>
-                                        <option value="">1 Week</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                                <button class="au-btn-filter">
-                                    <i class="zmdi zmdi-filter-list"></i>filters</button>
-                            </div>
-                            <div class="table-data__tool-right">
-                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                    <i class="zmdi zmdi-plus"></i>add item</button>
-                                <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                                    <select class="js-select2" name="type">
-                                        <option selected="selected">Export</option>
-                                        <option value="">Option 1</option>
-                                        <option value="">Option 2</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive table-responsive-data2">
-                            <table class="table table-data2">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <label class="au-checkbox">
-                                            <input type="checkbox">
-                                            <span class="au-checkmark"></span>
-                                        </label>
-                                    </th>
-<!--                                    <th scope="col">Photo</th>-->
-                                    <th scope="col">Adrress</th>
-                                    <th scope="col">Fullname</th>
-                                    <th scope="col">Email</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="tr-shadow" ng-repeat="user in pager.items">
-                                    <td>
-                                        <label class="au-checkbox">
-                                            <input type="checkbox">
-                                            <span class="au-checkmark"></span>
-                                        </label>
-                                    </td>
-<!--                                    <td><img src="/assert/user/img/{{user.photo}}" alt="" width="170" class="img-fluid rounded shadow-sm"></td>-->
-                                    <td>
-                                        <span class="block-email">{{user.address}}</span>
-                                    </td>
-                                    <td class="desc">{{user.fullname}}</td>
-
-                                    <td>
-                                        <span class="status--process">{{user.gmail}}</span>
-                                    </td>
-
-                                    <td>
-                                        <div class="table-data-feature">
-
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                <i class="zmdi zmdi-more"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- END DATA TABLE -->
-                    </div>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg " ng-controller="account-ctrl">
+                            
+        <div class="container-fluid py-4">
+          <div class="row">
+            <div class="col-12">
+              <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                  <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Authors table</h6>
+                  </div>
                 </div>
+                <div class="card-body px-0 pb-2">
+                  <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Account ID</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product ID</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Create Date</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Id</th>
+                          <th class="text-secondary opacity-7"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        <tr ng-repeat="order in pagerOrder.orders">
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                           
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">123</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-xs font-weight-bold mb-0">Programator</p>
+                          </td>
+                          <td class="align-middle text-center text-sm">
+                            <!-- <span class="badge badge-sm bg-gradient-secondary">{{order.createDate}}</span> -->
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
+                          </td>
+                          <td class="align-middle">
+                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Edit
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
+          
+      </main>
+    
 </div>
 </div>
 <div class="card-footer text-center">
