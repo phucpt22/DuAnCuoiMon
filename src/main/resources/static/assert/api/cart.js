@@ -52,7 +52,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         address: "",
         // origninal_price: parseFloat($("#origninal_price").text()),
         origninal_price: $scope.cart.amount,
-        user: { id: $("#id").text()
+        user: { id: $("#id").val()
                },
         get orderDetails() {
             return $scope.cart.items.map((item) => {
@@ -66,14 +66,15 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         },
         purchase() {
             var order = angular.copy(this);
-            $http.post("/rest/orders", order).then((resp) => {
-            alert("Đặt hàng thành công!!");
-                $scope.cart.clear();
-                console.log(resp.data);
-                location.href = "/order/detail/" + resp.data.id;
-            }).catch(error=>{
-                alert("Đặt hàng lỗi!");
-                console.log(error);
+            $http.post("/rest/orders", order)
+                .then((resp) => {
+                    alert("Đặt hàng thành công!!");
+                    $scope.cart.clear();
+                    location.href = "/order/detail/" + resp.data.id;
+                })
+                .catch((error) => {
+                    alert("Đặt hàng lỗi!");
+                    console.log(error);
             });
         },
     };

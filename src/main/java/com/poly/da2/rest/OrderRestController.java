@@ -4,6 +4,8 @@ import com.poly.da2.entity.Order;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.da2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +17,13 @@ public class OrderRestController {
 	OrderService orderService;
 	
 	@PostMapping("/rest/orders")
-	public Order create(@RequestBody JsonNode orderData) {
-		return orderService.create(orderData);
+	public ResponseEntity<Order> create(@RequestBody JsonNode orderData) {
+		try {
+			Order order = orderService.create(orderData);
+			return new ResponseEntity<>(order, HttpStatus.OK);
+		}catch (Exception e){
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@GetMapping("/rest/ordersall")

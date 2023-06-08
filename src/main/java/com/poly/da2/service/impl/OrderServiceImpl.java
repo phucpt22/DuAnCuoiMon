@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,15 +22,18 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderRepository orderRepository;
 	@Autowired
-	UserRepository userRepository;
-	@Autowired
 	OrderDetailRepository orderDetailRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	@Override
 	public Order create(JsonNode orderData) {
 
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
+		int idUser = orderData.get("user").get("id").asInt();
+		Userss user = userRepository.findOneById(idUser);
+		order.setUser(user);
 		orderRepository.save(order);
 
 		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};
