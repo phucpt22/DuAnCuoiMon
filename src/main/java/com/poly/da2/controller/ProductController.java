@@ -65,18 +65,13 @@ public class ProductController {
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
 							  @RequestParam(defaultValue = "6") int size,
-							  @RequestParam("cid")Optional<String> cid,
+							  @RequestParam(name = "cid", required = false)String cid,
+							  @RequestParam(name = "searchTerm", required = false) String searchTerm,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> listc = categoryService.findAll();
 		List<Product> bestseller = dao.sanphambanchay();
-
-		Page<Product> productPage;
-		if (cid.isPresent()) {
-			productPage = productService.findByCategoryId(cid.get(), pageable);
-		}else {
-			productPage = productService.findAll(pageable);
-		}
+		Page<Product> productPage = productService.filterProducts(searchTerm, cid, pageable);
 		model.addAttribute("items", productPage.getContent());
 		model.addAttribute("cates", listc);
 		model.addAttribute("bestseller", bestseller);

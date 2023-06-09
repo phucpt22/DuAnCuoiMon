@@ -28,4 +28,6 @@ public interface ProductService {
 
 	int getPageCount(String searchTerm);
 	List<Product> sanphambanchay();
+
+	Page<Product> filterProducts(String name, String cid, Pageable pageable);
 }

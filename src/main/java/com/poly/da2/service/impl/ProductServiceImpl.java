@@ -21,8 +21,6 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	@PersistenceContext
-	private EntityManager entityManager;
 	@Autowired
     ProductRepository productRepository;
 
@@ -65,7 +63,6 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByPrice(min,max,pageable);
 	}
 
-
 	@Override
 	public Page<Product> searchProducts(String name, Pageable pageable) {
 		return productRepository.getByName(name,pageable);
@@ -107,6 +104,11 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.sanphambanchay();
 	}
 
+	@Override
+	public Page<Product> filterProducts(String name, String cid, Pageable pageable) {
+//		return productRepository.filterProduct(name, cid, pageable);
+		return null;
+	}
 
 
 }
