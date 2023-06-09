@@ -35,7 +35,6 @@ public class Order {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private Userss user;
 
     @JsonIgnore
