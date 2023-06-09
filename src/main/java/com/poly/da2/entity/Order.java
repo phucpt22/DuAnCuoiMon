@@ -31,9 +31,10 @@ public class Order implements Serializable {
 
     private Double discount;
 
-    private Double origninalPrice;
+    private Double origninal_price;
+    private String  address;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
     private Userss user;
 

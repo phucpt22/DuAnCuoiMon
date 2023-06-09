@@ -1,7 +1,6 @@
 const app = angular.module("shopping-cart", []);
 
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
-
     $scope.cart = {
         items: [],
         add(id) {
@@ -12,6 +11,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             } else {
                 $http.get(`/rest/products/${id}`).then((resp) => {
                     resp.data.qty = 1;
+                    // resp.data.amount =
                     this.items.push(resp.data);
                     this.saveToLocalStorage();
                 });
@@ -50,13 +50,17 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     $scope.order = {
         createDate: new Date(),
         address: "",
-        account: { username: $("#username").text() },
+        // origninal_price: parseFloat($("#origninal_price").text()),
+        origninal_price: $scope.cart.amount,
+        user: { id: $("#id").val()
+               },
         get orderDetails() {
             return $scope.cart.items.map((item) => {
                 return {
                     product: { id: item.id },
                     price: item.price,
                     quantity: item.qty,
+                    amount: item.price * item.qty
                 };
             });
         },
@@ -65,9 +69,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             $http.post("/rest/orders", order).then((resp) => {
             alert("Đặt hàng thành công!!");
                 $scope.cart.clear();
-                console.log(resp.data);
                 location.href = "/order/detail/" + resp.data.id;
-            }).catch(error=>{
+            }).catch(error =>{
                 alert("Đặt hàng lỗi!");
                 console.log(error);
             });

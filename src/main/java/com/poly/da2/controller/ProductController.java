@@ -1,12 +1,11 @@
 package com.poly.da2.controller;
 
+import com.poly.da2.entity.Reviews;
 import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entity.Category;
 import com.poly.da2.entity.Product;
-import com.poly.da2.service.CategoryService;
-import com.poly.da2.service.OrderDetailService;
-import com.poly.da2.service.ParamService;
-import com.poly.da2.service.ProductService;
+import com.poly.da2.repository.ReviewRepository;
+import com.poly.da2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,19 +30,28 @@ public class ProductController {
 	ParamService paramService;
 	@Autowired
     ProductRepository dao;
+	@Autowired
+	ReviewRepository reviewRepository;
 
 	@RequestMapping("/product/detail/{id}")
-	public String detail(Model model, @PathVariable("id") Integer id) {
+	public String detail(Model model,
+						 @RequestParam(defaultValue = "0") int page,
+						 @RequestParam(defaultValue = "6") int size,
+						 @PathVariable("id") Integer id) {
+		Pageable pageable = PageRequest.of(page, size);
 		Product item = productService.findById(id);
-		List<Product> list = productService.findAll();
+		Page<Reviews> reviews = reviewRepository.listReviewByIdProduct(id,pageable);
+		String imgs = item.getImage_urls();
+		String[] strings = imgs.split(",");
+		model.addAttribute("images", strings);
+		model.addAttribute("reviews",reviews);
 		model.addAttribute("item", item);
-		model.addAttribute("items", list);
 		return "product/detail";
 	}
 	@PostMapping("/search")
 	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
 								 @RequestParam(defaultValue = "0") int page,
-								 @RequestParam(defaultValue = "6") int size,
+								 @RequestParam(defaultValue = "4") int size,
 								 Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
@@ -74,6 +82,17 @@ public class ProductController {
 		model.addAttribute("bestseller", bestseller);
 		model.addAttribute("totalPages", productPage.getTotalPages());
 		model.addAttribute("currentPage", page);
+		return "product/store";
+	}
+	@PostMapping("/reviews")
+	public String postReview(Reviews reviews){
+		String nameReviewer = paramService.getString("nameReviewer", "");
+		String emailReviewer = paramService.getString("emailReviewer", "");
+		String contents = paramService.getString("contents", "");
+		reviews.setNameReviewer(nameReviewer);
+		reviews.setEmailReviewer(emailReviewer);
+		reviews.setContents(contents);
+
 		return "product/store";
 	}
 

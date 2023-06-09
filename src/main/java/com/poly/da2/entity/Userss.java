@@ -46,5 +46,7 @@ public class Userss {
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
     List<Order> orders;
 
-
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user_id")
+    List<Reviews> reviews;
 }
