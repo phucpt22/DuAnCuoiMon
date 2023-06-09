@@ -43,7 +43,7 @@ public class ProductController {
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model,
 						 @RequestParam(defaultValue = "0") int page,
-						 @RequestParam(defaultValue = "6") int size,
+						 @RequestParam(defaultValue = "2") int size,
 						 @PathVariable("id") Integer id) {
 		Pageable pageable = PageRequest.of(page, size);
 		Product item = productService.findById(id);
@@ -54,6 +54,8 @@ public class ProductController {
 		model.addAttribute("images", strings);
 		model.addAttribute("reviews",reviews);
 		model.addAttribute("item", item);
+		model.addAttribute("totalPages", reviews.getTotalPages());
+		model.addAttribute("currentPage", page);
 		return "product/detail";
 	}
 	@PostMapping("/search")
@@ -98,23 +100,36 @@ public class ProductController {
 		String emailReviewer = paramService.getString("emailReviewer", "");
 		String contents = paramService.getString("contents", "");
 		Integer idProduct = Integer.valueOf(request.getParameter("idProduct"));
+		try {
+			reviews.setName_reviewer(nameReviewer);
+			reviews.setEmail_reviewer(emailReviewer);
+			reviews.setContents(contents);
+			double quanityStar = 0;
+			if (request.getParameter("rating5") != null) {
+				quanityStar = 5;
+			} else if (request.getParameter("rating4") != null) {
+				quanityStar = 4;
+			} else if (request.getParameter("rating3") != null) {
+				quanityStar = 3;
+			} else if (request.getParameter("rating2") != null) {
+				quanityStar = 2;
+			} else if (request.getParameter("rating1") != null) {
+				quanityStar = 1;
+			}
+			reviews.setQuanity_star(quanityStar);
 
-		reviews.setName_reviewer(nameReviewer);
-		reviews.setEmail_reviewer(emailReviewer);
-		reviews.setContents(contents);
-		reviews.setQuanity_star(5);
+			String user = principal.getName();
+			Userss userss = uRepository.findByUserName(user);
+			reviews.setUser_id(userss);
 
-		String user = principal.getName();
-		Userss userss = uRepository.findByUserName(user);
-		reviews.setUser_id(userss);
+			Product product = dao.getById(idProduct);
+			reviews.setProduct_id(product);
 
-
-		Product product = dao.getById(idProduct);
-		reviews.setProduct_id(product);
-
-		reviewRepository.save(reviews);
-
-		return "product/detail";
+			reviewRepository.save(reviews);
+		}catch (Exception e){
+			e.getStackTrace();
+		}
+		return "redirect:/product/detail/" + idProduct;
 	}
 
 }
