@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ReviewRepository extends JpaRepository<Reviews, String> {
-    @Query("SELECT r FROM reviews r where r.product_id.id = ?1")
+public interface ReviewRepository extends JpaRepository<Reviews, Integer> {
+    @Query("SELECT r FROM Reviews r where r.product_id.id = ?1")
     Page<Reviews> listReviewByIdProduct(Integer idProduct, Pageable pageable);
+
 }

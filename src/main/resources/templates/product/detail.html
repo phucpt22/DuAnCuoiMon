@@ -43,7 +43,7 @@
 						<!-- Product details -->
 						<div class="col-md-5">
 							<div class="product-details">
-								<h2 class="product-name">[[*{name}]]</h2>
+								<h2 name="nameProduct" class="product-name">[[*{name}]]</h2>
 								<div>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
@@ -61,14 +61,6 @@
 								<p> [[*{description}]]</p>
 								<br>
 								<div class="add-to-cart">
-<!--									<div class="qty-label">-->
-<!--										Qty-->
-<!--										<div class="input-number">-->
-<!--											<input type="number">-->
-<!--											<span class="qty-up">+</span>-->
-<!--											<span class="qty-down">-</span>-->
-<!--										</div>-->
-<!--									</div>-->
 									<button th:attr="ng-click=@{|cart.add(${item.id})|}"
 											class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 								</div>
@@ -101,7 +93,7 @@
 								<!-- product tab nav -->
 								<ul class="tab-nav">
 									<li class="active"><a data-toggle="tab" href="#tab1">Detail</a></li>
-									<li><a data-toggle="tab" href="#tab2">Reviews (3)</a></li>
+									<li><a data-toggle="tab" href="#tab2">Reviews ([[*{review_count}]])</a></li>
 								</ul>
 								<!-- /product tab nav -->
 
@@ -123,15 +115,16 @@
 											<div class="col-md-3">
 												<div id="rating">
 													<div class="rating-avg">
-														<span>[[*{rating_average}]]</span>
+														<span th:text="${item.rating_average}"></span>
 														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
+															<span th:each="i : ${#numbers.sequence(1, 5)}">
+																<i th:if="${item.rating_average >= i}" class="fa fa-star"></i>
+																<i th:if="${(item.rating_average < i) && (item.rating_average >= (i-0.5))}" class="fa fa-star-half-o"></i>
+<!--																<i th:if="${item.rating_average < (i-0.5)}" class="fa fa-star-o"></i>-->
+															</span>
 														</div>
 													</div>
+
 													<ul class="rating">
 														<li>
 															<div class="rating-stars">
@@ -207,11 +200,10 @@
 											<div class="col-md-6">
 												<div id="reviews">
 													<ul class="reviews" th:each=" r : ${reviews}">
-<!--														-->
 														<li>
 															<div class="review-heading">
-																<h5 class="name">NoName</h5>
-																<p class="date">27 DEC 2018, 8:0 PM</p>
+																<h5 class="name" th:text="${r.name_reviewer}"></h5>
+																<p class="date" th:text="${r.create_date}"></p>
 																<div class="review-rating">
 																	<i class="fa fa-star"></i>
 																	<i class="fa fa-star"></i>
@@ -219,19 +211,29 @@
 																	<i class="fa fa-star"></i>
 																	<i class="fa fa-star-o empty"></i>
 																</div>
+																<span th:text="${r.quanity_star}"></span>
 															</div>
 															<div class="review-body">
 																<p th:text="${r.contents}"></p>
-<!--																-->
 															</div>
 														</li>
 													</ul>
 													<ul class="reviews-pagination">
-														<li class="active">1</li>
-														<li><a href="#">2</a></li>
-														<li><a href="#">3</a></li>
-														<li><a href="#">4</a></li>
-														<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+														<li th:if="${currentPage > 0}">
+															<a th:href="@{/product/detail/${item.id}(page=0)}">&laquo;</a>
+														</li>
+														<li th:if="${currentPage > 0}">
+															<a th:href="@{/product/detail/${item.id}(page=${currentPage-1})}">&lsaquo;</a>
+														</li>
+														<li th:each="pageNum : ${#numbers.sequence(currentPage - 1, currentPage + 1)}" th:classappend="${pageNum == currentPage} ? active">
+															<a th:if="${pageNum >= 0 and pageNum < totalPages}" th:href="@{|/product/detail/${item.id}?page=${pageNum}|}" th:text="${pageNum+1}" class="page-link"></a>
+														</li>
+														<li th:if="${currentPage < totalPages-1}">
+															<a th:href="@{/product/detail/${item.id}(page=${currentPage+1})}">&rsaquo;</a>
+														</li>
+														<li th:if="${currentPage < totalPages-1}">
+															<a th:href="@{|/product/detail/${item.id}?page=${totalPages-1}|}">&raquo;</a>
+														</li>
 													</ul>
 												</div>
 											</div>
@@ -240,14 +242,19 @@
 											<!-- Review Form -->
 											<div class="col-md-3">
 												<div id="review-form">
-													<form class="review-form">
+													<form class="review-form"  th:action="@{/reviews}" method="post" >
+														<input type="hidden" name="idProduct" th:value="${item.id}" />
 														<input class="input" name="nameReviewer" type="text" placeholder="Your Name">
 														<input class="input" name="emailReviewer" type="email" placeholder="Your Email">
 														<textarea class="input" name="contents" placeholder="Your Review"></textarea>
 														<div class="input-rating">
 															<span>Your Rating: </span>
 															<div class="stars">
-																<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+																<input id="star5" name="rating5" value="5" type="radio"><label for="star5"></label>
+																<input id="star4" name="rating4" value="4" type="radio"><label for="star4"></label>
+																<input id="star3" name="rating3" value="3" type="radio"><label for="star3"></label>
+																<input id="star2" name="rating2" value="2" type="radio"><label for="star2"></label>
+																<input id="star1" name="rating1" value="1" type="radio"><label for="star1"></label>
 															</div>
 														</div>
 														<button class="primary-btn">Submit</button>
@@ -407,6 +414,21 @@
 				<!-- /container -->
 			</div>
 			<!-- /Section -->
+			<button type="button" class="primary-btn" id="liveToastBtn">Show live toast</button>
+
+			<div class="toast-container position-fixed bottom-0 end-0 p-3">
+				<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast-header">
+						<img src="..." class="rounded me-2" alt="...">
+						<strong class="me-auto">Bootstrap</strong>
+						<small>11 mins ago</small>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+					<div class="toast-body">
+						Hello, world! This is a toast message.
+					</div>
+				</div>
+			</div>
 		</main>
 	</body>
 </html>

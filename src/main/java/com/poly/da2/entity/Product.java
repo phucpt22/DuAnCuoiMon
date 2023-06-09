@@ -38,7 +38,7 @@ public class Product implements Serializable {
 	private Date createDate = new Date();
 	@Temporal(TemporalType.DATE)
 	@Column(name="update_date")
-	private Date updateDate;
+	private Date updateDate = new Date();
 
 	private Boolean available;
 	@ManyToOne

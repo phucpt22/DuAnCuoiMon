@@ -1,28 +1,38 @@
 package com.poly.da2.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Data
-@Table
-@Entity(name = "reviews")
-public class Reviews {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "reviews")
+public class Reviews implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
 
+    @Column(name="contents")
     private String contents;
 
-    private Integer quanityStar;
+    @Column(name="quanity_star")
+    private double quanity_star;
 
-    private Date createDate = new Date();
+    @Column(name = "create_date")
+    private Date create_date = new Date();
 
-    private String nameReviewer;
+    @Column(name="name_reviewer")
+    private String name_reviewer;
 
-    private String emailReviewer;
+    @Column(name="email_reviewer")
+    private String email_reviewer;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
