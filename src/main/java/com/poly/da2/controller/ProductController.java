@@ -81,7 +81,7 @@ public class ProductController {
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
 							  @RequestParam(defaultValue = "6") int size,
 							  @RequestParam(name = "cid", defaultValue = "")String cid,
-							  @RequestParam(name = "searchTerm", defaultValue = "") String name,
+							  @RequestParam(name = "name", defaultValue = "") String name,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> listc = categoryService.findAll();
@@ -93,6 +93,7 @@ public class ProductController {
 		model.addAttribute("totalPages", productPage.getTotalPage());
 		model.addAttribute("currentPage", page);
 		model.addAttribute("cid", cid);
+		model.addAttribute("name", name);
 		return "product/store";
 	}
 	@PostMapping("/reviews")
