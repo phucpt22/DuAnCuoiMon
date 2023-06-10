@@ -43,14 +43,18 @@ public class ProductController {
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model,
 						 @RequestParam(defaultValue = "0") int page,
-						 @RequestParam(defaultValue = "2") int size,
-						 @PathVariable("id") Integer id) {
+						 @RequestParam(defaultValue = "4") int size,
+						 @RequestParam String idcate,
+						 @PathVariable("id") Integer id, HttpServletRequest request) {
 		Pageable pageable = PageRequest.of(page, size);
 		Product item = productService.findById(id);
 		Page<Reviews> reviews = reviewRepository.listReviewByIdProduct(id,pageable);
-		//List<Reviews> list = reviewRepository.findAll();
+
+		List<Product> latedList = productService.sanPhamLienQuan(idcate,pageable);
+
 		String imgs = item.getImage_urls();
 		String[] strings = imgs.split(",");
+		model.addAttribute("latedList",latedList);
 		model.addAttribute("images", strings);
 		model.addAttribute("reviews",reviews);
 		model.addAttribute("item", item);

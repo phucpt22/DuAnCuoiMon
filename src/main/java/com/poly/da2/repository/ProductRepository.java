@@ -19,11 +19,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Page<Product> getByName(String name, Pageable pageable);
 	@Query("SELECT o FROM Product o WHERE o.price BETWEEN ?1 AND ?2")
 	Page<Product> findByPrice(double min, double max, Pageable pageable);
-	@Query( "SELECT o FROM Product o WHERE o.name LIKE %?1%")
-	long countByNameContainingIgnoreCase(String searchTerm);
-	@Query( "SELECT o FROM Product o WHERE o.name LIKE %?1%")
-	Product findByName(String name);
+
 	@Transactional(readOnly = true)
 	@Procedure(name="Product.sp_SpDuoc_Mua_nhieu")
 	List<Product> sanphambanchay();
+
+	@Query(value = "SELECT p FROM Product p WHERE p.category.id = ?1 ORDER BY NEWID()")
+	List<Product> SanPhamLienQuan(String cid, Pageable pageable);
+
 }
