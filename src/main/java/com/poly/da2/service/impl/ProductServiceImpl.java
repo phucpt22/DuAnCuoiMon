@@ -106,8 +106,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> filterProducts(String name, String cid, Pageable pageable) {
-//		return productRepository.filterProduct(name, cid, pageable);
-		return null;
+		return productRepository.filterProduct(name, cid, pageable);
+//		return null;
 	}
 
 
