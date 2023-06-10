@@ -2,6 +2,7 @@ package com.poly.da2.controller;
 
 import com.poly.da2.entity.Reviews;
 import com.poly.da2.entity.Userss;
+import com.poly.da2.model.ProductPageOutPut;
 import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entity.Category;
 import com.poly.da2.entity.Product;
@@ -62,35 +63,36 @@ public class ProductController {
 		model.addAttribute("currentPage", page);
 		return "product/detail";
 	}
-	@PostMapping("/search")
-	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
-								 @RequestParam(defaultValue = "0") int page,
-								 @RequestParam(defaultValue = "4") int size,
-								 Model model) {
-		Pageable pageable = PageRequest.of(page, size);
-		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
-		model.addAttribute("searchTerm", searchTerm);
-		model.addAttribute("items", productPage.getContent());
-		model.addAttribute("totalPages", productPage.getTotalPages());
-		model.addAttribute("currentPage", page);
-		return "product/store";
-	}
+//	@PostMapping("/search")
+//	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
+//								 @RequestParam(defaultValue = "0") int page,
+//								 @RequestParam(defaultValue = "4") int size,
+//								 Model model) {
+//		Pageable pageable = PageRequest.of(page, size);
+//		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
+//		model.addAttribute("searchTerm", searchTerm);
+//		model.addAttribute("items", productPage.getContent());
+//		model.addAttribute("totalPages", productPage.getTotalPages());
+//		model.addAttribute("currentPage", page);
+//		return "product/store";
+//	}
 	@Transactional(readOnly = true)
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
 							  @RequestParam(defaultValue = "6") int size,
-							  @RequestParam(name = "cid", required = false)String cid,
-							  @RequestParam(name = "searchTerm", required = false) String searchTerm,
+							  @RequestParam(name = "cid", defaultValue = "")String cid,
+							  @RequestParam(name = "searchTerm", defaultValue = "") String name,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> listc = categoryService.findAll();
 		List<Product> bestseller = dao.sanphambanchay();
-		Page<Product> productPage = productService.filterProducts(searchTerm, cid, pageable);
-		model.addAttribute("items", productPage.getContent());
+		ProductPageOutPut productPage = productService.filterProducts( name, cid, pageable);
+		model.addAttribute("items", productPage.getProducts());
 		model.addAttribute("cates", listc);
 		model.addAttribute("bestseller", bestseller);
-		model.addAttribute("totalPages", productPage.getTotalPages());
+		model.addAttribute("totalPages", productPage.getTotalPage());
 		model.addAttribute("currentPage", page);
+		model.addAttribute("cid", cid);
 		return "product/store";
 	}
 	@PostMapping("/reviews")

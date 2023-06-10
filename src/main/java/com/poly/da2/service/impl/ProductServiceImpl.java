@@ -1,22 +1,14 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.entity.Category;
+import com.poly.da2.model.ProductPageOutPut;
 import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entity.Product;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,11 +51,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findByPrice(double min, double max, Pageable pageable) {
-		return productRepository.findByPrice(min,max,pageable);
-	}
-
-	@Override
 	public Page<Product> searchProducts(String name, Pageable pageable) {
 		return productRepository.getByName(name,pageable);
 	}
@@ -73,17 +60,23 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.SanPhamLienQuan(cid,pageable);
 	}
 
-
 	@Override
-	//@Transactional(readOnly = true)
-	public List<Product> sanphambanchay() {
-		return productRepository.sanphambanchay();
-	}
-
-	@Override
-	public Page<Product> filterProducts(String name, String cid, Pageable pageable) {
-		return productRepository.filterProduct(name, cid, pageable);
-//		return null;
+	public ProductPageOutPut filterProducts(String name, String cid, Pageable pageable) {
+		ProductPageOutPut productPageOutPut = new ProductPageOutPut();
+		List<Product> products = productRepository.filterProduct(name, cid);
+		int pageSize = pageable.getPageSize();
+		int currentPage = pageable.getPageNumber();
+		int startItem = currentPage * pageSize;
+		List<Product> paginatedList;
+		if (products.size() < startItem) {
+			paginatedList = List.of();
+		} else {
+			int toIndex = Math.min(startItem + pageSize, products.size());
+			paginatedList = products.subList(startItem, toIndex);
+		}
+		productPageOutPut.setProducts(paginatedList);
+		productPageOutPut.setTotalPage((int) Math.ceil((double)products.size()/pageSize));
+		return productPageOutPut;
 	}
 
 
