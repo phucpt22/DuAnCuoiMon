@@ -206,11 +206,10 @@
 																<h5 class="name" th:text="${r.name_reviewer}"></h5>
 																<p class="date" th:text="${r.create_date}"></p>
 																<div class="review-rating">
-																	<i class="fa fa-star"></i>
-																	<i class="fa fa-star"></i>
-																	<i class="fa fa-star"></i>
-																	<i class="fa fa-star"></i>
-																	<i class="fa fa-star-o empty"></i>
+																	<!-- Loop to generate star icons based on quanity_star value -->
+																	<th:block th:each="star : ${#numbers.sequence(1, 5)}">
+																		<i class="fa" th:classappend="${star &lt;= r.quanity_star} ? 'fa-star' : 'fa-star-o empty'"></i>
+																	</th:block>
 																</div>
 																<span th:text="${r.quanity_star}"></span>
 															</div>
