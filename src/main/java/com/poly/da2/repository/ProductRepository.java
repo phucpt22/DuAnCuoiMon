@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Page<Product> getByCategoryId(String cid, Pageable pageable);
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
 	Page<Product> getByName(String name, Pageable pageable);
+
+	@Procedure(name="filterProduct")
+	List<Product> filterProduct(@Param("name") String name, @Param("cid") String cid);
+
 	@Query("SELECT o FROM Product o WHERE o.price BETWEEN ?1 AND ?2")
 	Page<Product> findByPrice(double min, double max, Pageable pageable);
 

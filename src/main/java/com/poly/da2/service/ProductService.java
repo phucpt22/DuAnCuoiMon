@@ -1,6 +1,7 @@
 package com.poly.da2.service;
 
 import com.poly.da2.entity.Product;
+import com.poly.da2.model.ProductPageOutPut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,10 @@ public interface ProductService {
 	Product update(Product product);
 
 	void delete(Integer id);
-	Page<Product> findByPrice(double min, double max,Pageable pageable);
 
 	Page<Product> searchProducts(String name, Pageable pageable);
 	List<Product> sanPhamLienQuan(String cid, Pageable pageable);
 
-	List<Product> sanphambanchay();
+
+	ProductPageOutPut filterProducts(String name, String cid, Pageable pageable);
 }
