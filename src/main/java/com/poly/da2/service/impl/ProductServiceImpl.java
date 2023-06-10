@@ -69,38 +69,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getPageCount(String searchTerm) {
-		long productCount = searchTerm != null && !searchTerm.isBlank()
-				? productRepository.countByNameContainingIgnoreCase(searchTerm)
-				: productRepository.count();
-		return (int) Math.ceil((double) productCount / 10);
+	public List<Product> sanPhamLienQuan(String cid, Pageable pageable) {
+		return productRepository.SanPhamLienQuan(cid,pageable);
 	}
+
 
 	@Override
 	//@Transactional(readOnly = true)
 	public List<Product> sanphambanchay() {
-
-//		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("sp_SpDuoc_Mua_nhieu");
-//		query.execute();
-//		List<Object[]> result = query.getResultList();
-//		List<Product> products = new ArrayList<>();
-//		for (Object[] obj : result) {
-//			Product p = new Product();
-//			p.setId((Integer) obj[0]);
-//			p.setDescription((String) obj[1]);
-//			p.setName((String) obj[2]);
-//			p.setPrice((Double) obj[3]);
-//			p.setThumbnail_url((String) obj[4]);
-//			p.setCreateDate((Date) obj[5]);
-//			p.setUpdateDate((Date) obj[6]);
-//			p.setImage_urls((String) obj[7]);
-//			p.setRating_average((Double) obj[8]);
-//			p.setCategory((Category) obj[9]);
-//			p.setAvailable((Boolean) obj[10]);
-//			p.setReview_count((Integer) obj[11]);
-//			products.add(p);
-//		}
-//		return products;
 		return productRepository.sanphambanchay();
 	}
 

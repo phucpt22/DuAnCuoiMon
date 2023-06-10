@@ -25,8 +25,8 @@ public interface ProductService {
 	Page<Product> findByPrice(double min, double max,Pageable pageable);
 
 	Page<Product> searchProducts(String name, Pageable pageable);
+	List<Product> sanPhamLienQuan(String cid, Pageable pageable);
 
-	int getPageCount(String searchTerm);
 	List<Product> sanphambanchay();
 
 	Page<Product> filterProducts(String name, String cid, Pageable pageable);
