@@ -39,7 +39,21 @@
 							</div>
 						</div>
 						<!-- /aside Widget -->
+						<script>
+							$(function() {
+								var priceSlider = $( "#price-slider" ).slider({
+									range: true,
+									min: 1,
+									max: 9999999,
+									values: [ 1, 9999999 ],
+									slide: function( event, ui ) {
+										$( "#price-min" ).val(ui.values[ 0 ]);
+										$( "#price-max" ).val(ui.values[ 1 ]);
+									}
+								});
+							});
 
+						</script>
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Price</h3>
@@ -52,7 +66,7 @@
 								</div>
 								<span>-</span>
 								<div class="input-number price-max">
-									<input id="price-max" type="number">
+									<input id="price-max" value="9999999" type="number">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
@@ -115,7 +129,7 @@
 									<div class="product-img">
 										<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
 										<div class="product-label">
-											<span class="sale">-30%</span>
+											<span class="sale" th:text="${p.discount + '%'}"> </span>
 											<span class="new">NEW</span>
 										</div>
 									</div>
@@ -147,27 +161,32 @@
 
 						</div>
 						<!-- /store products -->
-
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
+								<!-- Add this code to conditionally add first/previous page links -->
 								<li th:if="${currentPage > 0}">
 									<a th:href="@{/products(page=0)}">&laquo;</a>
 								</li>
-								<li th:if="${currentPage > 0}">
-									<a th:href="@{/products(page=${currentPage-1}), search(searchTerm=${searchTerm}}">&lsaquo;</a>
+								<li th:if="${currentPage > 1}">
+									<a th:href="@{/products(page=${currentPage-1})}">&lsaquo;</a>
 								</li>
-								 <li th:each="pageNum : ${#numbers.sequence(currentPage - 1, currentPage + 1)}" th:classappend="${pageNum == currentPage} ? active">
-     								 <a th:if="${pageNum >= 0 and pageNum < totalPages}" th:href="@{|/products?page=${pageNum}|}" th:text="${pageNum+1}" class="page-link"></a>
-    							</li>
-								<li th:if="${currentPage < totalPages-1}">
+
+								<!-- Add this code to display page links -->
+								<li th:each="pageNum : ${#numbers.sequence(currentPage - 1, currentPage + 3)}"
+									th:classappend="${pageNum == currentPage} ? active">
+									<a th:if="${pageNum >= 0 and pageNum < totalPages}" th:href="@{|/products?page=${pageNum}|}"
+									   th:text="${pageNum+1}" class="page-link"></a>
+								</li>
+
+								<!-- Add this code to conditionally add last/next page links -->
+								<li th:if="${currentPage < totalPages-1 and totalPages > 2}">
 									<a th:href="@{/products(page=${currentPage+1})}">&rsaquo;</a>
 								</li>
-								<li th:if="${currentPage < totalPages-1}">
+								<li th:if="${currentPage < totalPages-2 and totalPages > 2}">
 									<a th:href="@{|/products?page=${totalPages-1}|}">&raquo;</a>
 								</li>
 							</ul>
 						</div>
-
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->

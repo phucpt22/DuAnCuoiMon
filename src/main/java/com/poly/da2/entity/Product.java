@@ -32,6 +32,7 @@ public class Product implements Serializable {
 	private Double rating_average;
 	private Integer review_count;
 	private String image_urls;
+	private double discount;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")

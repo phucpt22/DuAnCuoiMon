@@ -29,6 +29,8 @@ public class Order {
     private Double totalPrice;
 
     private Double discount;
+    private String status_order;
+    private String payments;
 
     private Double origninal_price;
     private String  address;

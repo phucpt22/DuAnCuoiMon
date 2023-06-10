@@ -61,6 +61,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         address: "",
         // origninal_price: parseFloat($("#origninal_price").text()),
         origninal_price: $scope.cart.amount,
+        payments:"",
+        status_order:"Chờ xác nhận",
         user: { id: $("#id").val()
                },
         get orderDetails() {
