@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}">
+<head>
+
+    <style>
+        body {
+            background: rgb(99, 39, 120)
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #BA68C8
+        }
+
+        .profile-button {
+            background: rgb(99, 39, 120);
+            box-shadow: none;
+            border: none
+        }
+
+        .profile-button:hover {
+            background: #682773
+        }
+
+        .profile-button:focus {
+            background: #682773;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #682773;
+            box-shadow: none
+        }
+
+        .back:hover {
+            color: #682773;
+            cursor: pointer
+        }
+
+        .labels {
+            font-size: 11px
+        }
+
+        .add-experience:hover {
+            background: #BA68C8;
+            color: #fff;
+            cursor: pointer;
+            border: solid 1px #BA68C8
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+
+            <form name="myForm">
+            <!-- row -->
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-5 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <img class="rounded-circle mt-5" width="150px"
+                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <br/>
+                            <span class="font-weight-bold">{{userInfo.fullName}}</span>
+                            <br/>
+                            <br/>
+                            <span class=" text-center"><button class="btn btn-primary profile-button" type="button">Update </button></span>
+                            <span class=" text-center" style="margin-left: 7px"><button
+                                    class="btn btn-danger profile-button" type="button">Delete </button></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 border-right">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-left">Profile Settings</h4>
+                            </div>
+
+                            <div class="row mt-3 form-group">
+                                <div class="col-md-12 " style="margin-top: 10px"><label class="labels">User name</label>
+                                    <input ng-model="userInfo.fullName" name="username" type="text" class="form-control" placeholder="User name" value="{{userInfo.fullName}}">
+                                    <h1 ng-show="myForm.username.$valid">Haha</h1>
+                                </div>
+                                <div class="col-md-12 " style="margin-top: 10px"><label class="labels">Phone
+                                    Number</label><input ng-model="userInfo.phone" type="text" class="form-control"
+                                                         placeholder="Enter phone number" value="{{userInfo.phone}}"></div>
+                                <div class="col-md-12 " style="margin-top: 10px"><label class="labels">Email
+                                    ID</label><input ng-model="userInfo.gmail" type="text" class="form-control" placeholder="Enter email"
+                                                     value="{{userInfo.gmail}}"></div>
+                                <div class="col-md-12 " style="margin-top: 10px"><label
+                                        class="labels">Address</label><input ng-model="userInfo.address" type="text" class="form-control"
+                                                                            placeholder="Enter address" value="userInfo.address"></div>
+                            </div>
+                            <div class="mt-5 text-center">
+                                <button class="btn btn-primary profile-button" ng-click="getUserInfo()" type="button">Save Profile</button>
+                                <button class="btn btn-warning text-black profile-button" style="color: black;margin-left: 10px" type="button">Redo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- /SECTION -->
+</main>
+<!-- jQuery Plugins -->
+<script src="/assert/userss/js/jquery.min.js"></script>
+<script src="/assert/userss/js/bootstrap.min.js"></script>
+<script src="/assert/userss/js/slick.min.js"></script>
+<script src="/assert/userss/js/nouislider.min.js"></script>
+<script src="/assert/userss/js/jquery.zoom.min.js"></script>
+<script src="/assert/userss/js/main.js"></script>
+<script src="/assert/api/cart.js"></script>
+
+</body>
+</html>
