@@ -1,7 +1,22 @@
 const app = angular.module("shopping-cart", []);
 
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
+    $scope.userInfo={
+        id: 0, fullName: '', phone: null, photo: null, gmail: '',
+    }
 
+    $scope.getUserInfoLogin=function (){
+        console.log("dsfghjhfghj")
+        $http.get('/rest/users/userinfo-login').then(resp=>{
+            console.log(resp.data)
+            $scope.userInfo=resp.data
+        })
+    }
+
+    $scope.getUserInfo=function (){
+console.log($scope.userInfo)
+    }
+    $scope.getUserInfoLogin();
     $scope.cart = {
         items: [],
         add(id) {

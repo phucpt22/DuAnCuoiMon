@@ -33,7 +33,7 @@ public class Userss {
 
     private Date updateDate;
 
-    //@JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Account account;
 //
