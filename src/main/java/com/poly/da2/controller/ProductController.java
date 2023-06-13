@@ -2,6 +2,7 @@ package com.poly.da2.controller;
 
 import com.poly.da2.entity.Reviews;
 import com.poly.da2.entity.Userss;
+import com.poly.da2.model.ProductPageOutPut;
 import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entity.Category;
 import com.poly.da2.entity.Product;
@@ -43,14 +44,18 @@ public class ProductController {
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model,
 						 @RequestParam(defaultValue = "0") int page,
-						 @RequestParam(defaultValue = "2") int size,
-						 @PathVariable("id") Integer id) {
+						 @RequestParam(defaultValue = "4") int size,
+						 @RequestParam String idcate,
+						 @PathVariable("id") Integer id, HttpServletRequest request) {
 		Pageable pageable = PageRequest.of(page, size);
 		Product item = productService.findById(id);
 		Page<Reviews> reviews = reviewRepository.listReviewByIdProduct(id,pageable);
-		//List<Reviews> list = reviewRepository.findAll();
+
+		List<Product> latedList = productService.sanPhamLienQuan(idcate,pageable);
+
 		String imgs = item.getImage_urls();
 		String[] strings = imgs.split(",");
+		model.addAttribute("latedList",latedList);
 		model.addAttribute("images", strings);
 		model.addAttribute("reviews",reviews);
 		model.addAttribute("item", item);
@@ -58,40 +63,37 @@ public class ProductController {
 		model.addAttribute("currentPage", page);
 		return "product/detail";
 	}
-	@PostMapping("/search")
-	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
-								 @RequestParam(defaultValue = "0") int page,
-								 @RequestParam(defaultValue = "4") int size,
-								 Model model) {
-		Pageable pageable = PageRequest.of(page, size);
-		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
-		model.addAttribute("searchTerm", searchTerm);
-		model.addAttribute("items", productPage.getContent());
-		model.addAttribute("totalPages", productPage.getTotalPages());
-		model.addAttribute("currentPage", page);
-		return "product/store";
-	}
+//	@PostMapping("/search")
+//	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
+//								 @RequestParam(defaultValue = "0") int page,
+//								 @RequestParam(defaultValue = "4") int size,
+//								 Model model) {
+//		Pageable pageable = PageRequest.of(page, size);
+//		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
+//		model.addAttribute("searchTerm", searchTerm);
+//		model.addAttribute("items", productPage.getContent());
+//		model.addAttribute("totalPages", productPage.getTotalPages());
+//		model.addAttribute("currentPage", page);
+//		return "product/store";
+//	}
 	@Transactional(readOnly = true)
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
 							  @RequestParam(defaultValue = "6") int size,
-							  @RequestParam("cid")Optional<String> cid,
+							  @RequestParam(name = "cid", defaultValue = "")String cid,
+							  @RequestParam(name = "name", defaultValue = "") String name,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> listc = categoryService.findAll();
 		List<Product> bestseller = dao.sanphambanchay();
-
-		Page<Product> productPage;
-		if (cid.isPresent()) {
-			productPage = productService.findByCategoryId(cid.get(), pageable);
-		}else {
-			productPage = productService.findAll(pageable);
-		}
-		model.addAttribute("items", productPage.getContent());
+		ProductPageOutPut productPage = productService.filterProducts( name, cid, pageable);
+		model.addAttribute("items", productPage.getProducts());
 		model.addAttribute("cates", listc);
 		model.addAttribute("bestseller", bestseller);
-		model.addAttribute("totalPages", productPage.getTotalPages());
+		model.addAttribute("totalPages", productPage.getTotalPage());
 		model.addAttribute("currentPage", page);
+		model.addAttribute("cid", cid);
+		model.addAttribute("name", name);
 		return "product/store";
 	}
 	@PostMapping("/reviews")

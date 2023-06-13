@@ -6,10 +6,24 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+		<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 		<title>Electro - HTML Ecommerce Template</title>
 
+		<style>
+			/* Media query for mobile viewport */
+			@media screen and (max-width: 400px) {
+				#paypal-button-container {
+					width: 100%;
+				}
+			}
 
+			/* Media query for desktop viewport */
+			@media screen and (min-width: 400px) {
+				#paypal-button-container {
+					width: 250px;
+				}
+			}
+		</style>
     </head>
 	<body>
 	<main>
@@ -85,33 +99,67 @@
 						</div>
 						<div class="payment-method">
 							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
+								<input type="radio" name="payment" id="payment-1" >
 								<label for="payment-1">
 									<span></span>
-									Direct Bank Transfer
+									Thanh toán qua thẻ tín dụng
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Thanh toán trả trước.</p>
+									<div id="paypal-button-container"></div>
+
+									<!-- Include the PayPal JavaScript SDK -->
+									<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+									<script>
+										paypal.Buttons({
+											// Call your server to set up the transaction
+											createOrder: function(data, actions) {
+												return fetch('/demo/checkout/api/paypal/order/create/', {
+													method: 'post'
+												}).then(function(res) {
+													return res.json();
+												}).then(function(orderData) {
+													return orderData.id;
+												});
+											},
+											onApprove: function(data, actions) {
+												return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+													method: 'post'
+												}).then(function(res) {
+													return res.json();
+												}).then(function(orderData) {
+													var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+													if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+														return actions.restart(); // Recoverable state, per:
+													}
+
+													if (errorDetail) {
+														var msg = 'Sorry, your transaction could not be processed.';
+														if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+														if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+														return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+													}
+
+													// Successful capture! For demo purposes:
+													console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+													var transaction = orderData.purchase_units[0].payments.captures[0];
+													alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+												});
+											}
+										}).render('#paypal-button-container');
+									</script>
 								</div>
 							</div>
 							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
+								<input type="radio" name="payment" id="payment-2" value="COD" ng-model="order.payments">
 								<label for="payment-2">
 									<span></span>
-									Cheque Payment
+									Thanh toán khi nhận hàng.
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
-									Paypal System
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Sau khi shipper giao hàng, người mua có thể kiểm tra đơn hàng và sau đó thanh toán.</p>
 								</div>
 							</div>
 						</div>
@@ -132,5 +180,6 @@
 		</div>
 		<!-- /SECTION -->
 	</main>
+
 	</body>
 </html>
