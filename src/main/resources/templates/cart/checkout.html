@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}"
+	  xmlns:sec="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+		<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 		<title>Electro - HTML Ecommerce Template</title>
 
- 		<!-- Google font -->
- 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<style>
+			/* Media query for mobile viewport */
+			@media screen and (max-width: 400px) {
+				#paypal-button-container {
+					width: 100%;
+				}
+			}
 
- 		<!-- Bootstrap -->
- 		<link type="text/css" rel="stylesheet" href="/assert/userss/css/bootstrap.min.css"/>
-
- 		<!-- Slick -->
- 		<link type="text/css" rel="stylesheet" href="/assert/userss/css/slick.css"/>
- 		<link type="text/css" rel="stylesheet" href="/assert/userss/css/slick-theme.css"/>
-
- 		<!-- nouislider -->
- 		<link type="text/css" rel="stylesheet" href="/assert/userss/css/nouislider.min.css"/>
-
- 		<!-- Font Awesome Icon -->
- 		<link rel="stylesheet" href="/assert/userss/css/font-awesome.min.css">
-
- 		<!-- Custom stlylesheet -->
- 		<link type="text/css" rel="stylesheet" href="/assert/userss/css/style.css"/>
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
+			/* Media query for desktop viewport */
+			@media screen and (min-width: 400px) {
+				#paypal-button-container {
+					width: 250px;
+				}
+			}
+		</style>
     </head>
 	<body>
 	<main>
@@ -51,8 +41,12 @@
 								<h3 class="title">Billing address</h3>
 							</div>
 							<div class="form-group">
+<!--								<label>ID User</label>-->
+								<input class="form-control" type="hidden" th:value="${userId}" id="id"/>
+							</div>
+							<div class="form-group">
 								<label>Recipient</label>
-								<div class="form-control" id="username">[[${#request.remoteUser}]]</div>
+								<div class="form-control">[[${#request.remoteUser}]]</div>
 							</div>
 							<div class="form-group">
 								<label class="form-label">Date</label>
@@ -64,7 +58,7 @@
 										  rows="3"></textarea>
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone">
+								<input id="phone" class="input" type="tel" name="tel" placeholder="Telephone">
 							</div>
 						</div>
 						<!-- /Billing Details -->
@@ -98,38 +92,74 @@
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">${{cart.amount|number:2}}</strong></div>
+								<div><strong id="origninal_price"  class="order-total">{{cart.amount|number:2}}</strong></div>
+<!--								-->
+<!--								ng-bind="cart.amount | number:2"-->
 							</div>
 						</div>
 						<div class="payment-method">
 							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
+								<input type="radio" name="payment" id="payment-1" >
 								<label for="payment-1">
 									<span></span>
-									Direct Bank Transfer
+									Thanh toán qua thẻ tín dụng
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Thanh toán trả trước.</p>
+									<div id="paypal-button-container"></div>
+
+									<!-- Include the PayPal JavaScript SDK -->
+									<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+									<script>
+										paypal.Buttons({
+											// Call your server to set up the transaction
+											createOrder: function(data, actions) {
+												return fetch('/demo/checkout/api/paypal/order/create/', {
+													method: 'post'
+												}).then(function(res) {
+													return res.json();
+												}).then(function(orderData) {
+													return orderData.id;
+												});
+											},
+											onApprove: function(data, actions) {
+												return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+													method: 'post'
+												}).then(function(res) {
+													return res.json();
+												}).then(function(orderData) {
+													var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+													if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+														return actions.restart(); // Recoverable state, per:
+													}
+
+													if (errorDetail) {
+														var msg = 'Sorry, your transaction could not be processed.';
+														if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+														if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+														return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+													}
+
+													// Successful capture! For demo purposes:
+													console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+													var transaction = orderData.purchase_units[0].payments.captures[0];
+													alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+												});
+											}
+										}).render('#paypal-button-container');
+									</script>
 								</div>
 							</div>
 							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
+								<input type="radio" name="payment" id="payment-2" value="COD" ng-model="order.payments">
 								<label for="payment-2">
 									<span></span>
-									Cheque Payment
+									Thanh toán khi nhận hàng.
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
-									Paypal System
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Sau khi shipper giao hàng, người mua có thể kiểm tra đơn hàng và sau đó thanh toán.</p>
 								</div>
 							</div>
 						</div>
@@ -150,14 +180,6 @@
 		</div>
 		<!-- /SECTION -->
 	</main>
-		<!-- jQuery Plugins -->
-		<script src="/assert/userss/js/jquery.min.js"></script>
-		<script src="/assert/userss/js/bootstrap.min.js"></script>
-		<script src="/assert/userss/js/slick.min.js"></script>
-		<script src="/assert/userss/js/nouislider.min.js"></script>
-		<script src="/assert/userss/js/jquery.zoom.min.js"></script>
-		<script src="/assert/userss/js/main.js"></script>
-		<script src="/assert/api/cart.js"></script>
 
 	</body>
 </html>

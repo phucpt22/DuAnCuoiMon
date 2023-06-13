@@ -9,10 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/userinfo")
 public class UserInfoController {
+    @Autowired
+    UserService uService;
     @Autowired
     AccountService aService;
     @GetMapping
@@ -20,8 +23,11 @@ public class UserInfoController {
         return "user/userinfo";
     }
     @GetMapping("/userinfo-login")
+    @ResponseBody
     public Userss getOneByUserLogin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return aService.findById(auth.getPrincipal());
+        System.out.println(auth.getPrincipal());
+        int userId = aService.findById("tungle2722002@gmail.com").getUser().getId();
+        return uService.findById(userId);
     }
 }

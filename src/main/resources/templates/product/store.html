@@ -17,6 +17,7 @@
 				<div class="row">
 					<!-- ASIDE -->
 					<div id="aside" class="col-md-3">
+
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Categories</h3>
@@ -29,11 +30,11 @@
 									</label>
 								</div>
 								<div class="input-checkbox" th:each="c : *{cates}">
-									<input type="checkbox" id="category-2">
+									<input type="radio" id="category-2">
 									<label for="category-2">
 										<span></span>
 										<a class="dropdown-item"
-											   th:href="@{|/products?cid=${c.id}|}"> [[${c.name}]]</a>
+											   th:href="@{|/products?cid=${c.id}&name=${name}&page=${currentPage}|}"> [[${c.name}]]</a>
 									</label>
 								</div>
 							</div>
@@ -82,31 +83,21 @@
 					<!-- STORE -->
 					<div id="store" class="col-md-9">
 						<!-- store top filter -->
-						<div class="store-filter clearfix">
-							<div class="store-sort">
-								<label>
-									Sort By:
-									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
-									</select>
-								</label>
+						<div class="header-search">
+							<form method="get" th:action="@{/products}">
+								<input type="hidden" name="cid" th:value="${cid}">
+								<input type="hidden" name="page" th:value="${currentPage}">
+								<input style="border-radius: 30px 0px 0px 30px" type="text" id="searchTerm"
+									   th:value="${name}"
+									   name="name" class="input" placeholder="Search here">
+								<button type="submit" class="search-btn">Search</button>
+							</form>
 
-								<label>
-									Show:
-									<select class="input-select">
-										<option value="0">20</option>
-										<option value="1">50</option>
-									</select>
-								</label>
-							</div>
-							<ul class="store-grid">
-								<li class="active"><i class="fa fa-th"></i></li>
-								<li><a href="#"><i class="fa fa-th-list"></i></a></li>
-							</ul>
+							</form>
+						</div>
+						<div class="store-filter clearfix">
 						</div>
 						<!-- /store top filter -->
-
 						<!-- store products -->
 						<div class="row">
 							<!-- product -->
@@ -115,7 +106,7 @@
 									<div class="product-img">
 										<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
 										<div class="product-label">
-											<span class="sale">-30%</span>
+											<span class="sale" th:text="${p.discount + '%'}"> </span>
 											<span class="new">NEW</span>
 										</div>
 									</div>
@@ -131,7 +122,7 @@
 											<i class="fa fa-star"></i>
 										</div>
 										<div class="product-btns">
-											<a th:href="@{|/product/detail/${p.id}|}"><i class="fa fa-eye"></i> See more...
+											<a th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"><i class="fa fa-eye"></i> See more...
 											</a>
 											<a ><i class="fa-solid fa-thumbs-up"></i> Like
 											</a>
@@ -144,30 +135,34 @@
 								</div>
 							</div>
 							<!-- /product -->
-
-						</div>
+							<input type="hidden" name="cid" th:value="${cid}">
+					</div>
 						<!-- /store products -->
-
 						<div class="store-filter clearfix">
 							<ul class="store-pagination">
+								<!-- Add this code to conditionally add first/previous page links -->
 								<li th:if="${currentPage > 0}">
-									<a th:href="@{/products(page=0)}">&laquo;</a>
+									<a th:href="@{/products(page=0,name=${name},cid=${cid})}">&laquo;</a>
 								</li>
-								<li th:if="${currentPage > 0}">
-									<a th:href="@{/products(page=${currentPage-1}), search(searchTerm=${searchTerm}}">&lsaquo;</a>
+								<li th:if="${currentPage > 1}">
+									<a th:href="@{/products(page=${currentPage-1},name=${name},cid=${cid})}">&lsaquo;</a>
 								</li>
-								 <li th:each="pageNum : ${#numbers.sequence(currentPage - 1, currentPage + 1)}" th:classappend="${pageNum == currentPage} ? active">
-     								 <a th:if="${pageNum >= 0 and pageNum < totalPages}" th:href="@{|/products?page=${pageNum}|}" th:text="${pageNum+1}" class="page-link"></a>
-    							</li>
+								<!-- Add this code to display page links -->
+								<li th:each="pageNum : ${#numbers.sequence(currentPage-1, currentPage +4)}"
+									th:if="${pageNum > 0 and pageNum < totalPages}"
+									th:classappend="${pageNum == currentPage} ? active">
+									<a th:href="@{|/products?page=${pageNum}&name=${name}&cid=${cid}|}"
+									   th:text="${pageNum}" class="page-link"></a>
+								</li>
+								<!-- Add this code to conditionally add last/next page links -->
+								<li th:if="${currentPage < totalPages-2}">
+									<a th:href="@{/products(page=${currentPage+1},name=${name},cid=${cid})}">&rsaquo;</a>
+								</li>
 								<li th:if="${currentPage < totalPages-1}">
-									<a th:href="@{/products(page=${currentPage+1})}">&rsaquo;</a>
-								</li>
-								<li th:if="${currentPage < totalPages-1}">
-									<a th:href="@{|/products?page=${totalPages-1}|}">&raquo;</a>
+									<a th:href="@{|/products?page=${totalPages-1}&name=${name}&cid=${cid}|}">&raquo;</a>
 								</li>
 							</ul>
 						</div>
-
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->

@@ -12,6 +12,7 @@ public class HomeController {
 
 	@RequestMapping(value = {"/","/home/index"})
 	public String home() {
+
 		return "redirect:/products";
 	}
 

@@ -22,6 +22,10 @@ app.config(function($routeProvider) {
             templateUrl: "/assert/admin-ctrl/order/index.html",
             controller: "order-ctrl"
         })
+        .when("/userinfo", {
+            templateUrl: "/assert/admin-ctrl/order/index.html",
+            controller: "userinfo-ctrl"
+        })
         .when("/categories", {
             templateUrl: "/admin-ctrl/category/index.html",
             controller: "category-ctrl"

@@ -1,5 +1,6 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.OrderRepository;
 import com.poly.da2.repository.OrderDetailRepository;
@@ -24,15 +25,17 @@ public class OrderServiceImpl implements OrderService {
 	OrderDetailRepository orderDetailRepository;
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Override
 	public Order create(JsonNode orderData) {
 
 		ObjectMapper mapper=new ObjectMapper();
 		Order order=mapper.convertValue(orderData, Order.class);
-
+		int idUser = orderData.get("user").get("id").asInt();
+		Userss user = userRepository.findOneById(idUser);
+		order.setUser(user);
 		orderRepository.save(order);
-		
+
 		TypeReference<List<OrderDetail>> type=new TypeReference<List<OrderDetail>>(){};
 		List<OrderDetail> details=mapper.convertValue(orderData.get("orderDetails"), type).stream()
 				.peek(d->d.setOrder(order)).collect(Collectors.toList());
@@ -50,10 +53,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findByUsername(username);
 	}
 
-//	@Override
-//	public List<Order> findByUsername(String username) {
-//		return orderDAO.findByUsername(username);
-//	}
 
 	@Override
 	public List<Order> findAll() {

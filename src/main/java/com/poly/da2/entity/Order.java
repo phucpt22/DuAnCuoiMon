@@ -10,13 +10,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@SuppressWarnings("serial")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order implements Serializable {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,10 +29,13 @@ public class Order implements Serializable {
     private Double totalPrice;
 
     private Double discount;
+    private String status_order;
+    private String payments;
 
-    private Double origninalPrice;
+    private Double origninal_price;
+    private String  address;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
     private Userss user;
 

@@ -11,18 +11,18 @@
 					<thead class="table-info border-info">
 						<tr>
 							<th scope="col">STT</th>
-							<th class="text-start" scope="col">Mã hóa đơn</th>
 							<th scope="col">Ngày đặt</th>
 							<th scope="col">Địa chỉ đặt hàng</th>
+							<th scope="col">Tổng tiền</th>
 							<th scope="col">Xem chi tiết</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="order,state:${orders}">
 							<th>[[${state.index+1}]]</th>
-							<td class="text-start">[[${order.id}]]</td>
 							<td>[[${order.createDate}]]</td>
 							<td>[[${order.address}]]</td>
+							<td>[[${order.origninal_price}]]</td>
 							<td>
 							<a th:href="@{|/order/detail/${order.id}|}" class="btn btn-outline-danger">
 									<i class="fa-solid fa-magnifying-glass"></i>

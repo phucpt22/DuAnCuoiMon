@@ -32,13 +32,14 @@ public class Product implements Serializable {
 	private Double rating_average;
 	private Integer review_count;
 	private String image_urls;
+	private double discount;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")
 	private Date createDate = new Date();
 	@Temporal(TemporalType.DATE)
 	@Column(name="update_date")
-	private Date updateDate;
+	private Date updateDate = new Date();
 
 	private Boolean available;
 	@ManyToOne
@@ -48,7 +49,7 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "product")
 	List<OrderDetail> orderDetails;
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "product_id")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "product_id")
 	List<Reviews> reviews;
 
 }

@@ -1,16 +1,17 @@
 package com.poly.da2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name ="users")
@@ -33,8 +34,9 @@ public class Userss {
 
     private Date updateDate;
 
+
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Account account;
 //
     @JsonIgnore
@@ -44,4 +46,8 @@ public class Userss {
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
     List<Order> orders;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user_id")
+    List<Reviews> reviews;
 }
