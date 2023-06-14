@@ -4,7 +4,7 @@ app.config(function($routeProvider) {
 
     $routeProvider
         .when("/product", {
-            templateUrl: "/assert/admin-ctrl/product/index.html",
+            templateUrl: "/assets/admin-ctrl/product/index.html",
             controller: "product-ctrl"
         })
         .when("/authorize", {
@@ -15,18 +15,18 @@ app.config(function($routeProvider) {
             templateUrl: "/admin-ctrl/authority/unauthorized.html",
         })
         .when("/account", {
-            templateUrl: "/assert/admin-ctrl/account/index.html",
+            templateUrl: "/static/assets/admin-ctrl/account/index.html",
             controller: "account-ctrl"
         })
         .when("/orders", {
-            templateUrl: "/assert/admin-ctrl/order/index.html",
+            templateUrl: "/static/assets/admin-ctrl/order/index.html",
             controller: "order-ctrl"
         })
         .when("/categories", {
-            templateUrl: "/assert/admin-ctrl/category/index.html",
+            templateUrl: "/static/assets/admin-ctrl/category/index.html",
             controller: "category-ctrl"
         }).when("/homeadmin", {
-        templateUrl: "/assert/admin-ctrl/index.html",
+        templateUrl: "/static/assets/admin-ctrl/index.html",
     })
         .otherwise({
             template: "<h1 class='text-center'>FPT Polytechnic Administrator</h1>",
