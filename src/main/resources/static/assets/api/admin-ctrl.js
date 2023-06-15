@@ -15,7 +15,7 @@ app.config(function($routeProvider) {
             templateUrl: "/admin-ctrl/authority/unauthorized.html",
         })
         .when("/account", {
-            templateUrl: "/static/assets/admin-ctrl/account/index.html",
+            templateUrl: "/assets/admin-ctrl/account/index.html",
             controller: "account-ctrl"
         })
         .when("/orders", {
@@ -23,7 +23,7 @@ app.config(function($routeProvider) {
             controller: "order-ctrl"
         })
         .when("/categories", {
-            templateUrl: "/static/assets/admin-ctrl/category/index.html",
+            templateUrl: "/assets/admin-ctrl/category/index.html",
             controller: "category-ctrl"
         }).when("/homeadmin", {
         templateUrl: "/static/assets/admin-ctrl/index.html",

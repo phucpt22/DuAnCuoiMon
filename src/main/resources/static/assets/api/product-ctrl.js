@@ -1,6 +1,6 @@
 app.controller("product-ctrl", function($scope, $http) {
     $scope.items = [];
-    $scope.cates = [];
+    //$scope.cates = [];//
     $scope.form = {};
 
     $scope.initialize = function() {
