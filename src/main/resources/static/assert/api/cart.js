@@ -1,5 +1,4 @@
 const app = angular.module("shopping-cart", []);
-
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     $scope.cart = {
@@ -103,7 +102,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 app.controller("userinfo-ctrl", userInfoController)
 function userInfoController ($scope,$http){
-    console.log("aa")
     $scope.userInfo={
         id: 0, fullName: '', phone: null, photo: null, gmail: '',
     }
@@ -116,36 +114,32 @@ function userInfoController ($scope,$http){
         $http.get('userinfo/userinfo-login').then(resp=>{
             $scope.userInfo=resp.data
             $scope.fullName = $scope.userInfo.fullName
+            $scope.userInfoBackUp = angular.copy($scope.userInfo)
         })
     }
     $scope.initialize();
 
-    $scope.submitForm = function (event) {
-        event.preventDefault();
-    console.log("Hey")
-        // Validate the form
-        if ($scope.userInfo.fullName === '') {
-            $scope.nameError = 'Please enter your name.';
+   $scope.redoClick=function (){
+       $scope.userInfo=angular.copy(  $scope.userInfoBackUp )
+   }
+
+    $scope.saveClick=function() {
+        if (JSON.stringify($scope.userInfo) === JSON.stringify($scope.userInfoBackUp)) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'info',
+                title: 'Nothing changes',
+                showConfirmButton: false,
+                timer: 1500
+            })
         } else {
-            $scope.nameError = '';
+            $http.post("/userinfo/userinfo-login", $scope.userInfo).then(resp => {
+                Swal.fire('Update successfully')
+            })
         }
 
-        if ($scope.userInfo.gmail === '') {
-            $scope.passwordError = 'Please enter your Email.';
-        } else {
-            $scope.passwordError = '';
-        }
-
-        // If the form is valid, submit it
-        if ($scope.nameError === '' && $scope.passwordError === '') {
-
-        }
-    };
-
-
-
+    }
 
 
 }
-
 

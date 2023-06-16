@@ -47,6 +47,24 @@ public class Userss {
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
     List<Order> orders;
 
+    @Override
+    public String toString() {
+        return "Userss{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", photo='" + photo + '\'' +
+                ", gmail='" + gmail + '\'' +
+                ", address='" + address + '\'' +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", account=" + account +
+                ", authorities=" + authorities +
+                ", orders=" + orders +
+                ", reviews=" + reviews +
+                '}';
+    }
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user_id")
     List<Reviews> reviews;

@@ -56,25 +56,49 @@
     <div class="section">
         <!-- container -->
         <div class="container" ng-controller="userinfo-ctrl">
-
-            <form name="myForm">
+            <script>
+                function showImage() {
+                    const file = document.getElementById("file-input").files[0];
+                    const reader = new FileReader();
+                    reader.onload = function() {
+                        const img = document.getElementById("image-avatar");
+                        img.src = reader.result;
+                    };
+                    reader.readAsDataURL(file);
+                    if(file){
+                        document.getElementById("image-name").innerHTML=file.name;
+                        document.getElementById("update-image-btn").removeAttribute("disabled")
+                    }else{
+                        document.getElementById("image-name").innerHTM=" Choose Image"
+                        document.getElementById("update-image-btn").setAttribute("disabled","disabled")
+                    }
+                }
+            </script>
             <!-- row -->
             <div class="container rounded bg-white mt-5 mb-5">
                 <div class="row">
                     <div class="col-md-5 border-right">
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                            <img class="rounded-circle mt-5" width="150px"
-                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <form action="{{'http://localhost:8080/userinfo/image?id='+userInfo.id}}"  method="post" enctype="multipart/form-data">
+                                <img class="rounded-circle mt-5" width="150px" id="image-avatar"
+                                     src="./assert/user/img/{{userInfo.photo}}"
+                                >
+                                <br/>
+                                <span class="font-weight-bold">{{fullName}}</span>
+                                <br/>
+                                <input type="file" id="file-input" name="file" onchange="showImage()"  style="display: none;" accept="image/*" >
+                                <label for="file-input" class="custom-file-upload">
+                                    <span class="fa fa-upload"></span>
+                                  <span id="image-name" >Choose Image</span>
+                                </label>
+                                <br/>
+                                <br/>
+                                   <input class=" text-center" disabled="disabled" id="update-image-btn" type="submit" value="Update Image" style="margin-left: 7px"/>
+                            </form>
                             <br/>
-                            <span class="font-weight-bold">{{fullName}}</span>
-                            <br/>
-                            <br/>
-                            <span class=" text-center"><button class="btn btn-primary profile-button" type="button">Update </button></span>
-                            <span class=" text-center" style="margin-left: 7px"><button
-                                    class="btn btn-danger profile-button" type="button">Delete </button></span>
                         </div>
                     </div>
-                    <div class="col-md-5 border-right">
+                    <form name="myForm" ng-submit="saveClick()" class="col-md-5 border-right">
                         <div class="p-3 py-5">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="text-left">Profile Settings</h4>
@@ -86,7 +110,7 @@
                                 <span style="color: red;font-size: 12px;font-weight: bold" ng-if="userInfo.fullName==='' && myForm.$dirty">Please enter your full name</span>
                                 </div>
                                 <div class="col-md-12 " style="margin-top: 10px"><label class="labels">Phone
-                                    Number</label><input ng-model="userInfo.phone" type="tel"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control"
+                                    Number</label><input ng-model="userInfo.phone" type="tel"  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control"
                                                          placeholder="Enter phone number" value="{{userInfo.phone}}"></div>
                                 <div class="col-md-12 " style="margin-top: 10px"><label class="labels">Email
                                     ID</label><input ng-model="userInfo.gmail" type="email" class="form-control" placeholder="Enter email"
@@ -96,14 +120,13 @@
                                                                             placeholder="Enter address" value="userInfo.address"></div>
                             </div>
                             <div class="mt-5 text-center">
-                                <button class="btn btn-primary profile-button" ng-click="getUserInfo()" type="submit">Save Profile</button>
-                                <button class="btn btn-warning text-black profile-button" style="color: black;margin-left: 10px" type="button">Redo</button>
+                                <button class="btn btn-primary profile-button" type="submit" >Save Profile</button>
+                                <button class="btn btn-warning text-black profile-button" style="color: black;margin-left: 10px" type="button" ng-click="redoClick()">Redo</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            </form>
         </div>
     </div>
 

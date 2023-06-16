@@ -4,7 +4,9 @@ import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @Service
@@ -45,4 +47,12 @@ public class UserServiceImpl implements UserService {
     public void delete(Integer id) {
         u.deleteById(id);
     }
+
+    @Override
+    public void updateUserImage(int id, String nameImage) throws ChangeSetPersister.NotFoundException {
+        Userss user = u.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
+        user.setPhoto(nameImage);
+        u.save(user);
+    }
+
 }
