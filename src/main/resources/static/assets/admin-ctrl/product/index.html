@@ -1,0 +1,50 @@
+<!-- MAIN CONTENT-->
+
+<div class="tab-content">
+    <div id="edit" >
+        <div ng-include="'/assets/admin-ctrl/product/_form.html'"></div>
+    </div>
+    <div id="list" >
+        <div ng-include="'/assets/admin-ctrl/product/_table.html'"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-footer text-center">
+    <button class="btn btn-danger" ng-click="pager.first()" type="button">
+        <i class="fa-solid fa-circle-chevron-left"></i>
+    </button>
+    <button class="btn btn-primary" ng-click="pager.prev()" type="button">
+        <i class="fa-solid fa-backward"></i>
+    </button>
+    <button class="btn btn-warning">
+        <i class="fa-solid fa-download"></i> {{pager.page + 1}} of {{pager.count}}
+    </button>
+    <button class="btn btn-primary" ng-click="pager.next()" type="button">
+        <i class="fa-solid fa-forward"></i>
+    </button>
+    <button class="btn btn-danger" ng-click="pager.last()" type="button">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+    </button>
+</div>
+
+
