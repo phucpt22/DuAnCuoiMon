@@ -1,182 +1,188 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>store</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>store</title>
 
-    </head>
-	<body >
-		<main >
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- ASIDE -->
-					<div id="aside" class="col-md-3">
+</head>
+<body>
+<main>
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- ASIDE -->
+                <div id="aside" class="col-md-3">
 
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Categories</h3>
-							<div class="checkbox-filter" >
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-1">
-									<label for="category-1">
-										<span></span>
-										<a href="/product/list">Tất cả các loại</a>
-									</label>
-								</div>
-								<div class="input-checkbox" th:each="c : *{cates}">
-									<input type="radio" id="category-2">
-									<label for="category-2">
-										<span></span>
-										<a class="dropdown-item"
-											   th:href="@{|/products?cid=${c.id}&name=${name}&page=${currentPage}|}"> [[${c.name}]]</a>
-									</label>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">Categories</h3>
+                        <div class="checkbox-filter">
+                            <div class="input-checkbox">
+                                <input type="checkbox" id="category-1">
+                                <label for="category-1">
+                                    <span></span>
+                                    <a href="/product/list">Tất cả các loại</a>
+                                </label>
+                            </div>
+                            <div class="input-checkbox" th:each="c : *{cates}">
+                                <input type="radio" id="category-2">
+                                <label for="category-2">
+                                    <span></span>
+                                    <a class="dropdown-item"
+                                       th:href="@{|/products?cid=${c.id}&name=${name}&page=${currentPage}|}">
+                                        [[${c.name}]]</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /aside Widget -->
 
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Price</h3>
-							<div class="price-filter">
-								<div id="price-slider"></div>
-								<div class="input-number price-min">
-									<input id="price-min" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-								<span>-</span>
-								<div class="input-number price-max">
-									<input id="price-max" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-							</div>
-							<br>
-							<button type="submit" style="width: 100%" class="btn btn-danger"> Filter </button>
-						</div>
-						<!-- /aside Widget -->
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">Price</h3>
+                        <div class="price-filter">
+                            <div id="price-slider"></div>
+                            <div class="input-number price-min">
+                                <input id="price-min" type="number">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                            <span>-</span>
+                            <div class="input-number price-max">
+                                <input id="price-max" type="number">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" style="width: 100%" class="btn btn-danger"> Filter</button>
+                    </div>
+                    <!-- /aside Widget -->
 
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							<div th:each="bs : ${bestseller}" class="product-widget">
-								<div class="product-img">
-									<img th:src="@{|${bs.thumbnail_url}|}"  alt="">
-								</div>
-								<div class="product-body">
-									<h3 class="product-name"><a href="#" th:text="${bs.name}"></a></h3>
-									<h4 class="product-price" th:text="${bs.price}"> <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-						</div>
-						<!--	 /aside Widget-->
-					</div>
-					<!-- /ASIDE -->
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">Top selling</h3>
+                        <div th:each="bs : ${bestseller}" class="product-widget">
+                            <div class="product-img">
+                                <img th:src="@{|${bs.thumbnail_url}|}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name"><a href="#" th:text="${bs.name}"></a></h3>
+                                <h4 class="product-price">
+                                    {{bs.price}}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!--	 /aside Widget-->
+                </div>
+                <!-- /ASIDE -->
 
-					<!-- STORE -->
-					<div id="store" class="col-md-9">
-						<!-- store top filter -->
-						<div class="header-search">
-							<form method="get" th:action="@{/products}">
-								<input type="hidden" name="cid" th:value="${cid}">
-								<input type="hidden" name="page" th:value="${currentPage}">
-								<input style="border-radius: 30px 0px 0px 30px" type="text" id="searchTerm"
-									   th:value="${name}"
-									   name="name" class="input" placeholder="Search here">
-								<button type="submit" class="search-btn">Search</button>
-							</form>
+                <!-- STORE -->
+                <div id="store" class="col-md-9">
+                    <!-- store top filter -->
+                    <div class="header-search">
+                        <form method="get" th:action="@{/products}">
+                            <input type="hidden" name="cid" th:value="${cid}">
+                            <input type="hidden" name="page" th:value="${currentPage}">
+                            <input style="border-radius: 30px 0px 0px 30px" type="text" id="searchTerm"
+                                   th:value="${name}"
+                                   name="name" class="input" placeholder="Search here">
+                            <button type="submit" class="search-btn">Search</button>
+                        </form>
 
-							</form>
-						</div>
-						<div class="store-filter clearfix">
-						</div>
-						<!-- /store top filter -->
-						<!-- store products -->
-						<div class="row">
-							<!-- product -->
-							<div class="col-md-4" th:each="p : ${items}">
-								<div class="product">
-									<div class="product-img">
-										<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
-										<div class="product-label">
-											<span class="sale" th:text="${p.discount + '%'}"> </span>
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category" th:text="${p.category.name}"></p>
-										<h3 class="product-name" th:text="${p.name}"> </h3>
-										<h4 class="product-price" > $[[${p.price}]]  <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<a th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"><i class="fa fa-eye"></i> See more...
-											</a>
-											<a ><i class="fa-solid fa-thumbs-up"></i> Like
-											</a>
+                        </form>
+                    </div>
+                    <div class="store-filter clearfix">
+                    </div>
+                    <!-- /store top filter -->
+                    <!-- store products -->
+                    <div class="row">
+                        <!-- product -->
+                        <div class="col-md-4" th:each="p : ${items}">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
+                                    <div class="product-label">
+                                        <span class="sale" th:text="${p.discount + '%'}"> </span>
+                                        <span class="new">NEW</span>
+                                    </div>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category" th:text="${p.category.name}"></p>
+                                    <h3 class="product-name" th:text="${p.name}"></h3>
+                                    <h4 class="product-price"> [[${p.price}]] </h4>
+                                    <div class="product-rating">
+                                        <div class="rating-stars"><span th:each="i : ${#numbers.sequence(1, 5)}"> <i
+                                                th:if="${p.rating_average >= i}" class="fa fa-star"
+                                                style="color: red;"></i> <i
+                                                th:if="${(p.rating_average < i) && (p.rating_average >= (i-0.5))}"
+                                                class="fa fa-star-half-o" style="color: red;"></i> </span></div>
+                                    </div>
+                                    <div class="product-btns">
+                                        <a th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"><i
+                                                class="fa fa-eye"></i> See more...
+                                        </a>
+                                        <a><i class="fa-solid fa-thumbs-up"></i> Like
+                                        </a>
 
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-							<input type="hidden" name="cid" th:value="${cid}">
-					</div>
-						<!-- /store products -->
-						<div class="store-filter clearfix">
-							<ul class="store-pagination">
-								<!-- Add this code to conditionally add first/previous page links -->
-								<li th:if="${currentPage > 0}">
-									<a th:href="@{/products(page=0,name=${name},cid=${cid})}">&laquo;</a>
-								</li>
-								<li th:if="${currentPage > 1}">
-									<a th:href="@{/products(page=${currentPage-1},name=${name},cid=${cid})}">&lsaquo;</a>
-								</li>
-								<!-- Add this code to display page links -->
-								<li th:each="pageNum : ${#numbers.sequence(currentPage-1, currentPage +4)}"
-									th:if="${pageNum > 0 and pageNum < totalPages}"
-									th:classappend="${pageNum == currentPage} ? active">
-									<a th:href="@{|/products?page=${pageNum}&name=${name}&cid=${cid}|}"
-									   th:text="${pageNum}" class="page-link"></a>
-								</li>
-								<!-- Add this code to conditionally add last/next page links -->
-								<li th:if="${currentPage < totalPages-2}">
-									<a th:href="@{/products(page=${currentPage+1},name=${name},cid=${cid})}">&rsaquo;</a>
-								</li>
-								<li th:if="${currentPage < totalPages-1}">
-									<a th:href="@{|/products?page=${totalPages-1}&name=${name}&cid=${cid}|}">&raquo;</a>
-								</li>
-							</ul>
-						</div>
-						<!-- /store bottom filter -->
-					</div>
-					<!-- /STORE -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
-	</main>
-	<script>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart">
+                                    <button th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart-btn"><i
+                                            class="fa fa-shopping-cart"></i> add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /product -->
+                        <input type="hidden" name="cid" th:value="${cid}">
+                    </div>
+                    <!-- /store products -->
+                    <div class="store-filter clearfix">
+                        <ul class="store-pagination">
+                            <!-- Add this code to conditionally add first/previous page links -->
+                            <li th:if="${currentPage > 0}">
+                                <a th:href="@{/products(page=0,name=${name},cid=${cid})}">&laquo;</a>
+                            </li>
+                            <li th:if="${currentPage > 1}">
+                                <a th:href="@{/products(page=${currentPage-1},name=${name},cid=${cid})}">&lsaquo;</a>
+                            </li>
+                            <!-- Add this code to display page links -->
+                            <li th:each="pageNum : ${#numbers.sequence(currentPage-1, currentPage +4)}"
+                                th:if="${pageNum > 0 and pageNum < totalPages}"
+                                th:classappend="${pageNum == currentPage} ? active">
+                                <a th:href="@{|/products?page=${pageNum}&name=${name}&cid=${cid}|}"
+                                   th:text="${pageNum}" class="page-link"></a>
+                            </li>
+                            <!-- Add this code to conditionally add last/next page links -->
+                            <li th:if="${currentPage < totalPages-2}">
+                                <a th:href="@{/products(page=${currentPage+1},name=${name},cid=${cid})}">&rsaquo;</a>
+                            </li>
+                            <li th:if="${currentPage < totalPages-1}">
+                                <a th:href="@{|/products?page=${totalPages-1}&name=${name}&cid=${cid}|}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /store bottom filter -->
+                </div>
+                <!-- /STORE -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+</main>
+<script>
 
 
-	</script>
-	</body>
+</script>
+</body>
 
 </html>

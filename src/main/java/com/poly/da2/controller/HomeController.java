@@ -1,6 +1,6 @@
 package com.poly.da2.controller;
 
-import com.poly.da2.crawlData.CrawlProduct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +23,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = {"/homepage"})
 	public String aa() {
-		return "user/index";
+		return "redirect:/user/index.html";
 	}
 
 }

@@ -61,7 +61,7 @@ public class LoginService implements UserDetailsService {
 		String email = oauth2.getPrincipal().getAttribute("email");
 		String fullname = oauth2.getPrincipal().getAttribute("fullname");
 		//String password = Long.toHexString(System.currentTimeMillis());
-		UserDetails user = User.withUsername(email).disabled(true).password("123").roles("r2").build();
+		UserDetails user = User.withUsername(email).password("123").roles("r2").build();
 		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		if(uRepository.findByEmail(email) == null){

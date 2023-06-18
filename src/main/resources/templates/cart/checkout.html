@@ -28,157 +28,117 @@
 	<body>
 	<main>
 		<div th:replace="~{/cart/view::shopping_cart}"></div>
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-7">
-						<!-- Billing Details -->
-						<div class="billing-details">
-							<div class="section-title">
-								<h3 class="title">Billing address</h3>
+		<form method="post" >
+			<!-- SECTION -->
+			<div class="section">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-7">
+							<!-- Billing Details -->
+							<div class="billing-details">
+								<div class="section-title">
+									<h3 class="title">Billing address</h3>
+								</div>
+								<div class="form-group">
+									<input class="form-control" type="hidden" th:value="${userId}" id="id"/>
+								</div>
+								<div class="form-group">
+									<label>Recipient</label>
+									<div class="form-control">[[${#request.remoteUser}]]</div>
+								</div>
+								<div class="form-group">
+									<label class="form-label">Date</label>
+									<div class="form-control">{{order.createDate|date:'dd-MM-yyyy'}}</div>
+								</div>
+								<div class="form-group">
+									<label class="form-label">Address</label>
+									<textarea ng-model="order.address" class="form-control" id="exampleFormControlTextarea1"
+											  rows="3"></textarea>
+								</div>
+								<div class="form-group">
+									<input id="phone" class="input" type="tel" name="tel" placeholder="Telephone">
+								</div>
 							</div>
-							<div class="form-group">
-<!--								<label>ID User</label>-->
-								<input class="form-control" type="hidden" th:value="${userId}" id="id"/>
-							</div>
-							<div class="form-group">
-								<label>Recipient</label>
-								<div class="form-control">[[${#request.remoteUser}]]</div>
-							</div>
-							<div class="form-group">
-								<label class="form-label">Date</label>
-								<div class="form-control">{{order.createDate|date:'dd-MM-yyyy'}}</div>
-							</div>
-							<div class="form-group">
-								<label class="form-label">Address</label>
-								<textarea ng-model="order.address" class="form-control" id="exampleFormControlTextarea1"
-										  rows="3"></textarea>
-							</div>
-							<div class="form-group">
-								<input id="phone" class="input" type="tel" name="tel" placeholder="Telephone">
-							</div>
-						</div>
-						<!-- /Billing Details -->
+							<!-- /Billing Details -->
 
-						<!-- Order notes -->
-						<div class="order-notes">
-							<textarea class="input" placeholder="Order Notes"></textarea>
+							<!-- Order notes -->
+							<div class="order-notes">
+								<textarea class="input" placeholder="Order Notes"></textarea>
+							</div>
+							<!-- /Order notes -->
 						</div>
-						<!-- /Order notes -->
+
+						<!-- Order Details -->
+						<form ng-model="order">
+							<div class="col-md-5 order-details">
+								<div class="section-title text-center">
+									<h3 class="title">Your Order</h3>
+								</div>
+								<div class="order-summary">
+									<div class="order-col">
+										<div><strong>PRODUCT</strong></div>
+										<div><strong>TOTAL</strong></div>
+									</div>
+									<div class="order-products" ng-repeat="item in cart.items">
+										<div class="order-col">
+											<div>{{item.qty}}x {{item.name}}</div>
+											<div>${{item.price*item.qty|number:2}}</div>
+										</div>
+									</div>
+									<div class="order-col">
+										<div>Shiping</div>
+										<div><strong>FREE</strong></div>
+									</div>
+									<div class="order-col">
+										<div><strong>TOTAL</strong></div>
+
+										<div><strong id="origninal_price" name="price" class="order-total">{{cart.amount|number:2}}</strong></div>
+									</div>
+								</div>
+								<div class="payment-method">
+									<div class="input-radio">
+										<input type="radio" name="payment" id="payment-1" value="PAYPAL" ng-model="order.payments">
+										<label for="payment-1">
+											<span></span>
+											Thanh toán qua thẻ tín dụng
+										</label>
+										<div class="caption">
+											<p>Thanh toán trả trước.</p> <br>
+											<input type="submit" value="Continue to checkout" class="btn">
+
+										</div>
+									</div>
+									<div class="input-radio">
+										<input type="radio" name="payment" id="payment-2" value="COD" ng-model="order.payments">
+										<label for="payment-2">
+											<span></span>
+											Thanh toán khi nhận hàng.
+										</label>
+										<div class="caption">
+											<p>Sau khi shipper giao hàng, người mua có thể kiểm tra đơn hàng và sau đó thanh toán.</p>
+										</div>
+									</div>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="terms">
+									<label for="terms">
+										<span></span>
+										I've read and accept the <a href="#">terms & conditions</a>
+									</label>
+								</div>
+								<a href="#" ng-disabled="!order.payments" ng-click="order.purchase()" class="primary-btn order-submit">Place order</a>
+							</div>
+						</form>
+						<!-- /Order Details -->
 					</div>
-
-					<!-- Order Details -->
-					<div class="col-md-5 order-details">
-						<div class="section-title text-center">
-							<h3 class="title">Your Order</h3>
-						</div>
-						<div class="order-summary">
-							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
-							</div>
-							<div class="order-products" ng-repeat="item in cart.items">
-								<div class="order-col">
-									<div>{{item.qty}}x {{item.name}}</div>
-									<div>${{item.price*item.qty|number:2}}</div>
-								</div>
-							</div>
-							<div class="order-col">
-								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
-							</div>
-							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<div><strong id="origninal_price"  class="order-total">{{cart.amount|number:2}}</strong></div>
-<!--								-->
-<!--								ng-bind="cart.amount | number:2"-->
-							</div>
-						</div>
-						<div class="payment-method">
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1" >
-								<label for="payment-1">
-									<span></span>
-									Thanh toán qua thẻ tín dụng
-								</label>
-								<div class="caption">
-									<p>Thanh toán trả trước.</p>
-									<div id="paypal-button-container"></div>
-
-									<!-- Include the PayPal JavaScript SDK -->
-									<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
-
-									<script>
-										paypal.Buttons({
-											// Call your server to set up the transaction
-											createOrder: function(data, actions) {
-												return fetch('/demo/checkout/api/paypal/order/create/', {
-													method: 'post'
-												}).then(function(res) {
-													return res.json();
-												}).then(function(orderData) {
-													return orderData.id;
-												});
-											},
-											onApprove: function(data, actions) {
-												return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
-													method: 'post'
-												}).then(function(res) {
-													return res.json();
-												}).then(function(orderData) {
-													var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
-
-													if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
-														return actions.restart(); // Recoverable state, per:
-													}
-
-													if (errorDetail) {
-														var msg = 'Sorry, your transaction could not be processed.';
-														if (errorDetail.description) msg += '\n\n' + errorDetail.description;
-														if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-														return alert(msg); // Show a failure message (try to avoid alerts in production environments)
-													}
-
-													// Successful capture! For demo purposes:
-													console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-													var transaction = orderData.purchase_units[0].payments.captures[0];
-													alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
-												});
-											}
-										}).render('#paypal-button-container');
-									</script>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2" value="COD" ng-model="order.payments">
-								<label for="payment-2">
-									<span></span>
-									Thanh toán khi nhận hàng.
-								</label>
-								<div class="caption">
-									<p>Sau khi shipper giao hàng, người mua có thể kiểm tra đơn hàng và sau đó thanh toán.</p>
-								</div>
-							</div>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="terms">
-							<label for="terms">
-								<span></span>
-								I've read and accept the <a href="#">terms & conditions</a>
-							</label>
-						</div>
-						<a href="#" ng-click="order.purchase()" class="primary-btn order-submit">Place order</a>
-					</div>
-					<!-- /Order Details -->
+					<!-- /row -->
 				</div>
-				<!-- /row -->
+				<!-- /container -->
 			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
+			<!-- /SECTION -->
+		</form>
 	</main>
 
 	</body>

@@ -49,8 +49,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findByUsername(String username) {
-		return orderRepository.findByUsername(username);
+	public List<Order> findByUsername(String username, String status) {
+		return orderRepository.findByUsername(username,status);
 	}
 
 

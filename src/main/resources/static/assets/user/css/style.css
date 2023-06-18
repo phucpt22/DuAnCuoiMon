@@ -956,9 +956,9 @@ textarea.input {
 }
 
 .product .product-body .product-rating:after {
-  content: "";
-  position: absolute;
-  top: 50%;
+  /*content: "";*/
+  /*position: absolute;*/
+  /*top: 50%;*/
   left: 0;
   right: 0;
   -webkit-transform: translateY(-50%);

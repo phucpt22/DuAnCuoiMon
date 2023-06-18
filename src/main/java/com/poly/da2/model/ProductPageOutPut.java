@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class ProductPageOutPut {
     List<Product> products;
-
+    Double price;
     int totalPage;
 }
