@@ -41,6 +41,10 @@ app.controller("product-ctrl", function($scope, $http) {
     };
     $scope.create = function() {
         var item = angular.copy($scope.form);
+        item.rating_average = 0;
+        item.review_count=0;
+        item.discount=0;
+
         $http
             .post("/rest/products", item)
             .then((resp) => {
@@ -103,13 +107,25 @@ app.controller("product-ctrl", function($scope, $http) {
             });
     };
 
+
     $scope.pager = {
         page: 0,
-        size:10,
+        size: 10,
         get items(){
-            var start = this.page *this.size;
+            const start = this.page * this.size;
             return $scope.items.slice(start, start + this.size);
         },
+
+
+
+
+
+
+
+
+
+
+
         get count(){
             return Math.ceil(1.0 * $scope.items.length / this.size);
         },
