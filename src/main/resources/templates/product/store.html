@@ -73,9 +73,8 @@
                             </div>
                             <div class="product-body">
                                 <h3 class="product-name"><a href="#" th:text="${bs.name}"></a></h3>
-                                <h4 class="product-price">
-                                    {{bs.price}}
-                                </h4>
+                                <h4 class="product-price"
+                                    th:text="${bs.price}"></h4>
                             </div>
                         </div>
                     </div>
@@ -116,7 +115,7 @@
                                 <div class="product-body">
                                     <p class="product-category" th:text="${p.category.name}"></p>
                                     <h3 class="product-name" th:text="${p.name}"></h3>
-                                    <h4 class="product-price"> [[${p.price}]] </h4>
+                                    <h4 class="product-price" th:text="${p.price}"></h4>
                                     <div class="product-rating">
                                         <div class="rating-stars"><span th:each="i : ${#numbers.sequence(1, 5)}"> <i
                                                 th:if="${p.rating_average >= i}" class="fa fa-star"

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Product implements Serializable {
 	private Integer review_count;
 	private String image_urls;
 	private double discount;
+
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")

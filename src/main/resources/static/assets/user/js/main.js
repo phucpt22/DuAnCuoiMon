@@ -160,8 +160,8 @@
 		});
 		priceSlider.noUiSlider.on('update', function( values, handle ) {
 			var value = values[handle];
-			handle ? priceInputMax.value = value.slice(0, -3)
-				: priceInputMin.value = value.slice(0, -3)
+			handle ? priceInputMax.value = value.slice(0, -3).toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})
+				: priceInputMin.value = value.slice(0, -3).toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})
 		});
 	}
 
