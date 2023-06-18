@@ -28,5 +28,5 @@ public interface ProductService {
 	List<Product> sanPhamLienQuan(String cid, Pageable pageable);
 
 
-	ProductPageOutPut filterProducts(String name, String cid, Pageable pageable);
+	ProductPageOutPut filterProducts(String name, String cid, Double min_price, Double max_price, Pageable pageable);
 }

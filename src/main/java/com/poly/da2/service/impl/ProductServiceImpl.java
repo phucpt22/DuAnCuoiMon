@@ -62,9 +62,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductPageOutPut filterProducts(String name, String cid, Pageable pageable) {
+	public ProductPageOutPut filterProducts(String name, String cid, Double min_price, Double max_price,Pageable pageable) {
 		ProductPageOutPut productPageOutPut = new ProductPageOutPut();
-		List<Product> products = productRepository.filterProduct(name, cid);
+		List<Product> products = productRepository.filterProduct(name, cid, min_price,max_price);
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();
 		int startItem = currentPage * pageSize;

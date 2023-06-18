@@ -1,5 +1,6 @@
 package com.poly.da2.controller;
 
+import com.poly.da2.Utils.NumberUtils;
 import com.poly.da2.entity.Reviews;
 import com.poly.da2.entity.Userss;
 import com.poly.da2.model.ProductPageOutPut;
@@ -40,8 +41,11 @@ public class ProductController {
 	@Autowired
 	ReviewRepository reviewRepository;
 
+
 	@Autowired
 	UserRepository uRepository;
+	private String a = NumberUtils.maxNumber;
+
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model,
 						 @RequestParam(defaultValue = "0") int page,
@@ -82,12 +86,14 @@ public class ProductController {
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
 							  @RequestParam(defaultValue = "6") int size,
 							  @RequestParam(name = "cid", defaultValue = "")String cid,
+							  @RequestParam(name = "min_price", defaultValue = "0")Double min_price,
+							  @RequestParam(name = "max_price", defaultValue = "900000000")Double max_price,
 							  @RequestParam(name = "name", defaultValue = "") String name,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> listc = categoryService.findAll();
 		List<Product> bestseller = dao.sanphambanchay();
-		ProductPageOutPut productPage = productService.filterProducts( name, cid, pageable);
+		ProductPageOutPut productPage = productService.filterProducts( name, cid, min_price, max_price, pageable);
 		model.addAttribute("items", productPage.getProducts());
 		model.addAttribute("cates", listc);
 		model.addAttribute("bestseller", bestseller);
@@ -95,6 +101,8 @@ public class ProductController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("cid", cid);
 		model.addAttribute("name", name);
+		model.addAttribute("min_price", min_price);
+		model.addAttribute("max_price", max_price);
 		return "product/store";
 	}
 	@PostMapping("/reviews")

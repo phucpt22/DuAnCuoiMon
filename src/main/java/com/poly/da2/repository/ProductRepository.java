@@ -21,10 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Page<Product> getByName(String name, Pageable pageable);
 
 	@Procedure(name="filterProduct")
-	List<Product> filterProduct(@Param("name") String name, @Param("cid") String cid);
-
-	@Query("SELECT o FROM Product o WHERE o.price BETWEEN ?1 AND ?2")
-	Page<Product> findByPrice(double min, double max, Pageable pageable);
+	List<Product> filterProduct(@Param("name") String name, @Param("cid") String cid, @Param("min_price") Double min_price, @Param("max_price") Double max_price);
 
 	@Transactional(readOnly = true)
 	@Procedure(name="Product.sp_SpDuoc_Mua_nhieu")
