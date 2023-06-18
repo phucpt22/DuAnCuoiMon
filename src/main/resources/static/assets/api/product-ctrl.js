@@ -1,6 +1,6 @@
 app.controller("product-ctrl", function($scope, $http) {
     $scope.items = [];
-    //$scope.cates = [];//
+    $scope.cates = [];
     $scope.form = {};
 
     $scope.initialize = function() {
@@ -29,7 +29,7 @@ app.controller("product-ctrl", function($scope, $http) {
 
     $scope.edit = function(item) {
         $scope.form = angular.copy(item);
-        $(".nav-tabs a:eq(0)").tab("show");
+      //  $(".nav-tabs a:eq(0)").tab("show");
     };
 
     $scope.reset = function() {

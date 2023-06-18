@@ -1,52 +1,106 @@
-<form>
-    <div class="form-row">
-       <label for="exampleFormControlFile1"> <img src="/assets/admin/images/bg-title-01.jpg" class="rounded float-left form-group" width="200" height="200"
-                    alt="..."></label>
+<!-- Button trigger modal -->
 
-        <div class="form-group">
-            <label for="exampleFormControlFile1">Example file input</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div>
-    </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputID">ID</label>
-            <input type="text" class="form-control" id="inputID">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName">
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="exampleFormControlFile1">
+                                <img ng-src="{{form.thumbnail_url}}"  class="rounded form-group"
+                                     width="150" height="150" alt="...">
+                            </label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlFile1">Example file input</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <!--
+                       <div class="form-group col-md-6">
+                            <label for="inputID">ID</label>
+                            <input type="text" class="form-control form-control-sm" id="inputID">
+                        </div>
+                        -->
+                        <div class="form-group">
+                            <label for="inputName">Name</label>
+                            <input type="text" class="form-control form-control-sm" id="inputName" ng-model="form.name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDate">Create Date</label>
+                            <input type="date" class="form-control form-control-sm" id="inputDate" placeholder="dd/MM/yyy" ng-model="form.createDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPrice">Price</label>
+                            <input type="text" class="form-control form-control-sm" id="inputPrice" ng-model="form.price">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div><label for="inlineRadio1">Available</label></div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                       ng-value="true" ng-model="form.available">
+                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                       ng-value="false" ng-model="form.available">
+                                <label class="form-check-label" for="inlineRadio2">No</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCategory">Category Id</label>
+                            <select id="inputCategory" class="form-control form-control-sm" ng-model="form.category.id">
+                                <option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputDecription">Decription</label>
+                        <textarea type="text" class="form-control form-control-sm" id="inputDecription"
+                                  placeholder="Decription . . ." ng-model="form.description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-primary">Update</button>
+            </div>
         </div>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputDate">Create Date</label>
-            <input type="date" class="form-control" id="inputDate" placeholder="dd/MM/yyy">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputPrice">Price</label>
-            <input type="text" class="form-control" id="inputPrice">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inlineRadio1">Available</label>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Yes</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">No</label>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputCategory">Category Id</label>
-            <select id="inputCategory" class="form-control">
-                <option>Choose...</option>
-                <option>...</option>
-            </select>
-        </div>
-    </div>
-</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
