@@ -1,34 +1,12 @@
 <!-- MAIN CONTENT-->
-
 <div class="tab-content">
     <div id="edit" >
         <div ng-include="'/assets/admin-ctrl/product/_form.html'"></div>
     </div>
     <div id="list" >
-        <div ng-include="'/assets/admin-ctrl/product/_table.html'"></div>
+        <div  class="table-responsive" ng-include="'/assets/admin-ctrl/product/_table.html'"></div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="card-footer text-center">
     <button class="btn btn-danger" ng-click="pager.first()" type="button">
         <i class="fa-solid fa-circle-chevron-left"></i>

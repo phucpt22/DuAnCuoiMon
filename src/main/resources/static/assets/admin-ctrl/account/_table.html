@@ -1,13 +1,11 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th class="col-1">STT</th>
-        <th class="col-2">Image</th>
-        <th class="col-6">Name</th>
-        <th class="col-2">Create Date</th>
-        <th class="col-2">Price</th>
-
-        <th class="col-2">
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Image</th>
+        <th scope="col">
             <div class="btn-group btn-group-xs">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -23,13 +21,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="item in pager.items">
-        <th>{{item.id - 211}}</th>
-        <td> <img ng-src="{{item.thumbnail_url}}" class="rounded form-group"
-                  width="100" height="100" alt="..."></td>
+        <th>{{item.id}}</th>
         <td>{{item.name}}</td>
-        <td>{{item.createDate | date:'dd-MM-yyyy' }}</td>
-        <td>{{item.price | number:0}}</td>
-
+        <td>{{item.price | number:2}}</td>
+        <td>{{item.image}}</td>
         <td>
             <div class="btn-group btn-group-xs">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop" ng-click="edit(item)">
