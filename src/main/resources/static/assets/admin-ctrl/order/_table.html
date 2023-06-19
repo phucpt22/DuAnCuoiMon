@@ -1,29 +1,26 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th class="col-1">STT</th>
-        <th class="col-2">Image</th>
-        <th class="col-6">Name</th>
-        <th class="col-2">Create Date</th>
-        <th class="col-2">Price</th>
-
-        <th class="col-2">
-
-        </th>
+        <th scope="col">So Hoa Don</th>
+        <th scope="col">Tong gia</th>
+        <th scope="col">Ngay tao</th>
+        <th scope="col">Ma Khach hang</th>
+        <th scope="col">Dia chi</th>
+        <th scope="col">Trang Thai</th>
+        <th scope="col">PP Thanh toan</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="item in pager.items">
-        <th>{{item.id - 211}}</th>
-        <td> <img ng-src="{{item.thumbnail_url}}" class="rounded form-group"
-                  width="100" height="100" alt="..."></td>
+        <th>{{item.id}}</th>
         <td>{{item.name}}</td>
-        <td>{{item.createDate | date:'dd-MM-yyyy' }}</td>
-        <td>{{item.price | number:0}}</td>
-
+        <td>{{item.price | number:2}}</td>
+        <td>{{item.image}}</td>
         <td>
             <div class="btn-group btn-group-xs">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop" ng-click="edit(item)">
+                <button type="button" class="btn btn-success"
+                        ng-click="edit(item)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-eraser" viewBox="0 0 16 16">
                         <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
@@ -38,6 +35,30 @@
                 </button>
             </div>
         </td>
+    </tr>
+
+
+    <tr >
+
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td ng-click="" data-toggle="modal" data-target="#staticBackdrop">...</td>
+        <td>
+            <div class="btn-group btn-group-xs">
+                <button type="button" class="btn btn-success"
+                        ng-click="edit(item)">
+                    Xac nhan
+                </button>
+                <button type="button" class="btn btn-danger">
+                    Huy
+                </button>
+            </div>
+        </td>
+
     </tr>
     </tbody>
 </table>
