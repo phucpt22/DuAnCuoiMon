@@ -28,7 +28,7 @@ public class Order {
 
     private Double totalPrice;
 
-    private Double discount;
+    private Double vat;
     private String status_order;
     private String payments;
 

@@ -62,12 +62,12 @@
 									<table class="table border-info text-center m-0">
 										<thead class="table-info border-info">
 										<tr>
-											<th scope="col">STT</th>
-											<th scope="col">Ngày đặt</th>
-											<th scope="col">Địa chỉ đặt hàng</th>
-											<th scope="col">Trạng thái đơn hàng</th>
-											<th scope="col">Tổng tiền</th>
-											<th scope="col">Xem chi tiết</th>
+											<th scope="col" class="text-center">STT</th>
+											<th scope="col" class="text-center">Ngày đặt</th>
+											<th scope="col" class="text-center">Địa chỉ đặt hàng</th>
+											<th scope="col" class="text-center">Trạng thái đơn hàng</th>
+											<th scope="col" class="text-center">Tổng tiền</th>
+											<th scope="col" class="text-center">Tiện ích</th>
 										</tr>
 										</thead>
 										<tbody>
@@ -78,11 +78,15 @@
 											<td>[[${order.status_order}]]</td>
 											<td>[[${order.origninal_price}]]</td>
 											<td>
+												<a th:href="@{|/order/cancel/${order.id}|}" class="btn btn-outline-danger">
+													<i class="fa-solid fa-rotate-left"></i>
+													<b>Hủy đơn</b>
+												</a>
 												<a th:href="@{|/order/detail/${order.id}|}" class="btn btn-outline-danger">
 													<i class="fa-solid fa-magnifying-glass"></i>
-												</a></td>
+												</a>
+											</td>
 										</tr>
-
 										</tbody>
 									</table>
 								</div>
@@ -95,12 +99,12 @@
 									<table class="table border-info text-center m-0">
 										<thead class="table-info border-info">
 										<tr>
-											<th scope="col">STT</th>
-											<th scope="col">Ngày đặt</th>
-											<th scope="col">Địa chỉ đặt hàng</th>
-											<th scope="col">Trạng thái đơn hàng</th>
-											<th scope="col">Tổng tiền</th>
-											<th scope="col">Xem chi tiết</th>
+											<th scope="col" class="text-center">STT</th>
+											<th scope="col" class="text-center">Ngày đặt</th>
+											<th scope="col" class="text-center">Địa chỉ đặt hàng</th>
+											<th scope="col" class="text-center">Trạng thái đơn hàng</th>
+											<th scope="col" class="text-center">Tổng tiền</th>
+											<th scope="col" class="text-center">Tiện ích</th>
 										</tr>
 										</thead>
 										<tbody>
@@ -128,12 +132,12 @@
 									<table class="table border-info text-center m-0">
 										<thead class="table-info border-info">
 										<tr>
-											<th scope="col">STT</th>
-											<th scope="col">Ngày đặt</th>
-											<th scope="col">Địa chỉ đặt hàng</th>
-											<th scope="col">Trạng thái đơn hàng</th>
-											<th scope="col">Tổng tiền</th>
-											<th scope="col">Xem chi tiết</th>
+											<th scope="col" class="text-center">STT</th>
+											<th scope="col" class="text-center">Ngày đặt</th>
+											<th scope="col" class="text-center">Địa chỉ đặt hàng</th>
+											<th scope="col" class="text-center">Trạng thái đơn hàng</th>
+											<th scope="col" class="text-center">Tổng tiền</th>
+											<th scope="col" class="text-center">Tiện ích</th>
 										</tr>
 										</thead>
 										<tbody>
@@ -161,12 +165,12 @@
 									<table class="table border-info text-center m-0">
 										<thead class="table-info border-info">
 										<tr>
-											<th scope="col">STT</th>
-											<th scope="col">Ngày đặt</th>
-											<th scope="col">Địa chỉ đặt hàng</th>
-											<th scope="col">Trạng thái đơn hàng</th>
-											<th scope="col">Tổng tiền</th>
-											<th scope="col">Xem chi tiết</th>
+											<th scope="col" class="text-center">STT</th>
+											<th scope="col" class="text-center">Ngày đặt</th>
+											<th scope="col" class="text-center">Địa chỉ đặt hàng</th>
+											<th scope="col" class="text-center">Trạng thái đơn hàng</th>
+											<th scope="col" class="text-center">Tổng tiền</th>
+											<th scope="col" class="text-center">Tiện ích</th>
 										</tr>
 										</thead>
 										<tbody>

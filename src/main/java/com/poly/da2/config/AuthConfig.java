@@ -1,4 +1,4 @@
-package com.poly.da2;
+package com.poly.da2.config;
 
 import com.poly.da2.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

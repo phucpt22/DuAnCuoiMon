@@ -43,7 +43,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
         },
         get amount() {
             return this.items
-                .map((item) => item.qty * item.price)
+                .map((item) => item.qty * item.currentprice)
                 .reduce((total, qty) => (total += qty), 0);
         },
         saveToLocalStorage() {
@@ -55,12 +55,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             this.items = json ? JSON.parse(json) : [];
         },
     };
+
     $scope.cart.loadFormLocalStrorage();
     $scope.order = {
         createDate: new Date(),
         address: "",
-        // origninal_price: parseFloat($("#origninal_price").text()),
+        vat: 10,
         origninal_price: $scope.cart.amount,
+        //total_price:this.origninal_price * (1 + (this.vat / 100)),
         payments:"",
         status_order:"Chờ xác nhận",
         user: { id: $("#id").val()
@@ -69,9 +71,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             return $scope.cart.items.map((item) => {
                 return {
                     product: { id: item.id },
-                    price: item.price,
+                    price: item.currentprice,
                     quantity: item.qty,
-                    amount: item.price * item.qty
+                    amount: item.currentprice * item.qty
                 };
             });
         },

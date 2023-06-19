@@ -84,10 +84,10 @@ public class ProductController {
 	@Transactional(readOnly = true)
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
-							  @RequestParam(defaultValue = "6") int size,
+							  @RequestParam(defaultValue = "9") int size,
 							  @RequestParam(name = "cid", defaultValue = "")String cid,
 							  @RequestParam(name = "min_price", defaultValue = "0")Double min_price,
-							  @RequestParam(name = "max_price", defaultValue = "900000000")Double max_price,
+							  @RequestParam(name = "max_price", defaultValue = "90000000")Double max_price,
 							  @RequestParam(name = "name", defaultValue = "") String name,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);

@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">{{item.name}}</a></h3>
-                                            <h4 class="product-price"><span class="qty">{{item.qty}}x</span>{{item.price*item.qty|number:2}}
+                                            <h4 class="product-price"><span class="qty">{{item.qty}}x</span>{{item.currentprice*item.qty|number:2}}
                                             </h4>
                                         </div>
                                         <button ng-click="cart.remove(item.id)" class="delete"><i
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="cart-summary">
                                     <small>{{cart.count}} Item(s) selected</small>
-                                    <h5>Amount: ${{cart.amount|number:2}}</h5>
+                                    <h5>Amount: {{cart.amount|number:2}}</h5>
                                 </div>
                                 <div class="cart-btns">
                                     <a th:href="@{/cart/view}">View Cart</a>
