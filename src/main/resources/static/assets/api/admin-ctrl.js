@@ -19,7 +19,7 @@ app.config(function($routeProvider) {
             controller: "account-ctrl"
         })
         .when("/orders", {
-            templateUrl: "/static/assets/admin-ctrl/order/index.html",
+            templateUrl: "/assets/admin-ctrl/order/index.html",
             controller: "order-ctrl"
         })
         .when("/userinfo", {
