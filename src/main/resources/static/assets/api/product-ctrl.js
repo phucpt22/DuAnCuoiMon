@@ -13,6 +13,9 @@ app.controller("product-ctrl", function($scope, $http) {
         $http.get("/rest/categories").then((resp) => {
             $scope.cates = resp.data;
         });
+        $http.get("/rest/users/all").then((resp) => {
+            $scope.items = resp.data;
+        });
     };
     $scope.search = function(p) {
         //debugger;

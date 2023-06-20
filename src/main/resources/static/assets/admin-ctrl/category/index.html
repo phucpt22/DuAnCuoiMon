@@ -1,203 +1,28 @@
-<!DOCTYPE html>
-<html html lang="en" th:replace="~{/assert/admin-ctrl/category/index.html :: dynamic(~{::body})}">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <title>
-        Material Dashboard 2 by Creative Tim
-    </title>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="../assets/css/material-dashboard.css" rel="stylesheet" />
-    <link id="pagestyle" href="../assets/css/material-dashboard.css.map" rel="stylesheet" />
-    <link id="pagestyle" href="../assets/css/material-dashboard.min.css" rel="stylesheet" />
-    <!-- Nepcha Analytics (nepcha.com) -->
-    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div id="home" class="container tab-pane active"><br>
-                        <div class="card mb-4">
-                            <h5 class="card-header">Category</h5>
-                            <!-- Account -->
-
-                            <hr class="my-0">
-                            <div class="card-body">
-                                <form id="formAccountSettings" method="POST" onsubmit="return false" name="frmacc"
-                                    class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength ng-valid-minlength ng-valid-email">
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label class="col-sm-6 col-form-label"
-                                                for="basic-icon-default-fullname">ID</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group input-group-merge">
-                                                    <span id="basic-icon-default-fullname2" class="input-group-text">
-                                                        <i class="bx bxs-user-plus"></i></span>
-                                                    <input
-                                                        class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength"
-                                                        ng-model="form.id" name="id" maxlength="50"
-                                                        ng-pattern="[a-zA-Z0-9]+" type="text" id="username"
-                                                        placeholder="Enter ID category" aria-label="John Doe"
-                                                        aria-describedby="basic-icon-default-fullname2" required="">
-                                                </div>
-                                            </div>
-                                            <span style="color: red" class="failure ng-hide"
-                                                ng-show="frmacc.username.$error.pattern">
-                                                You cannot enter special characters!!!
-                                            </span>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="col-sm-6 col-form-label"
-                                                for="basic-icon-default-fullname">Name</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group input-group-merge">
-                                                    <span id="basic-icon-default-fullname2" class="input-group-text">
-                                                        <i class="bx bxs-user-detail"></i></span>
-                                                    <input
-                                                        class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-valid-minlength ng-valid-maxlength ng-touched ng-untouched"
-                                                        ng-model="form.name" name="name"
-                                                        ng-pattern="[a-zA-Z]{1,40}" type="text"
-                                                        id="basic-icon-default-fullname" placeholder="Enter name"
-                                                        aria-label="John Doe"
-                                                        aria-describedby="basic-icon-default-fullname2" required="">
-                                                </div>
-                                            </div>
-                                            <span style="color: red" id="fullname" class="failure ng-hide"
-                                                ng-show="frmacc.fullName.$error.pattern">
-                                                You cannot enter special characters and the length is more than 40 words</span>
-                                        </div>
-
-                                        <div class="mt-2">
-                                            <button ng-click="create()" class="btn btn-outline-primary me-2"><i
-                                                    class="bx bxs-add-to-queue"></i>Create</button>
-                                            <button ng-click="update()" class="btn btn-outline-warning me-2"><i
-                                                    class="bx bx-save"></i>Update</button>
-                                            <button ng-click="reset()" class="btn btn-outline-secondary"><i
-                                                    class="bx bx-refresh"></i>Reset</button>
-                                            <!-- ngIf: form.active -->
-                                        </div>
-                                </form>
-
-                                <!-- /Account -->
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid py-4">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card my-4">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">Category table</h6>
-                            </div>
-                        </div>
-                        <div class="card-body px-0 pb-2">
-                            <div class="table-responsive p-0">
-                                <table class="table align-items-center mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                ID</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Name</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in cates">
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{item.id}}</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{item.name}}</p>
-
-                                            </td>
-                                            <td>
-                                                <div class="btn-group btn-group-xs">
-                                                    <button ng-click="edit(item)"
-                                                        class="btn btn-warning glyphicon glyphicon-edit">Edit</button>
-                                                    <button ng-click="delete(item)"
-                                                        class="btn btn-danger glyphicon glyphicon-delete">Delete</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<!-- MAIN CONTENT-->
+<div class="tab-content">
+    <div id="edit" >
+        <div ng-include="'/assets/admin-ctrl/category/_form.html'"></div>
     </div>
+    <div id="list" >
+        <div ng-include="'/assets/admin-ctrl/category/_table.html'"></div>
     </div>
-    <div class="card-footer text-center">
-        <button class="btn btn-danger" ng-click="first()" type="button">
-            <i class="fa-solid fa-circle-chevron-left"></i>
-        </button>
-        <button class="btn btn-primary" ng-click="prev()" type="button">
-            <i class="fa-solid fa-backward"></i>
-        </button>
-        <span class="btn btn-warning">
-            <i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
-        </span>
-        <button class="btn btn-primary" ng-click="next()" type="button">
-            <i class="fa-solid fa-forward"></i>
-        </button>
-        <button class="btn btn-danger" ng-click="last()" type="button">
-            <i class="fa-solid fa-circle-chevron-right"></i>
-        </button>
-    </div>
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../assets/js/material-dashboard.min.js"></script>
+</div>
+<div class="card-footer text-center">
+    <button class="btn btn-danger" ng-click="pager.first()" type="button">
+        <i class="fa-solid fa-circle-chevron-left"></i>
+    </button>
+    <button class="btn btn-primary" ng-click="pager.prev()" type="button">
+        <i class="fa-solid fa-backward"></i>
+    </button>
+    <button class="btn btn-warning">
+        <i class="fa-solid fa-download"></i> {{pager.page + 1}} of {{pager.count}}
+    </button>
+    <button class="btn btn-primary" ng-click="pager.next()" type="button">
+        <i class="fa-solid fa-forward"></i>
+    </button>
+    <button class="btn btn-danger" ng-click="pager.last()" type="button">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+    </button>
+</div>
 
-</body>
 
-</html>
