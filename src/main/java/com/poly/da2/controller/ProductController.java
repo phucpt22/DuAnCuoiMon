@@ -51,7 +51,7 @@ public class ProductController {
 						 @RequestParam(defaultValue = "0") int page,
 						 @RequestParam(defaultValue = "4") int size,
 						 @RequestParam String idcate,
-						 @PathVariable("id") Integer id, HttpServletRequest request) {
+						 @PathVariable("id") Integer id) {
 		Pageable pageable = PageRequest.of(page, size);
 		Product item = productService.findById(id);
 		Page<Reviews> reviews = reviewRepository.listReviewByIdProduct(id,pageable);
@@ -68,19 +68,6 @@ public class ProductController {
 		model.addAttribute("currentPage", page);
 		return "product/detail";
 	}
-//	@PostMapping("/search")
-//	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
-//								 @RequestParam(defaultValue = "0") int page,
-//								 @RequestParam(defaultValue = "4") int size,
-//								 Model model) {
-//		Pageable pageable = PageRequest.of(page, size);
-//		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
-//		model.addAttribute("searchTerm", searchTerm);
-//		model.addAttribute("items", productPage.getContent());
-//		model.addAttribute("totalPages", productPage.getTotalPages());
-//		model.addAttribute("currentPage", page);
-//		return "product/store";
-//	}
 	@Transactional(readOnly = true)
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
@@ -140,7 +127,7 @@ public class ProductController {
 		}catch (Exception e){
 			e.getStackTrace();
 		}
-		return "redirect:/product/detail/" + idProduct;
+		return "redirect:/product/detail/" + idProduct+ "?idcate=" + request.getParameter("idcate");
 	}
 
 }

@@ -23,7 +23,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = {"/homepage"})
 	public String aa() {
-		return "redirect:/user/index.html";
+		return "user/index";
 	}
 
 }

@@ -19,7 +19,7 @@
 					<div class="row">
 						<!-- Product main img -->
 						<div class="col-md-5 col-md-push-2">
-							<div id="product-main-img">
+							<div id="product-main-img" style="display: block;">
 								<th:block th:each="img :${images}">
 									<div class="product-preview">
 										<img th:src="@{${img}}" alt="">
@@ -89,7 +89,7 @@
 						<!-- /Product details -->
 
 						<!-- Product tab -->
-						<div class="col-md-12">
+						<div class="col-md-12" style="margin-top: -200px;">
 							<div id="product-tab">
 								<!-- product tab nav -->
 								<ul class="tab-nav">
@@ -113,7 +113,7 @@
 									<div id="tab2" class="tab-pane fade in">
 										<div class="row">
 											<!-- Rating -->
-											<div class="col-md-3">
+											<div class="col-md-2">
 												<div id="rating">
 													<div class="rating-avg">
 														<span th:text="${item.rating_average}"></span>
@@ -135,9 +135,7 @@
 																<i class="fa fa-star"></i>
 																<i class="fa fa-star"></i>
 															</div>
-															<div class="rating-progress">
-																<div style="width: 80%;"></div>
-															</div>
+
 															<span class="sum">3</span>
 														</li>
 														<li>
@@ -148,9 +146,7 @@
 																<i class="fa fa-star"></i>
 																<i class="fa fa-star-o"></i>
 															</div>
-															<div class="rating-progress">
-																<div style="width: 60%;"></div>
-															</div>
+
 															<span class="sum">2</span>
 														</li>
 														<li>
@@ -161,9 +157,7 @@
 																<i class="fa fa-star-o"></i>
 																<i class="fa fa-star-o"></i>
 															</div>
-															<div class="rating-progress">
-																<div></div>
-															</div>
+
 															<span class="sum">0</span>
 														</li>
 														<li>
@@ -174,9 +168,7 @@
 																<i class="fa fa-star-o"></i>
 																<i class="fa fa-star-o"></i>
 															</div>
-															<div class="rating-progress">
-																<div></div>
-															</div>
+
 															<span class="sum">0</span>
 														</li>
 														<li>
@@ -187,9 +179,7 @@
 																<i class="fa fa-star-o"></i>
 																<i class="fa fa-star-o"></i>
 															</div>
-															<div class="rating-progress">
-																<div></div>
-															</div>
+
 															<span class="sum">0</span>
 														</li>
 													</ul>
@@ -220,19 +210,21 @@
 													</ul>
 													<ul class="reviews-pagination">
 														<li th:if="${currentPage > 0}">
-															<a th:href="@{/product/detail/${item.id}(page=0)}">&laquo;</a>
+															<a th:href="@{|/product/detail/${item.id}?page=0&idcate=${item.category.id}|}" >&laquo;</a>
 														</li>
-														<li th:if="${currentPage > 0}">
-															<a th:href="@{/product/detail/${item.id}(page=${currentPage-1})}">&lsaquo;</a>
+														<li th:if="${currentPage > 1}">
+															<a th:href="@{|/product/detail/${item.id}?page=${currentPage-1}&idcate=${item.category.id}|}">&lsaquo;</a>
 														</li>
-														<li th:each="pageNum : ${#numbers.sequence(currentPage - 1, currentPage + 1)}" th:classappend="${pageNum == currentPage} ? active">
-															<a th:if="${pageNum >= 0 and pageNum < totalPages}" th:href="@{|/product/detail/${item.id}?page=${pageNum}|}" th:text="${pageNum+1}" class="page-link"></a>
+														<li th:each="pageNum : ${#numbers.sequence(currentPage-1, currentPage +2)}"
+															th:if="${pageNum > 0 and pageNum < totalPages}"
+															th:classappend="${pageNum == currentPage} ? active">
+															<a th:href="@{|/product/detail/${item.id}?page=${pageNum}&idcate=${item.category.id}|}" th:text="${pageNum}" class="page-link"></a>
 														</li>
 														<li th:if="${currentPage < totalPages-1}">
-															<a th:href="@{/product/detail/${item.id}(page=${currentPage+1})}">&rsaquo;</a>
+															<a th:href="@{|/product/detail/${item.id}?page=${currentPage+1}&idcate=${item.category.id}|}">&rsaquo;</a>
 														</li>
 														<li th:if="${currentPage < totalPages-1}">
-															<a th:href="@{|/product/detail/${item.id}?page=${totalPages-1}|}">&raquo;</a>
+															<a th:href="@{|/product/detail/${item.id}?page=${totalPages-1}&idcate=${item.category.id}|}">&raquo;</a>
 														</li>
 													</ul>
 												</div>
@@ -244,7 +236,7 @@
 												<div id="review-form">
 													<form class="review-form"  th:action="@{/reviews}" method="post" >
 														<input type="hidden" name="idProduct" th:value="${item.id}" />
-
+														<input type="hidden" th:value="${item.category.id}" name="idcate">
 														<input class="input" name="nameReviewer" type="text" placeholder="Your Name">
 														<input class="input" name="emailReviewer" type="email" placeholder="Your Email">
 														<textarea class="input" name="contents" placeholder="Your Review"></textarea>
@@ -284,7 +276,6 @@
 				<div class="container">
 					<!-- row -->
 					<div class="row">
-
 						<div class="col-md-12">
 							<div class="section-title text-center">
 								<h3 class="title">Related Products</h3>
@@ -306,7 +297,7 @@
 									<div class="product-rating">
 									</div>
 									<div class="product-btns">
-										<a th:href="@{|/product/detail/${lated.id}|}"><i class="fa fa-eye"></i> See more...
+										<a th:href="@{|/product/detail/${lated.id}?idcate=${item.category.id}|}"><i class="fa fa-eye"></i> See more...
 										</a>
 										<a ><i class="fa-solid fa-thumbs-up"></i> Like
 										</a>

@@ -128,6 +128,7 @@
                                                 th:if="${(p.rating_average < i) && (p.rating_average >= (i-0.5))}"
                                                 class="fa fa-star-half-o" style="color: red;"></i> </span></div>
                                     </div>
+<!--                                    <input type="hidden" th:value="${p.category.id}" name="idcate">-->
                                     <div class="product-btns">
                                         <a th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"><i
                                                 class="fa fa-eye"></i> See more...

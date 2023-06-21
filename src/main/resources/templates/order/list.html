@@ -70,6 +70,7 @@
 											<th scope="col" class="text-center">Tiện ích</th>
 										</tr>
 										</thead>
+
 										<tbody>
 										<tr th:each="order,state:${cxn}">
 											<th>[[${state.index+1}]]</th>
@@ -78,7 +79,7 @@
 											<td>[[${order.status_order}]]</td>
 											<td>[[${order.origninal_price}]]</td>
 											<td>
-												<a th:href="@{|/order/cancel/${order.id}|}" class="btn btn-outline-danger">
+												<a th:href="@{/order/cancel/{orderId}(orderId=${order.id})}" class="btn btn-outline-danger" onclick="showConfirmBox(event, ${order.id})">
 													<i class="fa-solid fa-rotate-left"></i>
 													<b>Hủy đơn</b>
 												</a>
@@ -195,6 +196,25 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			function showConfirmBox(event, orderId) {
+				event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+				Swal.fire({
+					title: 'Xác nhận hủy đơn',
+					text: 'Bạn có chắc chắn muốn hủy đơn hàng?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Hủy đơn',
+					cancelButtonText: 'Không',
+					reverseButtons: true
+				}).then((result) => {
+					if (result.isConfirmed) {
+						// Nếu người dùng xác nhận hủy đơn, chuyển hướng đến đường dẫn hủy đơn
+						window.location.href = "/order/cancel/" + orderId;
+					}
+				});
+			}
+		</script>
 	</main>
   </body>
 </html>

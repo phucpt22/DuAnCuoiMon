@@ -208,12 +208,29 @@
         <!-- responsive-nav -->
         <div id="responsive-nav">
             <!-- NAV -->
+            <script>
+                // Lấy danh sách các phần tử trong menu
+                var menuItems = document.querySelectorAll('.main-nav li');
+
+                // Xử lý sự kiện click cho từng phần tử
+                menuItems.forEach(function(item) {
+                    item.addEventListener('click', function() {
+                        // Loại bỏ class "active" khỏi tất cả các phần tử
+                        menuItems.forEach(function(item) {
+                            item.classList.remove('active');
+                        });
+
+                        // Thêm class "active" vào phần tử được click
+                        this.classList.add('active');
+                    });
+                });
+
+            </script>
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a th:href="@{/homepage}">Home</a></li>
                 <li><a th:href="@{/products}">Store</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">About</a></li>
-
             </ul>
             <!-- /NAV -->
         </div>
