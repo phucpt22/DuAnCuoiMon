@@ -51,9 +51,9 @@ app.controller("category-ctrl", function($scope, $http) {
     $scope.update = function() {
         var c = angular.copy($scope.form);
         $http
-            .put("/rest/categories/${c.id}", c)
+            .put("/rest/categories/"+c.id, c)
             .then((resp) => {
-                var index = $scope.cates.findIndex(cate => cate.id == c .id);
+                var index = $scope.cates.findIndex(p => p.id == c.id);
                 $scope.cates[index] = c; 
                 alert("Cập nhật sản phẩm thành công!");
             })
@@ -63,13 +63,12 @@ app.controller("category-ctrl", function($scope, $http) {
             });
     };
 
-    $scope.delete = function(item) {
-
+    $scope.delete = function(c) {
         $http
-            .delete("/rest/products/${item.id}")
+            .delete("/rest/categories/"+c.id)
             .then((resp) => {
-                var index = $scope.items.findIndex((p) => p.id == item.id);
-                $scope.items.splice(index, 1);
+                var index = $scope.cates.findIndex(p => p.id == c.id);
+                $scope.cates.splice(index, 1);
                 $scope.reset();
                 alert("Xóa sản phẩm thành công!");
             })
@@ -79,32 +78,15 @@ app.controller("category-ctrl", function($scope, $http) {
             });
     };
 
-    $scope.imageChanged = function(files) {
-        var data = new FormData();
-        data.append("file", files[0]);
-        $http
-            .post("/rest/upload/images", data, {
-                transformRequest: angular.identity,
-                headers: { "Content-Type": undefined },
-            })
-            .then((resp) => {
-                $scope.form.photo = resp.data.name;
-            })
-            .catch((error) => {
-                alert("Lỗi upload hình ảnh!");
-                console.log("Error", error);
-            });
-    };
-
     $scope.pager = {
         page: 0,
         size: 10,
-        get items(){
+        get cates(){
             const start = this.page * this.size;
-            return $scope.items.slice(start, start + this.size);
+            return $scope.cates.slice(start, start + this.size);
         },
         get count(){
-            return Math.ceil(1.0 * $scope.items.length / this.size);
+            return Math.ceil(1.0 * $scope.cates.length / this.size);
         },
         first(){
             this.page = 0;

@@ -11,32 +11,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/categories")
 public class CategoryRestController {
-	@Autowired
-	CategoryService categoryService;
-	
-	@GetMapping
-	public List<Category> getAll() {
+    @Autowired
+    CategoryService categoryService;
+
+    @GetMapping
+    public List<Category> getAll() {
 // test
-		return categoryService.findAll();
-	}
-	
-	@GetMapping("{id}")
-	public Category getOne(@PathVariable("id")String id) {
-		return categoryService.findById(id);
-	}
-	
-	@PostMapping
-	public Category creat(@RequestBody Category category ) {
-		return categoryService.create(category);
-	}
-	
-	@PutMapping("{id}")
-	public Category update(@PathVariable("id")String id,@RequestBody Category category ) {
-		return categoryService.update(category); 
-	}
-	
-	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id")String id) {
-		categoryService.delete(id);  
-	}
+        return categoryService.findAll();
+    }
+
+    @GetMapping("{id}")
+    public Category getOne(@PathVariable("id") String id) {
+        return categoryService.findById(id);
+    }
+
+    @PostMapping
+    public Category creat(@RequestBody Category category) {
+        return categoryService.create(category);
+    }
+
+    @PutMapping("{id}")
+    public Category update(@PathVariable("id") String id, @RequestBody Category category) {
+        return categoryService.update(category);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") String id) {
+        categoryService.delete(id);
+    }
 }

@@ -118,17 +118,6 @@ app.controller("product-ctrl", function($scope, $http) {
             const start = this.page * this.size;
             return $scope.items.slice(start, start + this.size);
         },
-
-
-
-
-
-
-
-
-
-
-
         get count(){
             return Math.ceil(1.0 * $scope.items.length / this.size);
         },
