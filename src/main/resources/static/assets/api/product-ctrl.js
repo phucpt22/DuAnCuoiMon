@@ -13,6 +13,9 @@ app.controller("product-ctrl", function($scope, $http) {
         $http.get("/rest/categories").then((resp) => {
             $scope.cates = resp.data;
         });
+        $http.get("/rest/users/all").then((resp) => {
+            $scope.items = resp.data;
+        });
     };
     $scope.search = function(p) {
         //debugger;
@@ -115,17 +118,6 @@ app.controller("product-ctrl", function($scope, $http) {
             const start = this.page * this.size;
             return $scope.items.slice(start, start + this.size);
         },
-
-
-
-
-
-
-
-
-
-
-
         get count(){
             return Math.ceil(1.0 * $scope.items.length / this.size);
         },
