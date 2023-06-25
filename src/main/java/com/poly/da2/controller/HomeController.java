@@ -19,7 +19,7 @@ public class HomeController {
 	@RequestMapping(value = {"/admin","/admin/home/index"})
 	public String admin() {
 
-		return "redirect:/assets/admin-ctrl/index.html";
+		return "redirect:/assets/admin/index.html";
 	}
 	@RequestMapping(value = {"/homepage"})
 	public String aa() {
