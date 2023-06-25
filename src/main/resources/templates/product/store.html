@@ -48,11 +48,11 @@
                                 <input type="hidden" name="page" th:value="${currentPage}">
                                 <input type="hidden" th:value="${name}">
                                 <div class="input-number price-min">
-                                    <input id="price-min" th:value="${min_price}" name="min_price" type="number">
+                                    <input id="price-min" th:value="${min_price}" placeholder="Min" name="min_price" type="number">
                                 </div>
                                 <span>-</span>
                                 <div class="input-number price-max">
-                                    <input id="price-max" th:value="${max_price}" name="max_price" type="number">
+                                    <input id="price-max" th:value="${max_price}" placeholder="Max" name="max_price" type="number">
                                 </div>
                                 <br> <br>
                                 <button style="width: 100%;"
@@ -74,8 +74,10 @@
                             </div>
                             <div class="product-body">
                                 <h3 class="product-name"><a href="#" th:text="${bs.name}"></a></h3>
-                                <h4 class="product-price"
+                                <h4 hidden="hidden" class="product-price"
                                     th:text="${bs.currentprice}"> <del th:text="${bs.price}"></del> </h4>
+                                <h4 class="product-price"
+                                    th:text="${bs.formatCurrent_Price}"> <del th:text="${bs.formatPrice}"></del> </h4>
                             </div>
                         </div>
                     </div>
@@ -112,15 +114,16 @@
                                 <div class="product-img">
                                     <img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
                                     <div class="product-label">
-                                        <span class="sale" th:text="${p.discount + '%'}"> </span>
-                                        <span class="new">NEW</span>
+                                        <span th:if="${p.discount > 0}" class="sale" th:text="${p.discount + '%'}">Sale</span>
+                                        <span class="new">New</span>
                                     </div>
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category" th:text="${p.category.name}"></p>
                                     <h3 class="product-name" th:text="${p.name}"></h3>
-                                    <h4 class="product-price" th:text="${p.currentprice}"> </h4>
-                                    <del th:text="${p.price}"></del>
+                                    <h4 hidden="hidden" class="product-price" th:text="${p.currentprice}"> </h4>
+                                    <h4 class="product-price" th:text="${p.formatCurrent_Price}"> </h4>
+                                    <del th:text="${p.formatPrice}"></del>
                                     <div class="product-rating">
                                         <div class="rating-stars"><span th:each="i : ${#numbers.sequence(1, 5)}"> <i
                                                 th:if="${p.rating_average >= i}" class="fa fa-star"
@@ -153,10 +156,10 @@
                         <ul class="store-pagination">
                             <!-- Add this code to conditionally add first/previous page links -->
                             <li th:if="${currentPage > 0}">
-                                <a th:href="@{/products(page=0,name=${name},cid=${cid},min_price=${min_price},max_price=${max_price})}">&laquo;</a>
+                                <a th:href="@{|/products?page=0&name=${name}&cid=${cid}&min_price=${min_price}&max_price=${max_price}|}">&laquo;</a>
                             </li>
                             <li th:if="${currentPage > 1}">
-                                <a th:href="@{/products(page=${currentPage-1},name=${name},cid=${cid},min_price=${min_price},max_price=${max_price})}">&lsaquo;</a>
+                                <a th:href="@{|/products?page=${currentPage-1}&name=${name}&cid=${cid}&min_price=${min_price}&max_price=${max_price}|}">&lsaquo;</a>
                             </li>
                             <!-- Add this code to display page links -->
                             <li th:each="pageNum : ${#numbers.sequence(currentPage-1, currentPage +4)}"
@@ -167,10 +170,10 @@
                             </li>
                             <!-- Add this code to conditionally add last/next page links -->
                             <li th:if="${currentPage < totalPages-2}">
-                                <a th:href="@{/products(page=${currentPage+1},name=${name},cid=${cid},min_price=${min_price},max_price=${max_price})}">&rsaquo;</a>
+                                <a th:href="@{|/products?page=${currentPage+1}&name=${name}&cid=${cid}&min_price=${min_price}&max_price=${max_price}|}">&rsaquo;</a>
                             </li>
                             <li th:if="${currentPage < totalPages-1}">
-                                <a th:href="@{|/products?page=${totalPages-1}&name=${name}&cid=${cid},min_price=${min_price},max_price=${max_price}|}">&raquo;</a>
+                                <a th:href="@{|/products?page=${totalPages-1}&name=${name}&cid=${cid}&min_price=${min_price}&max_price=${max_price}|}">&raquo;</a>
                             </li>
                         </ul>
                     </div>

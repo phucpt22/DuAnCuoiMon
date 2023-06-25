@@ -6,13 +6,12 @@ import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.OrderRepository;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.OrderService;
+import com.poly.da2.service.VnPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -28,6 +27,8 @@ public class OrderController {
     OrderRepository orderRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private VnPayService vnPayService;
 
     @RequestMapping("/order/checkout")
     public String checkout(Model model, Principal principal) {
@@ -37,11 +38,12 @@ public class OrderController {
         model.addAttribute("userId", userId); // Truyền ID của user qua Model
         return "cart/checkout";
     }
+
     @Transactional(readOnly = true)
     @RequestMapping("/order/list")
     public String list(Model model, HttpServletRequest request) {
         String username = request.getRemoteUser();
-        List<Order> cxn,dg,dh,dgh;
+        List<Order> cxn, dg, dh, dgh;
         cxn = orderService.findByUsername(username, "Chờ xác nhận");
         dg = orderService.findByUsername(username, "Đang giao");
         dh = orderService.findByUsername(username, "Đã hủy");
@@ -60,9 +62,43 @@ public class OrderController {
         orderRepository.save(order);
         return "redirect:/order/list";
     }
+
     @RequestMapping("/order/detail/{id}")
     public String detail(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("order", orderService.findById(id));
         return "order/detail";
     }
+
+    @GetMapping("/payment")
+    public String showPaymentPage() {
+        return "index";
+    }
+
+    @GetMapping("/submitOrder/{id}/{total_price}")
+    public String submitOrder(@PathVariable(name = "id") int orderInfo,
+                              @PathVariable(name = "total_price") String orderTotal,
+                              HttpServletRequest request){
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String vnpayUrl = vnPayService.createOrder(Integer.parseInt(orderTotal), String.valueOf(orderInfo), baseUrl);
+        request.getSession().setAttribute("idOrder",orderInfo);
+        return "redirect:" + vnpayUrl;
+    }
+
+    @GetMapping("/vnpay-payment")
+    public String GetMapping(HttpServletRequest request, Model model){
+        int paymentStatus =vnPayService.orderReturn(request);
+
+        String orderInfo = request.getParameter("vnp_OrderInfo");
+        String paymentTime = request.getParameter("vnp_PayDate");
+        String transactionId = request.getParameter("vnp_TransactionNo");
+        String totalPrice = request.getParameter("vnp_Amount");
+
+        model.addAttribute("orderId", orderInfo);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("paymentTime", paymentTime);
+        model.addAttribute("transactionId", transactionId);
+
+        return paymentStatus == 1 ? "ordersuccess" : "orderfail";
+    }
+
 }

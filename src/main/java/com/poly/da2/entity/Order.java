@@ -25,10 +25,11 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date updateDate = new Date();
 
-    private Double totalPrice;
+    private Double total_price;
 
     private Double vat;
     private String status_order;
+    private String status_pay;
     private String payments;
 
     private Double origninal_price;

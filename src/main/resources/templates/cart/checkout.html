@@ -96,23 +96,27 @@
                         </div>
 
                         <div class="order-col">
-                            <div><strong>TOTAL</strong></div>
+                            <div><strong>ORIGINAL</strong></div>
 
                             <div><strong id="origninal_price" name="price"
                                          class="order-total">{{cart.amount|number:2}}</strong></div>
+                        </div>
+                        <div class="order-col">
+                            <div><strong>TOTAL</strong></div>
+                            <div><strong id="total_price"
+                                         class="order-total">{{cart.total_price|number:2}}</strong></div>
                         </div>
                     </div>
                     <input type="hidden" ng-model="order.vat">
                     <div class="payment-method">
                         <div class="input-radio">
-                            <input type="radio" name="payment" id="payment-1" value="PAYPAL" ng-model="order.payments">
+                            <input type="radio" name="payment" id="payment-1" value="VNPAY" ng-model="order.payments">
                             <label for="payment-1">
                                 <span></span>
                                 Thanh toán qua thẻ tín dụng
                             </label>
                             <div class="caption">
                                 <p>Thanh toán trả trước.</p> <br>
-                                <input type="submit" value="Continue to checkout" class="btn">
 
                             </div>
                         </div>
