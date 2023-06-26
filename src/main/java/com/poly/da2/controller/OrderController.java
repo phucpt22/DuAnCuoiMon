@@ -1,9 +1,11 @@
 package com.poly.da2.controller;
 
 import com.poly.da2.entity.Order;
+import com.poly.da2.entity.Payments;
 import com.poly.da2.entity.Userss;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.OrderRepository;
+import com.poly.da2.repository.PaymentRepository;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.OrderService;
 import com.poly.da2.service.VnPayService;
@@ -29,6 +31,8 @@ public class OrderController {
     UserRepository userRepository;
     @Autowired
     private VnPayService vnPayService;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @RequestMapping("/order/checkout")
     public String checkout(Model model, Principal principal) {
@@ -92,13 +96,25 @@ public class OrderController {
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
-
+        int id =  (int) request.getSession().getAttribute("idOrder");
+        Order oldOrder = orderRepository.findById(id).orElse(null);
+        if (oldOrder != null) {
+            // update the order properties
+            oldOrder.setStatus_pay("Đã thanh toán");
+            orderRepository.save(oldOrder);
+        }
+        Payments payments = new Payments();
+        payments.setOrder_id(oldOrder);
+        payments.setPayment_date(paymentTime);
+        payments.setAmount(Double.valueOf(totalPrice));
+        payments.setPayment_id(transactionId);
+        paymentRepository.save(payments);
         model.addAttribute("orderId", orderInfo);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
-        return paymentStatus == 1 ? "ordersuccess" : "orderfail";
+        return paymentStatus == 1 ? "cart/ordersuccess" : "cart/orderfail";
     }
 
 }

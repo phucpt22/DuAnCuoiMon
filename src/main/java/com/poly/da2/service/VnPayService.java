@@ -17,7 +17,8 @@ import java.util.*;
 public class VnPayService {
     @Autowired
     OrderRepository orderRepository;
-    public String createOrder(int total, String orderInfor, String urlReturn){
+
+    public String createOrder(int total, String orderInfor, String urlReturn) {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
@@ -28,7 +29,7 @@ public class VnPayService {
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(total*100));
+        vnp_Params.put("vnp_Amount", String.valueOf(total * 100));
         vnp_Params.put("vnp_CurrCode", "VND");
 
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
@@ -85,9 +86,9 @@ public class VnPayService {
         return paymentUrl;
     }
 
-    public int orderReturn(HttpServletRequest request){
+    public int orderReturn(HttpServletRequest request) {
         Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
             String fieldName = null;
             String fieldValue = null;
             try {
@@ -111,17 +112,9 @@ public class VnPayService {
         String signValue = VNPayConfig.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                int id =  (int) request.getSession().getAttribute("idOrder");
-                Order oldOrder = orderRepository.findById(id).orElse(null);
-                if (oldOrder != null) {
-                    // update the order properties
-                    oldOrder.setStatus_pay("Đã thanh toán");
 
-                    orderRepository.save(oldOrder);
-                    return 1;
-                } else {
-                    return 0;
-                }
+                return 1;
+
             } else {
                 return 0;
             }

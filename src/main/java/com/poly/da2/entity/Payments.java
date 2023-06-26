@@ -19,12 +19,12 @@ public class Payments {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "orderId")
-    private Order order;
+    @JoinColumn(name = "order_id")
+    private Order order_id;
 
     private Double amount;
-    private String payerId;
-    private String paymentId;
+    private String payment_date;
+    private String payment_id;
 
 }
 

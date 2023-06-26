@@ -44,6 +44,6 @@ public class Order {
     List<OrderDetail> orderDetails;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "order_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Payments payment;
 }
