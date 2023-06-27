@@ -78,16 +78,6 @@ public class OrderController {
         return "index";
     }
 
-    @GetMapping("/submitOrder/{id}/{total_price}")
-    public String submitOrder(@PathVariable(name = "id") int orderInfo,
-                              @PathVariable(name = "total_price") String orderTotal,
-                              HttpServletRequest request){
-        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String vnpayUrl = vnPayService.createOrder(Integer.parseInt(orderTotal), String.valueOf(orderInfo), baseUrl);
-        request.getSession().setAttribute("idOrder",orderInfo);
-        return "redirect:" + vnpayUrl;
-    }
-
     @GetMapping("/vnpay-payment")
     public String GetMapping(HttpServletRequest request, Model model){
         int paymentStatus =vnPayService.orderReturn(request);
