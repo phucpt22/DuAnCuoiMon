@@ -276,14 +276,12 @@ section {
 .page-wrapper {
     overflow: hidden;
     background: #e5e5e5;
-    padding-bottom: 8vh;
 }
 
 @media (max-width: 991px) {
     .page-wrapper {
     overflow: auto;
     background: #e5e5e5;
-    padding-bottom: 12vh;
 }
 }
 .page-container {
@@ -323,7 +321,6 @@ section {
 @media (max-width: 991px) {
     .main-content {
         padding-top: 50px;
-	padding-bottom: 100px;
     }
 }
 
