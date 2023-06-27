@@ -37,4 +37,9 @@ public class AccountServiceImpl implements AccountService {
 	public void delete(String id) {
 		acc.deleteById(id);
 	}
+
+	@Override
+	public Account findbyEmail(String email) {
+		return acc.findByEmail(email);
+	}
 }

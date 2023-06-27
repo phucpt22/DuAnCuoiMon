@@ -1,5 +1,6 @@
 package com.poly.da2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,5 +26,7 @@ public class Account implements Serializable{
 	@JoinColumn(name = "id_user")
 	private Userss user;
 
-
+	@JsonIgnore
+	@OneToOne(mappedBy = "username", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private PasswordResetToken passwordResetToken;
 }
