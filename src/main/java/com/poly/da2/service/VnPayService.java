@@ -3,6 +3,7 @@ package com.poly.da2.service;
 import com.poly.da2.config.VNPayConfig;
 import com.poly.da2.entity.Order;
 import com.poly.da2.repository.OrderRepository;
+import com.sun.source.tree.TryTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,10 @@ import java.util.*;
 
 @Service
 public class VnPayService {
-    @Autowired
-    OrderRepository orderRepository;
+    public String createOrder(int total, String orderInfor, String urlReturn){
+        try{
 
-    public String createOrder(int total, String orderInfor, String urlReturn) {
+
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
@@ -29,12 +30,11 @@ public class VnPayService {
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(total * 100));
+        vnp_Params.put("vnp_Amount", String.valueOf(total*100));
         vnp_Params.put("vnp_CurrCode", "VND");
 
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", orderInfor);
-
 
         String locate = "vn";
         vnp_Params.put("vnp_Locale", locate);
@@ -84,11 +84,14 @@ public class VnPayService {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
         return paymentUrl;
+        }catch (Exception e){
+            return "";
+        }
     }
 
-    public int orderReturn(HttpServletRequest request) {
+    public int orderReturn(HttpServletRequest request){
         Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
+        for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
             String fieldName = null;
             String fieldValue = null;
             try {
@@ -112,9 +115,7 @@ public class VnPayService {
         String signValue = VNPayConfig.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-
                 return 1;
-
             } else {
                 return 0;
             }
