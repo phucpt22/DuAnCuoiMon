@@ -14,14 +14,14 @@
                     <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sản Phẩm</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Giá Sản Phẩm</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Đánh giá</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày tạo</th>
                         <th class="text-secondary opacity-7"></th>
                     </tr>
                     </thead>
                     <!-- Nội dung bảng -->
                     <tbody>
-                    <tr ng-repeat="item in items">
+                    <tr ng-repeat="item in pager.items">
                         <td class="col-4">
                             <div class="d-flex px-2 py-1">
                                 <div>
@@ -55,6 +55,23 @@
 
             </div>
         </div>
+    </div>
+    <div class="card-footer text-center">
+        <button class="btn btn-danger" ng-click="pager.first()" type="button">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+        </button>
+        <button class="btn btn-primary" ng-click="pager.prev()" type="button">
+            <i class="fa-solid fa-backward"></i>
+        </button>
+        <span class="btn btn-warning">
+			<i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
+		</span>
+        <button class="btn btn-primary" ng-click="pager.next()" type="button">
+            <i class="fa-solid fa-forward"></i>
+        </button>
+        <button class="btn btn-danger" ng-click="pager.last()" type="button">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+        </button>
     </div>
 </div>
 </div>
