@@ -17,7 +17,7 @@ app.config(function($routeProvider) {
         })
         .when("/product", {
             templateUrl: "/assets/admin/product/index.html",
-            controller: "HomeController"
+            controller: "product-ctrl"
         })
         .when("/category", {
             templateUrl: "/assets/admin/category/index.html",

@@ -29,21 +29,7 @@ public class VNPayController {
         request.getSession().setAttribute("idOrder",orderInfo);
         return "redirect:" + vnpayUrl;
     }
-    @PostMapping("/submitOrder")
-    public String submidOrder(@RequestParam("amount") int orderTotal,
-                              @RequestParam("orderInfo") String orderInfo,
-                              HttpServletRequest request){
-        String vnpayUrl ="";
-        try {
-            String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-            vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
-            return "redirect:" + vnpayUrl;
-        }catch (Exception e){
-            e.getMessage();
-            System.out.println(e);
-        }
-       return "redirect:" + vnpayUrl;
-    }
+
 
     @GetMapping("/vnpay-payment")
     public String GetMapping(HttpServletRequest request, Model model){

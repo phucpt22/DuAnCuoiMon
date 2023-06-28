@@ -35,8 +35,8 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().cors().disable();
 		http.authorizeRequests()
 		.antMatchers("/order/**").authenticated()
-		.antMatchers("/admin/**").hasAnyRole("r1")
-		.antMatchers("/rest/authorities").hasRole("r1")
+//		.antMatchers("/admin/**").hasAnyRole("r1")
+//		.antMatchers("/rest/authorities").hasRole("r1")
 		.anyRequest().permitAll();
 
 		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
