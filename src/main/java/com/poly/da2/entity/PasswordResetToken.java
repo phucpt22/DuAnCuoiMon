@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -28,5 +29,11 @@ public class PasswordResetToken {
     @JoinColumn(nullable = false, name = "username")
     private Account username;
 
-    private Date expiryDate;
+    private LocalDateTime expiryDate;
+
+    public PasswordResetToken(String token, Account user) {
+    }
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expiryDate);
+    }
 }
