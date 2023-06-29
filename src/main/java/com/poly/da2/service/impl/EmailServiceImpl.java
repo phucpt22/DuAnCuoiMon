@@ -1,6 +1,10 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.service.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -10,47 +14,20 @@ import java.util.Properties;
 
 @Service
 public class EmailServiceImpl implements EmailService {
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Value("${spring.mail.username}")
+    private String from;
+
     @Override
-    public void sendEmail(String to, String subject, String content) {
-        String username = "zzptpham231@gmail.com";
-        String password = "inwwlmexzqkhanlj";
-        String recipient = "phucptps19445@fpt.edu.vn";
+    public void sendEmail(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        message.setFrom(from);
 
-        // Tạo session cho xác thực
-        Authenticator authenticator = new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        };
-        Session session = Session.getInstance(getProperties(), authenticator);
-
-        try {
-            // Tạo đối tượng MimeMessage
-            MimeMessage message = new MimeMessage(session);
-
-            // Cấu hình các thông tin của email (người gửi, người nhận, tiêu đề, nội dung,...)
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
-            message.setSubject("Test Email");
-            message.setText("This is a test email.");
-
-            // Gửi email
-            Transport.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Properties getProperties() {
-        Properties properties = new Properties();
-
-        // Cấu hình các thông tin của server SMTP
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "zzptpham231@gmail.com");
-        properties.put("mail.smtp.port", "587");
-
-        return properties;
+        javaMailSender.send(message);
     }
 }
