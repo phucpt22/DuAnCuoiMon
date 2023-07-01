@@ -2,10 +2,12 @@ package com.poly.da2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Getter
@@ -29,4 +31,7 @@ public class Account implements Serializable{
 	@JsonIgnore
 	@OneToOne(mappedBy = "username", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private PasswordResetToken passwordResetToken;
+
+    public Account(String gmail, String password) {
+    }
 }

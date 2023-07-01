@@ -9,7 +9,7 @@ app.config(function($routeProvider) {
         })
         .when("/account", {
             templateUrl: "/assets/admin/account/index.html",
-            controller: "HomeController"
+            controller: "account-ctrl"
         })
         .when("/order", {
             templateUrl: "/assets/admin/order/index.html",
@@ -21,7 +21,7 @@ app.config(function($routeProvider) {
         })
         .when("/category", {
             templateUrl: "/assets/admin/category/index.html",
-            controller: "HomeController"
+            controller: "category-ctrl"
         })
         .otherwise({
             templateUrl: "/assets/admin/dashboard/index.html",
