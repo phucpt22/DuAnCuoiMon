@@ -3,25 +3,18 @@ package com.poly.da2.rest;
 import com.poly.da2.entity.OrderDetail;
 import com.poly.da2.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin("*")
 @RestController
+@RequestMapping("/rest/orders")
 public class OrderDetailRestController {
 	@Autowired
 	OrderDetailService orderDetailService;
-	
-	@GetMapping("/rest/orderdetailall")
-	public List<OrderDetail> findAll() {
-		return orderDetailService.findAll();
-	}
 
-	@GetMapping("/rest/orderdetailall/{orderid}")
+	@GetMapping("{orderid}")
 	public List<OrderDetail> findAllByOrderId(@PathVariable("orderid")Integer id) {
 		return orderDetailService.getOrderDetailByOrdOrderById(id);
 	}
