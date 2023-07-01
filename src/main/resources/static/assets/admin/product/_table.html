@@ -13,19 +13,26 @@
                     <thead>
                     <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sản Phẩm</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Giá Sản Phẩm</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày tạo</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Giá Sản
+                            Phẩm
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            Trạng Thái
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày
+                            tạo
+                        </th>
                         <th class="text-secondary opacity-7"></th>
                     </tr>
                     </thead>
                     <!-- Nội dung bảng -->
                     <tbody>
-                    <tr ng-repeat="item in items">
+                    <tr ng-repeat="item in pager.items">
                         <td class="col-4">
                             <div class="d-flex px-2 py-1">
                                 <div>
-                                    <img ng-src="{{item.thumbnail_url}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                    <img ng-src="{{item.thumbnail_url}}" class="avatar avatar-sm me-3 border-radius-lg"
+                                         alt="user1">
                                 </div>
                                 <div class="d-flex flex-column justify-content-center col-width">
                                     <h6 class="mb-0 text-truncate text-sm">{{item.name}}</h6>
@@ -44,14 +51,27 @@
                             <span class="text-secondary text-xs font-weight-bold">{{item.createDate | date:'dd-MM-yyyy' }}</span>
                         </td>
                         <td class="align-middle col-2">
-                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product" class="text-secondary font-weight-bold text-xs" ng-click="edit(item)" data-toggle="tooltip"
+                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product"
+                               class="text-secondary font-weight-bold text-xs" ng-click="edit(item)"
+                               data-toggle="tooltip"
                                data-original-title="Edit user">
                                 Edit
+                            </a>
+                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                               ng-click="delete(item)" data-toggle="tooltip"
+                               data-original-title="Edit user">
+                                Delete
                             </a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <div class="text-center">
+                    <button type="button" ng-click="pager.first()" class="btn btn-outline-primary btn-sm">First</button>
+                    <button type="button" ng-click="pager.prev()" class="btn btn-outline-secondary btn-sm">Prev</button>
+                    <button type="button" ng-click="pager.next()" class="btn btn-outline-secondary btn-sm">Next</button>
+                    <button type="button" ng-click="pager.last()" class="btn btn-outline-primary btn-sm">Last</button>
+                </div>
 
             </div>
         </div>
