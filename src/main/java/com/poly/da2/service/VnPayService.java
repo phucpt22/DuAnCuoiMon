@@ -21,7 +21,7 @@ public class VnPayService {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-        String vnp_IpAddr = "127.0.0.1";
+        String vnp_IpAddr = "1.54.132.97";
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
@@ -30,6 +30,7 @@ public class VnPayService {
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(total*100));
         vnp_Params.put("vnp_CurrCode", "VND");
+        vnp_Params.put("vnp_OrderType", "topup");
 
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", orderInfor);
