@@ -1,11 +1,11 @@
 <div class="col-md-12 mt-4">
     <div class="card">
         <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Chi tiết hoá đơn {{Mã hoá đơn}}</h6>
+            <h6 class="mb-0">Chi tiết hoá đơn {{item.id}}</h6>
         </div>
         <div class="card-body pt-4 p-3">
             <ul class="list-group">
-                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                <li ng-repeat="od in items_order_detail" class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
                         <h6 class="mb-3 text-sm">Tên Sản Phẩm
                             sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h6>
