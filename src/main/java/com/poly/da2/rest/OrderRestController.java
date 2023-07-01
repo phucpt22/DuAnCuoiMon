@@ -12,11 +12,12 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
+@RequestMapping("/rest/orders")
 public class OrderRestController {
 	@Autowired
 	OrderService orderService;
 	
-	@PostMapping("/rest/orders")
+	@PostMapping()
 	public ResponseEntity<Order> create(@RequestBody JsonNode orderData) {
 		try {
 			Order order = orderService.create(orderData);
@@ -26,8 +27,8 @@ public class OrderRestController {
 		}
 	}
 	
-	@GetMapping("/rest/ordersall")
-	public List<Order> findAll() {
+	@GetMapping("")
+	public List<Order> getAll() {
 		return orderService.findAll();
 	}
 }

@@ -13,7 +13,7 @@ app.config(function($routeProvider) {
         })
         .when("/order", {
             templateUrl: "/assets/admin/order/index.html",
-            controller: "HomeController"
+            controller: "order-ctrl"
         })
         .when("/product", {
             templateUrl: "/assets/admin/product/index.html",
