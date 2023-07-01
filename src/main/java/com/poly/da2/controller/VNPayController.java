@@ -30,6 +30,18 @@ public class VNPayController {
         return "redirect:" + vnpayUrl;
     }
 
+    @GetMapping("/vnp")
+    public String home(){
+        return "index";
+    }
+    @PostMapping("/submitOrder")
+    public String submidOrder(@RequestParam("amount") int orderTotal,
+                              @RequestParam("orderInfo") String orderInfo,
+                              HttpServletRequest request){
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
+        return "redirect:" + vnpayUrl;
+    }
 
     @GetMapping("/vnpay-payment")
     public String GetMapping(HttpServletRequest request, Model model){
@@ -58,6 +70,6 @@ public class VNPayController {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
-        return paymentStatus == 1 ? "cart/ordersuccess" : "cart/orderfail";
+        return paymentStatus == 1 ? "ordersuccess" : "orderfail";
     }
 }

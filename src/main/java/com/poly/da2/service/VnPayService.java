@@ -18,8 +18,6 @@ import java.util.*;
 public class VnPayService {
     public String createOrder(int total, String orderInfor, String urlReturn){
         try{
-
-
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
