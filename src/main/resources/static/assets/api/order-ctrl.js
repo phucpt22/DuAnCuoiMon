@@ -1,5 +1,6 @@
 app.controller("order-ctrl", function($scope, $http) {
     $scope.items_order = [];
+    $scope.form = {};
     $scope.items_order_detail=[];
 
 
@@ -12,6 +13,7 @@ app.controller("order-ctrl", function($scope, $http) {
     $scope.show = function(item) {
         //debugger;
         //console.log(${item.order.id});
+        $scope.form = angular.copy(item);
         $http
             .get(`/rest/orders/${item.id}`, item)
             .then((resp) => {
