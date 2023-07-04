@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +25,11 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date updateDate = new Date();
 
-    private Double totalPrice;
+    private Double total_price;
 
-    private Double discount;
+    private Double vat;
     private String status_order;
+    private String status_pay;
     private String payments;
 
     private Double origninal_price;
@@ -42,4 +42,8 @@ public class Order {
     @JsonIgnore
     @OneToMany(mappedBy = "order")
     List<OrderDetail> orderDetails;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "order_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Payments payment;
 }

@@ -13,7 +13,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findByUsername(String username) {
-		return orderRepository.findByUsername(username);
+	public List<Order> findByUsername(String username, String status) {
+		return orderRepository.findByUsername(username,status);
 	}
 
 
@@ -59,6 +61,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAll();
 	}
 
-	
-	
+	@Override
+	public BigDecimal getTotalMoneyOrderToday() {
+		return orderRepository.getTotalMoneyOrderToday();
+	}
+
+
 }

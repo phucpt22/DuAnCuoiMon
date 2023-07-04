@@ -37,6 +37,7 @@ public class SecurityController {
     @RequestMapping("/security/login/form")
     public String loginForm(Model model) {
         model.addAttribute("message", "Vui lòng đăng nhập!");
+        model.addAttribute("message2", "Vui lòng đăng ký!");
         return "security/login";
     }
 

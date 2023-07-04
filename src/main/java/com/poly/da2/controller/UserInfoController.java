@@ -56,7 +56,7 @@ public class UserInfoController {
     @PostMapping("/image")
     public String updateUserImage(@RequestParam("id") String id, @RequestParam("file") MultipartFile image) throws ChangeSetPersister.NotFoundException, IOException {
         uService.updateUserImage(Integer.parseInt(id), image.getOriginalFilename());
-        Path path = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/assert/user/img", image.getOriginalFilename());
+        Path path = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/assets/user/img", image.getOriginalFilename());
         Files.write(path, image.getBytes());
         return "redirect:/userinfo";
     }

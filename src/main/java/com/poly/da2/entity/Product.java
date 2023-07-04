@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,12 +30,23 @@ public class Product implements Serializable {
 	private Integer id;
 	private String name;
 	private Double price;
+	private Double currentprice;
 	private String description;
 	private String thumbnail_url;
 	private Double rating_average;
 	private Integer review_count;
 	private String image_urls;
 	private double discount;
+	public String getFormatCurrent_Price() {
+		DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+		String formattedPrice = decimalFormat.format(currentprice);
+		return formattedPrice;
+	}
+	public String getFormatPrice() {
+		DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+		String formattedPrice = decimalFormat.format(price);
+		return formattedPrice;
+	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")

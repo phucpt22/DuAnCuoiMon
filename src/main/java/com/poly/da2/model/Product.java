@@ -8,7 +8,7 @@ public class Product {
 
     private String name;
 
-    private double price;
+    private MoneyStore price;
 
     private String short_description;
 
@@ -36,13 +36,6 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
 
     public String getThumbnail_url() {
@@ -83,5 +76,13 @@ public class Product {
 
     public void setShort_description(String short_description) {
         this.short_description = short_description;
+    }
+
+    public MoneyStore getPrice() {
+        return price;
+    }
+
+    public void setPrice(MoneyStore price) {
+        this.price = price;
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
 <head>
-    <link rel="icon" href="/assert/user/img/TS.png" type="/image/x-icon">
+    <link rel="icon" href="/assets/user/img/TS.png" type="/image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,23 +13,23 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="/assert/user/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/user/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <script src="https://code.angularjs.org/1.8.2/angular.min.js"></script>
 
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="/assert/user/css/slick.css"/>
-    <link type="text/css" rel="stylesheet" href="/assert/user/css/slick-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/user/css/slick.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/user/css/slick-theme.css"/>
 
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="/assert/user/css/nouislider.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/user/css/nouislider.min.css"/>
 
     <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="/assert/user/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/user/css/font-awesome.min.css">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="/assert/user/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/user/css/style.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -104,7 +104,7 @@
 
                                 </li>
                                 <li class="nav-item"
-                                    th:if="${#request.isUserInRole('r1')}">
+                                    >
                                     <a style="color: red" class="dropdown-item" th:href="@{/admin/home/index}">Trang
                                         quản trị</a>
                                 </li>
@@ -128,7 +128,7 @@
                 <div class="col-md-9">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <img src="/assert/user/img/logo2.png" width="200" height="70" alt="">
+                            <img src="/assets/user/img/logo2.png" width="200" height="70" alt="">
                         </a>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">{{item.name}}</a></h3>
-                                            <h4 class="product-price"><span class="qty">{{item.qty}}x</span>${{item.price*item.qty|number:2}}
+                                            <h4 class="product-price"><span class="qty">{{item.qty}}x</span>{{item.currentprice*item.qty|number:2}}
                                             </h4>
                                         </div>
                                         <button ng-click="cart.remove(item.id)" class="delete"><i
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="cart-summary">
                                     <small>{{cart.count}} Item(s) selected</small>
-                                    <h5>Amount: ${{cart.amount|number:2}}</h5>
+                                    <h5>Amount: {{cart.amount|number:2}}</h5>
                                 </div>
                                 <div class="cart-btns">
                                     <a th:href="@{/cart/view}">View Cart</a>
@@ -208,12 +208,29 @@
         <!-- responsive-nav -->
         <div id="responsive-nav">
             <!-- NAV -->
+            <script>
+                // Lấy danh sách các phần tử trong menu
+                var menuItems = document.querySelectorAll('.main-nav li');
+
+                // Xử lý sự kiện click cho từng phần tử
+                menuItems.forEach(function(item) {
+                    item.addEventListener('click', function() {
+                        // Loại bỏ class "active" khỏi tất cả các phần tử
+                        menuItems.forEach(function(item) {
+                            item.classList.remove('active');
+                        });
+
+                        // Thêm class "active" vào phần tử được click
+                        this.classList.add('active');
+                    });
+                });
+
+            </script>
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a th:href="@{/homepage}">Home</a></li>
                 <li><a th:href="@{/products}">Store</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">About</a></li>
-
             </ul>
             <!-- /NAV -->
         </div>
@@ -392,13 +409,13 @@
 <!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
-<script src="/assert/user/js/jquery.min.js"></script>
-<script src="/assert/user/js/bootstrap.min.js"></script>
-<script src="/assert/user/js/slick.min.js"></script>
-<script src="/assert/user/js/nouislider.min.js"></script>
-<script src="/assert/user/js/jquery.zoom.min.js"></script>
-<script src="/assert/user/js/main.js"></script>
-<script src="/assert/api/cart.js"></script>
+<script src="/assets/user/js/jquery.min.js"></script>
+<script src="/assets/user/js/bootstrap.min.js"></script>
+<script src="/assets/user/js/slick.min.js"></script>
+<script src="/assets/user/js/nouislider.min.js"></script>
+<script src="/assets/user/js/jquery.zoom.min.js"></script>
+<script src="/assets/user/js/main.js"></script>
+<script src="/assets/api/cart.js"></script>
 
 </body>
 </html>

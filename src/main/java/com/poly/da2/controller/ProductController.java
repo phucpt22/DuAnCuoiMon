@@ -1,5 +1,6 @@
 package com.poly.da2.controller;
 
+import com.poly.da2.Utils.NumberUtils;
 import com.poly.da2.entity.Reviews;
 import com.poly.da2.entity.Userss;
 import com.poly.da2.model.ProductPageOutPut;
@@ -20,7 +21,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,14 +42,17 @@ public class ProductController {
 	@Autowired
 	ReviewRepository reviewRepository;
 
+
 	@Autowired
 	UserRepository uRepository;
+	private String a = NumberUtils.maxNumber;
+
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model,
 						 @RequestParam(defaultValue = "0") int page,
 						 @RequestParam(defaultValue = "4") int size,
 						 @RequestParam String idcate,
-						 @PathVariable("id") Integer id, HttpServletRequest request) {
+						 @PathVariable("id") Integer id) {
 		Pageable pageable = PageRequest.of(page, size);
 		Product item = productService.findById(id);
 		Page<Reviews> reviews = reviewRepository.listReviewByIdProduct(id,pageable);
@@ -63,30 +69,19 @@ public class ProductController {
 		model.addAttribute("currentPage", page);
 		return "product/detail";
 	}
-//	@PostMapping("/search")
-//	public String searchProducts(@RequestParam("searchTerm") String searchTerm,
-//								 @RequestParam(defaultValue = "0") int page,
-//								 @RequestParam(defaultValue = "4") int size,
-//								 Model model) {
-//		Pageable pageable = PageRequest.of(page, size);
-//		Page<Product> productPage = productService.searchProducts(searchTerm, pageable);
-//		model.addAttribute("searchTerm", searchTerm);
-//		model.addAttribute("items", productPage.getContent());
-//		model.addAttribute("totalPages", productPage.getTotalPages());
-//		model.addAttribute("currentPage", page);
-//		return "product/store";
-//	}
 	@Transactional(readOnly = true)
 	@GetMapping("/products")
 	public String getProducts(@RequestParam(defaultValue = "0") int page,
-							  @RequestParam(defaultValue = "6") int size,
+							  @RequestParam(defaultValue = "9") int size,
 							  @RequestParam(name = "cid", defaultValue = "")String cid,
+							  @RequestParam(name = "min_price", defaultValue = "0")Double min_price,
+							  @RequestParam(name = "max_price", defaultValue = "90000000")Double max_price,
 							  @RequestParam(name = "name", defaultValue = "") String name,
 							  Model model) {
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> listc = categoryService.findAll();
 		List<Product> bestseller = dao.sanphambanchay();
-		ProductPageOutPut productPage = productService.filterProducts( name, cid, pageable);
+		ProductPageOutPut productPage = productService.filterProducts( name, cid, min_price, max_price, pageable);
 		model.addAttribute("items", productPage.getProducts());
 		model.addAttribute("cates", listc);
 		model.addAttribute("bestseller", bestseller);
@@ -94,6 +89,8 @@ public class ProductController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("cid", cid);
 		model.addAttribute("name", name);
+		model.addAttribute("min_price", min_price);
+		model.addAttribute("max_price", max_price);
 		return "product/store";
 	}
 	@PostMapping("/reviews")
@@ -131,7 +128,7 @@ public class ProductController {
 		}catch (Exception e){
 			e.getStackTrace();
 		}
-		return "redirect:/product/detail/" + idProduct;
+		return "redirect:/product/detail/" + idProduct+ "?idcate=" + request.getParameter("idcate");
 	}
 
 }
