@@ -55,4 +55,14 @@ public class UserServiceImpl implements UserService {
         u.save(user);
     }
 
+    @Override
+    public long count() {
+        return u.count();
+    }
+
+    @Override
+    public long countNewUsers() {
+        return u.countNewUsers();
+    }
+
 }

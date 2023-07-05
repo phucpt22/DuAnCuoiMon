@@ -19,4 +19,8 @@ public interface UserService {
 
     void delete(Integer id);
     void updateUserImage(int id,String nameImage) throws ChangeSetPersister.NotFoundException;
+
+    long count() ;
+
+    long countNewUsers() ;
 }

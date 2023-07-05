@@ -29,4 +29,6 @@ public interface ProductService {
 
 
 	ProductPageOutPut filterProducts(String name, String cid, Double min_price, Double max_price, Pageable pageable);
+
+	long count();
 }

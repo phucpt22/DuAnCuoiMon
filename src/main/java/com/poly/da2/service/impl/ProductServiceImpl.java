@@ -80,5 +80,10 @@ public class ProductServiceImpl implements ProductService {
 		return productPageOutPut;
 	}
 
+	@Override
+	public long count() {
+		return productRepository.count();
+	}
+
 
 }

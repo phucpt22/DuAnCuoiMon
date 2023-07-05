@@ -30,4 +30,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT p FROM Product p WHERE p.category.id = ?1 ORDER BY NEWID()")
 	List<Product> SanPhamLienQuan(String cid, Pageable pageable);
 
+	@Query(value = "SELECT COUNT(*) FROM Product p")
+	long count();
 }
