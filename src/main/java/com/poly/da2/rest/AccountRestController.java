@@ -1,12 +1,24 @@
 package com.poly.da2.rest;
 
-//@CrossOrigin("*")
-//@RestController
-//@RequestMapping("/rest/accounts")
+import com.poly.da2.entity.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.poly.da2.service.AccountService;
+
+import java.util.List;
+
+@CrossOrigin("*")
+@RestController
+@RequestMapping("/rest/accounts")
 public class AccountRestController {
-//	@Autowired
-//	AccountService accountService;
-//
+	@Autowired
+	AccountService accountService;
+
+    @GetMapping
+    public List<Account> getAll(){
+        return accountService.findAll();
+    }
 //	@GetMapping
 //	public List<Account> getAccounts(@RequestParam("admin")Optional<Boolean> admin) {
 //		if (admin.orElse(false)) {
