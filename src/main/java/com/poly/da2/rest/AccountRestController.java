@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/tk")
 public class AccountRestController {
-	@Autowired
+    @Autowired
     AccountService accountService;
 
-	@GetMapping("/all")
-	public List<Account> getAll() {
-		return accountService.findAll();
-	}
+    @GetMapping("/all")
+    public List<Account> getAll() {
+        return accountService.findAll();
+    }
 
 
 }
