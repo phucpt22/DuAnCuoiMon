@@ -13,20 +13,31 @@
                     <thead>
                     <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình ảnh</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và tên</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên tài khoản</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa chỉ</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-6">Công cụ</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ
+                            và tên
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên
+                            tài khoản
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            Email
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa
+                            chỉ
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-6">Công
+                            cụ
+                        </th>
                     </tr>
                     </thead>
                     <!-- Nội dung bảng -->
                     <tbody>
-                    <tr ng-repeat="item in pager.tk">
+                    <tr ng-repeat="item in tk">
                         <td class="align-middle text-center col-2">
                             <div class="d-flex">
                                 <div>
-                                    <img ng-src="/assets/user/img/{{item.user.photo}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                    <img ng-src="/assets/user/img/{{item.user.photo}}"
+                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                 </div>
                             </div>
                         </td>
@@ -39,10 +50,13 @@
                         <td class="align-middle text-center col-2">
                             <p class="text-xs font-weight-bold mb-0 ">{{item.user.gmail}}</p>
                         </td>
-                        <td class="align-middle text-center col-2">9                            <span class="text-secondary text-xs font-weight-bold">{{item.user.address}}</span>
+                        <td class="align-middle text-center col-2">9 <span
+                                class="text-secondary text-xs font-weight-bold">{{item.user.address}}</span>
                         </td>
                         <td class="align-middle text-center col-2">
-                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product" class="text-secondary font-weight-bold text-xs" ng-click="edit(item)" data-toggle="tooltip"
+                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product"
+                               class="text-secondary font-weight-bold text-xs" ng-click="edit(item)"
+                               data-toggle="tooltip"
                                data-original-title="Edit user">
                                 Edit
                             </a>
