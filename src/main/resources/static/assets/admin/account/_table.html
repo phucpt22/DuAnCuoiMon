@@ -32,26 +32,26 @@
                     </thead>
                     <!-- Nội dung bảng -->
                     <tbody>
-                    <tr ng-repeat="item in tk">
+                    <tr ng-repeat="item in items">
                         <td class="align-middle text-center col-2">
                             <div class="d-flex">
                                 <div>
-                                    <img ng-src="/assets/user/img/{{item.user.photo}}"
+                                    <img ng-src="/assets/user/img/{{item.photo}}"
                                          class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                 </div>
                             </div>
                         </td>
                         <td class="align-middle text-center col-2">
-                            <h6 class="mb-0 text-truncate text-sm">{{item.user.fullName}}</h6>
+                            <h6 class="mb-0 text-truncate text-sm">{{item.fullName}}</h6>
                         </td>
                         <td class="align-middle text-center col-2">
-                            <h6 class="mb-0 text-truncate text-sm">{{item.username}}</h6>
+                            <h6 class="mb-0 text-truncate text-sm">{{item.account.username}}</h6>
                         </td>
                         <td class="align-middle text-center col-2">
-                            <p class="text-xs font-weight-bold mb-0 ">{{item.user.gmail}}</p>
+                            <p class="text-xs font-weight-bold mb-0 ">{{item.gmail}}</p>
                         </td>
-                        <td class="align-middle text-center col-2">9 <span
-                                class="text-secondary text-xs font-weight-bold">{{item.user.address}}</span>
+                        <td class="align-middle text-center col-2"> <span
+                                class="text-secondary text-xs font-weight-bold">{{item.address}}</span>
                         </td>
                         <td class="align-middle text-center col-2">
                             <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product"
