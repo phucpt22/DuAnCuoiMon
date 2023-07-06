@@ -3,9 +3,12 @@ app.controller("account-ctrl", function($scope, $http) {
     $scope.cates = [];
     $scope.form = {};
 
-    $scope.initialize = function() {
+    $scope.initialize = function () {
         $http.get("/rest/users/all").then((resp) => {
             $scope.items = resp.data;
+        });
+        $http.get("/rest/tk").then((resp) => {
+            $scope.tk = resp.data;
         });
     };
 

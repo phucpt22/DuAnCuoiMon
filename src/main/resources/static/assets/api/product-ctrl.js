@@ -10,9 +10,9 @@ app.controller("product-ctrl", function ($scope, $http) {
                 item.createDate = new Date(item.createDate);
             });
         });
-        $http.get("/rest/categories").then((resp) => {
-            $scope.cates = resp.data;
-        });
+        // $http.get("/rest/categories").then((resp) => {
+        //     $scope.cates = resp.data;
+        // });
     };
     $scope.search = function (p) {
         //debugger;

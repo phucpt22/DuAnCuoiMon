@@ -38,7 +38,7 @@ public class Userss {
     @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Account account;
-//
+
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     List<Authority> authorities;
