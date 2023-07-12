@@ -1,15 +1,25 @@
 app.controller("account-ctrl", function($scope, $http) {
     $scope.items = [];
     $scope.form = {};
+
     $scope.accounts = [];
 
-    $scope.initialize = function() {
+    $scope.tk = null;
+
+
+    $scope.initialize = function () {
         $http.get("/rest/users/all").then((resp) => {
             $scope.items = resp.data;
         });
+
         // $http.get("/rest/accounts").then((resp) => {
         //     $scope.accounts = resp.data;
         // });
+
+        $http.get("/rest/tk/all").then((resp) => {
+            $scope.tk = resp.data;
+        });
+
     };
 
     $scope.edit = function(item) {
