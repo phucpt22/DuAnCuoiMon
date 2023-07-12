@@ -1,8 +1,13 @@
 app.controller("account-ctrl", function($scope, $http) {
     $scope.items = [];
+    $scope.cates = [];
     $scope.form = {};
 
+
     $scope.accounts = [];
+
+    $scope.tk = null;
+
 
     $scope.tk = null;
 
@@ -12,6 +17,7 @@ app.controller("account-ctrl", function($scope, $http) {
             $scope.items = resp.data;
         });
 
+
         // $http.get("/rest/accounts").then((resp) => {
         //     $scope.accounts = resp.data;
         // });
@@ -20,7 +26,14 @@ app.controller("account-ctrl", function($scope, $http) {
             $scope.tk = resp.data;
         });
 
+
+        $http.get("/rest/tk/all").then((resp) => {
+            $scope.tk = resp.data;
+        });
+
     };
+
+    $scope.initialize();
 
     $scope.edit = function(item) {
         $scope.form = angular.copy(item);
@@ -41,11 +54,6 @@ app.controller("account-ctrl", function($scope, $http) {
                 $scope.items.push(resp.data);
                 $scope.reset();
                 alert("Thêm mới tài khoản thành công!");
-            })
-            .post("/rest/accounts", item)
-            .then((resp) => {
-                $scope.items.push(resp.data);
-                $scope.reset();
             })
             .catch((error) => {
                 alert("Lỗi thêm mới tài khoản!");
@@ -102,7 +110,7 @@ app.controller("account-ctrl", function($scope, $http) {
 
     $scope.pager = {
         page: 0,
-        size: 10,
+        size: 5,
         get items() {
             var start = this.page * this.size;
             return $scope.items.slice(start, start + this.size);
@@ -129,6 +137,4 @@ app.controller("account-ctrl", function($scope, $http) {
             this.page=this.count-1;
         },
     };
-
-    $scope.initialize();
 });

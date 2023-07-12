@@ -2,10 +2,12 @@ package com.poly.da2.rest;
 
 import com.poly.da2.entity.Account;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.poly.da2.service.AccountService;
+
 import com.poly.da2.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
+
 
 @RequestMapping("/rest/accounts")
 public class AccountRestController {
@@ -69,6 +72,17 @@ public class AccountRestController {
     public List<Account> getAll() {
         return accountService.findAll();
     }
+
+@RequestMapping("/rest/tk")
+public class AccountRestController {
+    @Autowired
+    AccountService accountService;
+
+    @GetMapping("/all")
+    public List<Account> getAll() {
+        return accountService.findAll();
+    }
+
 
 
 }

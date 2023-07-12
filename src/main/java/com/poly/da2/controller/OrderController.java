@@ -73,9 +73,11 @@ public class OrderController {
         return "order/detail";
     }
 
+
     @GetMapping("/payment")
     public String showPaymentPage() {
         return "index";
     }
+
 
 }

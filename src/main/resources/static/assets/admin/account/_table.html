@@ -87,11 +87,39 @@
                             <div class="d-flex">
                                 <div>
                                     <img ng-src="/assets/user/img/{{item.user.photo}}"
+                    <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình ảnh</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ
+                            và tên
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên
+                            tài khoản
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            Email
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa
+                            chỉ
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-6">Công
+                            cụ
+                        </th>
+                    </tr>
+                    </thead>
+                    <!-- Nội dung bảng -->
+                    <tbody>
+                    <tr ng-repeat="item in items">
+                        <td class="align-middle text-center col-2">
+                            <div class="d-flex">
+                                <div>
+                                    <img ng-src="/assets/user/img/{{item.photo}}"
+
                                          class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                 </div>
                             </div>
                         </td>
                         <td class="align-middle text-center col-2">
+
                             <h6 class="mb-0 text-truncate text-sm">{{item.username}}</h6>
                         </td>
                         <td class="align-middle text-center col-2">
@@ -102,6 +130,18 @@
                         </td>
                         <td class="align-middle text-center col-2">9 <span
                                 class="text-secondary text-xs font-weight-bold">{{item.user.address}}</span>
+
+                            <h6 class="mb-0 text-truncate text-sm">{{item.fullName}}</h6>
+                        </td>
+                        <td class="align-middle text-center col-2">
+                            <h6 class="mb-0 text-truncate text-sm">{{item.account.username}}</h6>
+                        </td>
+                        <td class="align-middle text-center col-2">
+                            <p class="text-xs font-weight-bold mb-0 ">{{item.gmail}}</p>
+                        </td>
+                        <td class="align-middle text-center col-2"> <span
+                                class="text-secondary text-xs font-weight-bold">{{item.address}}</span>
+
                         </td>
                         <td class="align-middle text-center col-2">
                             <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product"
@@ -127,8 +167,8 @@
             <i class="fa-solid fa-backward"></i>
         </button>
         <span class="btn btn-warning">
-            <i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
-        </span>
+			<i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
+		</span>
         <button class="btn btn-primary" ng-click="pager.next()" type="button">
             <i class="fa-solid fa-forward"></i>
         </button>
@@ -138,3 +178,4 @@
     </div>
 </div>
 </div>
+
