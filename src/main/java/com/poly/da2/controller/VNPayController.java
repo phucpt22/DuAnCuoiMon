@@ -72,6 +72,6 @@ public class VNPayController {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
-        return paymentStatus == 1 ? "cart/ordersuccess" : "cart/orderfail";
+        return paymentStatus == 1 ? "ordersuccess" : "orderfail";
     }
 }

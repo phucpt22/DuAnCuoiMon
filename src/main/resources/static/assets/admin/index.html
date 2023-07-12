@@ -37,6 +37,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet"/>
+    <link href="./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -46,7 +48,12 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200" ng-app="admin-app">
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark"
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
        id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -74,6 +81,14 @@
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
                     <span class="nav-link-text ms-1">Product <span th:text="${session.totalMoney}"></span></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white " href="#!account">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">person</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Account</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -295,9 +310,6 @@
     <!--End View-->
 </main>
 <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <i class="material-icons py-2">settings</i>
-    </a>
     <div class="card shadow-lg">
         <div class="card-header pb-0 pt-3">
             <div class="float-start">
@@ -403,18 +415,225 @@
 <!-- Main JS -->
 <script>
 
+
 </script>
-
-
-
-
-
 
 <script src="/assets/api/admin-ctrl.js"></script>
 <script src="/assets/api/product-ctrl.js"></script>
 <script src="/assets/api/account-ctrl.js"></script>
 <script src="/assets/api/order-ctrl.js"></script>
 <script src="/assets/api/category-ctrl.js"></script>
-</body>
+<script type="text/javascript">
+    /* exported gapiLoaded */
+    /* exported gisLoaded */
+    /* exported handleAuthClick */
+    /* exported handleSignoutClick */
 
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    const SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly";
+
+    // TODO(developer): Set to client ID and API key from the Developer Console
+    const CLIENT_ID =
+        "477660716640-pi6b028naufuiranp5mm3ls5fj8uq1d6.apps.googleusercontent.com";
+    const API_KEY = "AIzaSyCeAlfmgi9_pXbNvhTLatLBTGV-wWy40AA";
+
+    // TODO(developer): Replace with your own project number from console.developers.google.com.
+    const APP_ID = "sincere-venture-386206";
+
+    let tokenClient;
+    let accessToken = null;
+    let pickerInited = false;
+    let gisInited = false;
+
+    document.getElementById("authorize_button").style.visibility = "hidden";
+    document.getElementById("signout_button").style.visibility = "hidden";
+
+    /**
+     * Callback after api.js is loaded.
+     */
+    function gapiLoaded() {
+        gapi.load("client:picker", initializePicker);
+    }
+
+    /**
+     * Callback after the API client is loaded. Loads the
+     * discovery doc to initialize the API.
+     */
+    async function initializePicker() {
+        await gapi.client.load(
+            "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"
+        );
+        pickerInited = true;
+        maybeEnableButtons();
+    }
+
+    /**
+     * Callback after Google Identity Services are loaded.
+     */
+    function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: "", // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+    }
+
+    /**
+     * Enables user interaction after all libraries are loaded.
+     */
+    function maybeEnableButtons() {
+        if (pickerInited && gisInited) {
+            document.getElementById("authorize_button").style.visibility =
+                "visible";
+        }
+    }
+
+    /**
+     *  Sign in the user upon button click.
+     */
+    function handleAuthClick() {
+        tokenClient.callback = async (response) => {
+            if (response.error !== undefined) {
+                throw response;
+            }
+            accessToken = response.access_token;
+            await createPicker();
+        };
+
+        if (accessToken === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            tokenClient.requestAccessToken({ prompt: "consent" });
+        } else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            tokenClient.requestAccessToken({ prompt: "" });
+        }
+    }
+
+    /**
+     *  Sign out the user upon button click.
+     */
+    // function handleSignoutClick() {
+    //     if (accessToken) {
+    //         accessToken = null;
+    //         google.accounts.oauth2.revoke(accessToken);
+    //         document.getElementById("content").innerText = "";
+    //         document.getElementById("authorize_button").innerText = "Authorize";
+    //         document.getElementById("signout_button").style.visibility = "hidden";
+    //     }
+    // }
+
+    /**
+     *  Create and render a Picker object for searching images.
+     */
+    function createPicker() {
+        const view = new google.picker.View(google.picker.ViewId.DOCS);
+        view.setMimeTypes("image/png,image/jpeg,image/jpg");
+        const picker = new google.picker.PickerBuilder()
+            .enableFeature(google.picker.Feature.NAV_HIDDEN)
+            .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+            .setDeveloperKey(API_KEY)
+            .setAppId(APP_ID)
+            .setOAuthToken(accessToken)
+            .addView(view)
+            .addView(new google.picker.DocsUploadView())
+            .setCallback(pickerCallback)
+            .build();
+        picker.setVisible(true);
+    }
+
+    /**
+     * Displays the file details of the user's selection.
+     * @param {object} data - Containers the user selection from the picker
+     */
+    async function pickerCallback(data) {
+        if (data.action === google.picker.Action.PICKED) {
+            var x = data["docs"][0]["id"];
+            document.getElementById("imageShow").src =
+                "https://drive.google.com/uc?export=view&id=" + x;
+        }
+    }
+</script>
+<script
+        async
+        defer
+        src="https://apis.google.com/js/api.js"
+        onload="gapiLoaded()"
+></script>
+<script
+        async
+        deferl
+        src="https://accounts.google.com/gsi/client"
+        onload="gisLoaded()"
+></script>
+</body>
+<script>
+
+    var myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json, text/plain, */*");
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+
+    function setTable(x){
+        var ctx = document.getElementById('income-chart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        fetch("http://localhost:8080/rest/orders/total-money", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-money-today").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/total-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-user").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/products/count", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-product-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/new-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("new-user-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        if(ctx){
+            clearInterval(x)
+        }
+
+    }
+    const setIntervalId = setInterval(()=>{
+        setTable(setIntervalId)
+    },500)
+
+</script>
 </html>

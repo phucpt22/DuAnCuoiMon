@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public BigDecimal getTotalMoneyOrderToday() {
+	public long getTotalMoneyOrderToday() {
 		return orderRepository.getTotalMoneyOrderToday();
 	}
 

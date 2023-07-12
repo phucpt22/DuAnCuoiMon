@@ -16,5 +16,5 @@ public interface OrderService {
 
 	List<Order> findAll();
 
-	BigDecimal getTotalMoneyOrderToday();
+	long getTotalMoneyOrderToday();
 }

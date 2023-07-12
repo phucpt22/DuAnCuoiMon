@@ -1,0 +1,68 @@
+<div class="col-12">
+    <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Authors table</h6>
+            </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+
+
+                <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name
+                            </th>
+                            <th class="text-secondary opacity-7"></th>
+                        </tr>
+                    </thead>
+                    <!-- Nội dung bảng -->
+                    <tbody>
+                        <tr ng-repeat="c in pager.cates">
+                            <th class="col-2">
+                                <h6 class="mb-0 text-truncate text-sm">{{c.id}}</h6>
+                            </th>
+                            <th class="col-2">
+                                <h6 class="mb-0 text-truncate text-sm">{{c.name}}</h6>
+                            </th>
+                            <td class="align-middle col-2">
+                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                    data-bs-toggle="modal" data-bs-target="#modal-category" data-toggle="tooltip"
+                                    data-original-title="Edit user" ng-click="edit(c)">
+                                    Edit
+                                </a>
+                                &nbsp; &nbsp;
+                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit user" ng-click="delete(c)">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <button class="btn btn-danger" ng-click="pager.first()" type="button">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+        </button>
+        <button class="btn btn-primary" ng-click="pager.prev()" type="button">
+            <i class="fa-solid fa-backward"></i>
+        </button>
+        <span class="btn btn-warning">
+            <i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
+        </span>
+        <button class="btn btn-primary" ng-click="pager.next()" type="button">
+            <i class="fa-solid fa-forward"></i>
+        </button>
+        <button class="btn btn-danger" ng-click="pager.last()" type="button">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+        </button>
+    </div>
+</div>
+</div>

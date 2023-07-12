@@ -52,4 +52,9 @@ public class ProductRestController {
     public void delete(@PathVariable("id") Integer id) {
         productService.delete(id);
     }
+
+    @GetMapping("count")
+    public long count(){
+        return productService.count();
+    }
 }

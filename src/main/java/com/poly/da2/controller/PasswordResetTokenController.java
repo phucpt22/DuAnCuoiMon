@@ -2,61 +2,109 @@ package com.poly.da2.controller;
 
 import com.poly.da2.entity.Account;
 import com.poly.da2.entity.PasswordResetToken;
+import com.poly.da2.repository.AccountRepository;
+import com.poly.da2.repository.PasswordResetTokenRepository;
 import com.poly.da2.service.AccountService;
-import com.poly.da2.service.PasswordResetTokenService;
+import com.poly.da2.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class PasswordResetTokenController {
-    @Autowired
-    private AccountService accService;
 
     @Autowired
-    private PasswordResetTokenService tokenService;
+    private EmailService emailService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
 
     @GetMapping("/forgot-password")
-    public String showForgotPasswordForm() {
-        return "forgot-password";
+    public String form(){
+        return "security/forgot-password";
     }
-
     @PostMapping("/forgot-password")
-    public String processForgotPasswordForm(@RequestParam("email") String email, HttpServletRequest request) {
-        Account user = accService.findbyEmail(email);
-        if (user != null) {
-            PasswordResetToken token = tokenService.createToken(user);
-            String resetUrl = getResetUrl(request, token.getToken());
-            // Gửi email chứa đường dẫn đặt lại mật khẩu đến người dùng
+    public String submitForgotPasswordForm(@RequestParam("email") String email, HttpServletRequest httpServletRequest, Model model) {
+        Account acc = accountRepository.findByEmail(email);
+        if (acc == null) {
+            model.addAttribute("messerror","Không tìm thấy email");
+            return "security/forgot-password";
         }
-        return "redirect:/forgot-password?success";
-    }
+        String token = generateToken();
 
-    @GetMapping("/reset-password")
-    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
-        if (tokenService.validateToken(token)) {
-            model.addAttribute("token", token);
-            return "reset-password";
+        String subject = "Reset your password";
+        String text = "Please click the link below to reset your password: "
+                + "http://localhost:8080/reset-password/" + token;
+        emailService.sendEmail(email, subject, text);
+        httpServletRequest.getSession().setAttribute("token",token);
+        httpServletRequest.getSession().setAttribute("email",email);
+        model.addAttribute("mess","Gửi thành công, vui lòng kiểm tra mail");
+        return "security/forgot-password";
+    }
+    @RequestMapping("/reset-password/{token}")
+    public String form3(@PathVariable(name = "token") String token,Model model, HttpServletRequest httpServletRequest){
+        String s = (String) httpServletRequest.getSession().getAttribute("token");
+        if(s.equals(token)){
+            model.addAttribute("mess","Xác nhận thành công");
+            return "security/reset-password";
+        }else {
+            model.addAttribute("mess","Xác nhận không thành công");
+            return "security/forgot-password";
         }
-        return "redirect:/forgot-password?error";
     }
-
     @PostMapping("/reset-password")
-    public String processResetPasswordForm(@RequestParam("token") String token, @RequestParam("password") String password) {
-        if (tokenService.validateToken(token)) {
-            // Cập nhật mật khẩu mới cho người dùng
-            return "redirect:/login?resetSuccess";
+    public String submitResetPasswordForm(HttpServletRequest httpServletRequest,
+                                          @RequestParam("password") String password,
+                                          @RequestParam("confirmPassword") String confirmPassword,
+                                          Model model) {
+        if (!password.equals(confirmPassword) ) {
+            model.addAttribute("messerror","Password không trùng nhau");
+            return "security/reset-password";
+        }else{
+            String mail = (String) httpServletRequest.getSession().getAttribute("email");
+            Account user = accountRepository.findByEmail(mail);
+            if (user != null) {
+                user.setPassword(confirmPassword);
+                accountRepository.save(user);
+                model.addAttribute("message","Đổi mật khẩu thành công");
+            }
+            return "security/login";
         }
-        return "redirect:/forgot-password?error";
+    }
+    private String generateToken() {
+        int tokenLength = 20;
+        String tokenChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom secureRandom = new SecureRandom();
+        StringBuilder tokenBuilder = new StringBuilder(tokenLength);
+        for (int i = 0; i < tokenLength; i++) {
+            int randomIndex = secureRandom.nextInt(tokenChars.length());
+            char randomChar = tokenChars.charAt(randomIndex);
+            tokenBuilder.append(randomChar);
+        }
+        String token = Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBuilder.toString().getBytes());
+        return token;
     }
 
-    private String getResetUrl(HttpServletRequest request, String token) {
-        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        return baseUrl + "/reset-password?token=" + token;
-    }
 }

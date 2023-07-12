@@ -1,0 +1,105 @@
+<div class="col-md-4">
+
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Button trigger modal -->
+            <!-- Modal -->
+            <div class="modal fade" data-bs-backdrop="static" id="modal-product" tabindex="-1" role="dialog"
+                 aria-labelledby="modal-title-product" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <label>
+                                            <img class="rounded form-group" id="imageShow"
+                                                 width="150" height="150" alt="..."
+                                                 ng-src="{{form.thumbnail_url}}">
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <button id="authorize_button" onclick="handleAuthClick()">Chọn ảnh</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-outline my-3">
+                                            <input ng-model="form.name" type="text" placeholder="Ten"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-outline my-3">
+                                            <input ng-model="form.price" type="text" placeholder="Gia"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-outline my-3">
+                                            <input ng-model="form.discount" type="number" placeholder="Discount" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-outline my-3">
+                                            <input ng-model="form.updateDate" type="text" disabled  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check form-check-inline">
+                                            <label>Available</label>
+                                            <input ng-model="form.available" ng-value="true" class="form-check-input"
+                                                   type="radio" name="flexRadioDefault"
+                                                   id="customRadio1">
+                                            <label class="custom-control-label" for="customRadio1">Yes</label>
+                                            <input ng-model="form.available" ng-value="false" class="form-check-input"
+                                                   type="radio" name="flexRadioDefault"
+                                                   id="customRadio2">
+                                            <label class="custom-control-label" for="customRadio2">No</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-outline mb-4">
+                                            <select ng-model="form.category.id" class="form-control"
+                                                    id="exampleFormControlSelect1">
+                                                <option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-group input-group-outline">
+                                        <textarea ng-model="form.description" class="form-control" rows="5"
+                                                  placeholder="Say a few words about who you are or what you're working on."
+                                                  spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                                <div class="d-none">
+                                    <input ng-model="form.rating_average" type="text" class="form-control">
+                                    <input ng-model="form.review_count" type="text" class="form-control">
+                                    <input ng-model="form.image_urls" type="text" class="form-control">
+                                    <input ng-model="form.createDate" type="text" class="form-control">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" ng-click="create()" data-bs-dismiss="modal">Add</button>
+                            <button type="button" class="btn btn-white" ng-click="update()" data-bs-dismiss="modal">Update</button>
+                            <button type="button" class="btn text-red" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+

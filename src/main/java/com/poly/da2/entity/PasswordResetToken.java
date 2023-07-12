@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -14,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "passwordResetToken")
-public class PasswordResetToken {
+public class PasswordResetToken implements Serializable {
 
     public static final int EXPIRATION = 60 * 24;
 
@@ -28,5 +30,11 @@ public class PasswordResetToken {
     @JoinColumn(nullable = false, name = "username")
     private Account username;
 
-    private Date expiryDate;
+    private LocalDateTime expiryDate;
+
+    public PasswordResetToken(String token, Account user) {
+    }
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expiryDate);
+    }
 }
