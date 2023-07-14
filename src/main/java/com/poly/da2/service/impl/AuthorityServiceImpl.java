@@ -1,7 +1,11 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.Account;
+import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.AuthorityRepository;
+import com.poly.da2.repository.UserRepository;
 import com.poly.da2.entity.Authority;
+import com.poly.da2.entity.Userss;
 import com.poly.da2.service.AccountService;
 import com.poly.da2.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +19,17 @@ public class AuthorityServiceImpl implements AuthorityService {
     AuthorityRepository authorityRepository;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	UserRepository userdao;
 
 	@Override
 	public List<Authority> findAuthoritiesOfAdministrators() {
 //		List<Account> accounts = accountService.getAdministrators();
 //		return authorityDAO.authoritiesOf(accounts);
-		return null;
+//		List<Account> accounts = acdao.getAdministrators();
+//		return authorityRepository.authoritiesOf(accounts);
+		List<Userss> users = userdao.getAdministrators();
+		return authorityRepository.authoritiesOf(users);
 	}
 
 	@Override

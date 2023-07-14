@@ -158,24 +158,16 @@
 
             </div>
         </div>
+        <div class="card-footer text-center">
+            <div class="text-center">
+                <button type="button" ng-click="pager.first()" class="btn btn-outline-primary btn-sm">First</button>
+                <button type="button" ng-click="pager.prev()" class="btn btn-outline-secondary btn-sm">Prev</button>
+                <button type="button" ng-click="pager.next()" class="btn btn-outline-secondary btn-sm">Next</button>
+                <button type="button" ng-click="pager.last()" class="btn btn-outline-primary btn-sm">Last</button>
+            </div>
+        </div>
     </div>
-    <div class="card-footer text-center">
-        <button class="btn btn-danger" ng-click="pager.first()" type="button">
-            <i class="fa-solid fa-circle-chevron-left"></i>
-        </button>
-        <button class="btn btn-primary" ng-click="pager.prev()" type="button">
-            <i class="fa-solid fa-backward"></i>
-        </button>
-        <span class="btn btn-warning">
-			<i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
-		</span>
-        <button class="btn btn-primary" ng-click="pager.next()" type="button">
-            <i class="fa-solid fa-forward"></i>
-        </button>
-        <button class="btn btn-danger" ng-click="pager.last()" type="button">
-            <i class="fa-solid fa-circle-chevron-right"></i>
-        </button>
-    </div>
+
 </div>
 </div>
 

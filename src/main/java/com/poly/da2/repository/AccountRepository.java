@@ -16,4 +16,7 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query("select a from Account a where a.gmail =?1")
     Account findByEmail(String email);
+
+    @Query("select distinct a.user from Authority a where a.role.id IN ('r1','r2')")
+    List<Account> getAdministrators();
 }

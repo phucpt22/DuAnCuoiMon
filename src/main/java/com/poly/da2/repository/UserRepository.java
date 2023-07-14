@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<Userss, Integer> {
 
-    @Query("select distinct a.user from Authority a where a.role.id IN ('1','2')")
+    @Query("select distinct a.user from Authority a where a.role.id IN ('r1','r2')")
     List<Userss> getAdministrators();
 
     @Query("SELECT a FROM Userss a WHERE a.account.username = ?1")

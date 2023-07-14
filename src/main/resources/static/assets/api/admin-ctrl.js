@@ -23,6 +23,10 @@ app.config(function($routeProvider) {
             templateUrl: "/assets/admin/category/index.html",
             controller: "category-ctrl"
         })
+        .when("/authority", {
+            templateUrl: "/assets/admin/authority/index.html",
+            controller: "authority-ctrl"
+        })
         .otherwise({
             templateUrl: "/assets/admin/dashboard/index.html",
             //templateUrl: "/assert/admin-ctrl/index.html"
