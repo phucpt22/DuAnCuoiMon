@@ -71,10 +71,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group input-group-outline mb-4">
-                                            <select ng-model="form.category.id" class="form-control"
-                                                    id="exampleFormControlSelect1">
-                                                <option ng-repeat="c in cates" ng-value="c.name"></option>
+                                            <select ng-model="form.category.id" class="form-control" id="exampleFormControlSelect1"
+                                                    ng-options="c.id as c.name for c in cates">
+                                                <option value="" disabled selected>Select a category</option>
                                             </select>
+
                                         </div>
                                     </div>
                                 </div>
