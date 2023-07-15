@@ -17,20 +17,6 @@ app.controller("account-ctrl", function($scope, $http) {
             $scope.items = resp.data;
         });
 
-
-        // $http.get("/rest/accounts").then((resp) => {
-        //     $scope.accounts = resp.data;
-        // });
-
-        $http.get("/rest/tk/all").then((resp) => {
-            $scope.tk = resp.data;
-        });
-
-
-        $http.get("/rest/tk/all").then((resp) => {
-            $scope.tk = resp.data;
-        });
-
     };
 
     $scope.initialize();
