@@ -3,8 +3,7 @@
         <div class="nav-wrapper position-relative end-0">
             <ul class="nav nav-pills nav-fill p-1" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link mb-0 px-0 py-1 active" ng-click="getOrdersByStatus('Chờ xác nhận')" >Chờ xác nhận
-                    </a>
+                    <a id="tab-active" class="nav-link mb-0 px-0 py-1" ng-click="getOrdersByStatus('Chờ xác nhận')" >Chờ xác nhận</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mb-0 px-0 py-1" ng-click="getOrdersByStatus('Đang giao')">Đang giao
@@ -30,6 +29,7 @@
                 <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mã Hoá Đơn</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người mua</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tổng giá
                         Phẩm
                     </th>
@@ -47,13 +47,16 @@
                 <tr ng-repeat="item in items_order" ng-click="show(item)">
                     <td class="col-4">
                         <div class="d-flex px-2 py-1">
-                            <div>
-                                <img ng-src="/assets/user/img/{{item.user.photo}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                            </div>
                             <div class="d-flex flex-column justify-content-center col-width">
                                 <h6 class="mb-0 text-truncate text-sm">{{item.id}}</h6>
                                 <p class="text-xs text-truncate text-secondary mb-0">{{item.address}}</p>
                             </div>
+                        </div>
+                    </td>
+                    <td class="col-4">
+                        <div class="d-flex py-1">
+                            <!--<img ng-src="/assets/user/img/{{item.user.photo}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
+                            <h6>{{item.user.account.username}}</h6>
                         </div>
                     </td>
                     <td class="col-2">
