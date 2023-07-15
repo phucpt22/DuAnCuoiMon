@@ -42,7 +42,6 @@ public class OrderController {
         model.addAttribute("userId", userId); // Truyền ID của user qua Model
         return "cart/checkout";
     }
-
     @Transactional(readOnly = true)
     @RequestMapping("/order/list")
     public String list(Model model, HttpServletRequest request) {
@@ -73,11 +72,9 @@ public class OrderController {
         return "order/detail";
     }
 
-
     @GetMapping("/payment")
     public String showPaymentPage() {
         return "index";
     }
-
 
 }

@@ -59,4 +59,14 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAll();
 	}
 
+	@Override
+	public List<Order> getByOrderStatus(String status) {
+		return orderRepository.getByOderStatus(status);
+	}
+
+	@Override
+	public Order update(Order order) {
+		return orderRepository.save(order);
+	}
+
 }
