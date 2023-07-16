@@ -122,9 +122,10 @@
                                     <p class="product-category" th:text="${p.category.name}"></p>
                                     <h3 class="product-name" th:text="${p.name}"></h3>
                                     <h4 hidden="hidden" class="product-price" th:text="${p.currentprice}"> </h4>
-                                    <div style="height: 47px;">
+                                    <div>
                                         <h4 class="product-price" th:text="${p.formatCurrent_Price}"> </h4>
                                         <del  th:if="${p.discount > 0}" th:text="${p.formatPrice}"></del>
+                                        <div style="height: 20px;" th:if="${p.discount == 0}"></div>
                                     </div>
                                     <div class="product-rating">
                                         <div class="rating-stars"><span th:each="i : ${#numbers.sequence(1, 5)}"> <i

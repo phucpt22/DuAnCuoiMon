@@ -16,17 +16,18 @@ public interface ProductService {
 
 	Product findById(Integer id);
 
-	Page<Product> findByCategoryId(String cid, Pageable pageable);
-
 	Product create(Product product);
 
 	Product update(Product product);
 
 	void delete(Integer id);
 
-	Page<Product> searchProducts(String name, Pageable pageable);
 	List<Product> sanPhamLienQuan(String cid, Pageable pageable);
 
-
 	ProductPageOutPut filterProducts(String name, String cid, Double min_price, Double max_price, Pageable pageable);
+
+	List<Product> sanPhamMoiNhat();
+	List<Product> sanPhamMoiNhatCate1();
+	List<Product> sanPhamMoiNhatCate2();
+	List<Product> sanPhamMoiNhatCate6();
 }

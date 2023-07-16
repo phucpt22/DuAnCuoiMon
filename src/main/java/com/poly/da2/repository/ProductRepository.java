@@ -30,4 +30,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT p FROM Product p WHERE p.category.id = ?1 ORDER BY NEWID()")
 	List<Product> SanPhamLienQuan(String cid, Pageable pageable);
 
+	@Query(value = "SELECT TOP 6 * FROM products ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiNhat();
+	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate1' ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiCate1();
+	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate2' ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiCate2();
+	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate6' ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiCate6();
+
 }

@@ -32,12 +32,6 @@ public class PasswordResetTokenController {
     private EmailService emailService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private PasswordResetTokenRepository passwordResetTokenRepository;
-
-    @Autowired
     private AccountRepository accountRepository;
 
 
