@@ -2,6 +2,8 @@ package com.poly.da2.rest;
 
 import com.poly.da2.entity.Order;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.poly.da2.entity.OrderDetail;
+import com.poly.da2.entity.Product;
 import com.poly.da2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,5 +32,15 @@ public class OrderRestController {
 	@GetMapping("")
 	public List<Order> getAll() {
 		return orderService.findAll();
+	}
+
+
+	@GetMapping("/orders")
+	public List<Order> findByOrderStatus(@RequestParam("status") String status) {
+		return orderService.getByOrderStatus(status);
+	}
+	@PutMapping("/{id}")
+	public Order update(@PathVariable("id") Integer id, @RequestBody Order order) {
+		return orderService.update(order);
 	}
 }

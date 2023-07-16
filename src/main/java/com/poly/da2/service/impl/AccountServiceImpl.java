@@ -99,7 +99,13 @@ public class AccountServiceImpl implements AccountService {
 		return passwordResetTokenRepository.findByToken(token);
 	}
 
-	@Override
+    @Override
+    public List<Account> getAdministrators() {
+
+		return acc.getAdministrators();
+    }
+
+    @Override
 	public void resetPassword(Account user, String newPassword) {
 		// Đặt lại mật khẩu mới cho người dùng
 		user.setPassword(newPassword);

@@ -7,73 +7,72 @@
         </div>
         <div class="card-body px-0 pb-2">
             <div class="table-responsive p-0">
-
-
                 <table class="table align-items-center mb-0">
                     <thead>
-                    <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình ảnh</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và tên</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên tài khoản</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa chỉ</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-6">Công cụ</th>
-                    </tr>
+
+                        <tr>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình ảnh
+                            </th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Họ và tên</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Tên tài khoản</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Email</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Địa chỉ</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-6">
+                                Công cụ</th>
+                        </tr>
                     </thead>
                     <!-- Nội dung bảng -->
                     <tbody>
-                    <tr ng-repeat="item in pager.items">
-                        <td class="align-middle text-center col-2">
-                            <div class="d-flex">
-                                <div>
-                                    <img ng-src="/assets/user/img/{{item.photo}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                        <tr ng-repeat="item in pager.items">
+                            <td class="align-middle text-center col-2">
+                                <div class="d-flex">
+                                    <div>
+                                        <img ng-src="/assets/user/img/{{item.photo}}"
+                                            class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="align-middle text-center col-2">
-                            <h6 class="mb-0 text-truncate text-sm">{{item.fullName}}</h6>
-<!--                            <p class="text-xs text-truncate text-secondary mb-0">{{item.account.username}}</p>-->
-                        </td>
-                        <td class="align-middle text-center col-2">
-                            <h6 class="mb-0 text-truncate text-sm">{{item.account.username}}</h6>
-<!--                            <p class="text-xs text-truncate text-secondary mb-0">{{item.account.username}}</p>-->
-                        </td>
-                        <td class="align-middle text-center col-2">
-                            <p class="text-xs font-weight-bold mb-0 ">{{item.gmail}}</p>
-                        </td>
-                        <td class="align-middle text-center col-2">
-                            <span class="text-secondary text-xs font-weight-bold">{{item.address}}</span>
-                        </td>
-                        <td class="align-middle text-center col-2">
-                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product" class="text-secondary font-weight-bold text-xs" ng-click="edit(item)" data-toggle="tooltip"
-                               data-original-title="Edit user">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="align-middle text-center col-2">
+                                <h6 class="mb-0 text-truncate text-sm">{{item.fullName}}</h6>
+                            </td>
+                            <td class="align-middle text-center col-2" class="form-control">
+                                <!--                                <h6 class="mb-0 text-truncate text-sm" -->
+                                <!--                                    >{{item.account.id}}</h6>-->
+                                <p class="text-xs text-truncate text-secondary mb-0">{{item.account.username}}</p>
+                            </td>
+                            <td class="align-middle text-center col-2">
+                                <p class="text-xs font-weight-bold mb-0 ">{{item.gmail}}</p>
+                            </td>
+                            <td class="align-middle text-center col-2">
+                                <span class="text-secondary text-xs font-weight-bold">{{item.address}}</span>
+                            </td>
+                            <td class="align-middle text-center col-2">
+                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-product"
+                                    class="text-secondary font-weight-bold text-xs" ng-click="edit(item)"
+                                    data-toggle="tooltip" data-original-title="Edit user">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
             </div>
         </div>
+        <div class="card-footer text-center">
+            <div class="text-center">
+                <button type="button" ng-click="pager.first()" class="btn btn-outline-primary btn-sm">First</button>
+                <button type="button" ng-click="pager.prev()" class="btn btn-outline-secondary btn-sm">Prev</button>
+                <button type="button" ng-click="pager.next()" class="btn btn-outline-secondary btn-sm">Next</button>
+                <button type="button" ng-click="pager.last()" class="btn btn-outline-primary btn-sm">Last</button>
+            </div>
+        </div>
     </div>
-    <div class="card-footer text-center">
-        <button class="btn btn-danger" ng-click="pager.first()" type="button">
-            <i class="fa-solid fa-circle-chevron-left"></i>
-        </button>
-        <button class="btn btn-primary" ng-click="pager.prev()" type="button">
-            <i class="fa-solid fa-backward"></i>
-        </button>
-        <span class="btn btn-warning">
-			<i class="fa-solid fa-download"></i> {{pager.page+1}} of {{pager.count}}
-		</span>
-        <button class="btn btn-primary" ng-click="pager.next()" type="button">
-            <i class="fa-solid fa-forward"></i>
-        </button>
-        <button class="btn btn-danger" ng-click="pager.last()" type="button">
-            <i class="fa-solid fa-circle-chevron-right"></i>
-        </button>
-    </div>
+
 </div>
 </div>
 

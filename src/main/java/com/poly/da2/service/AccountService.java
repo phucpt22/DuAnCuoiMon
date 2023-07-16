@@ -24,4 +24,6 @@ public interface AccountService {
 	void sendResetEmail(Account user, PasswordResetToken resetToken);
 	void resetPassword(Account user, String newPassword);
 	PasswordResetToken findPasswordResetToken(String token);
+
+    List<Account> getAdministrators();
 }

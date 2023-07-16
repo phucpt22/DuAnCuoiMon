@@ -11,6 +11,7 @@ public interface UserService {
     List<Userss> getAdministrators();
 
     Userss findById(Integer id);
+
     Userss findByEmail(String email);
 
     Userss create(Userss userss);
@@ -18,5 +19,7 @@ public interface UserService {
     Userss update(Userss userss);
 
     void delete(Integer id);
-    void updateUserImage(int id,String nameImage) throws ChangeSetPersister.NotFoundException;
+
+    void updateUserImage(int id, String nameImage) throws ChangeSetPersister.NotFoundException;
+
 }

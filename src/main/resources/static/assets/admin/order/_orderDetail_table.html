@@ -7,12 +7,12 @@
             <ul class="list-group">
                 <li ng-repeat="od in items_order_detail" class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{od.productid.name}</h6>
+                        <h6 class="mb-3 text-sm">{{od.product.name}}</h6>
                         <div class="row">
                             <div class="col-md-12">
                                 <span class="mb-2 text-xs">Số lượng:<span class="text-dark ms-sm-2 font-weight-bold">{{od.quantity}}</span> </span>
                                 <span class="mb-2 text-xs">Giá tiền:<span class="text-dark font-weight-bold ms-sm-2">{{od.price}}</span> </span>
-                                <span class="mb-2 text-xs">Mã sản phẩm:<span class="text-dark ms-sm-2 font-weight-bold">{{od.productid}}</span> </span>
+                                <span class="mb-2 text-xs">Mã sản phẩm:<span class="text-dark ms-sm-2 font-weight-bold">{{od.product.id}}</span> </span>
                                 <span class="mb-2 text-xs">Tổng tiền:<span class="text-dark ms-sm-2 font-weight-bold">{{od.amount}}</span> </span>
                             </div>
                         </div>
