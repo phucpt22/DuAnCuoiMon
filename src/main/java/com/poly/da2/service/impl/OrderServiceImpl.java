@@ -68,5 +68,10 @@ public class OrderServiceImpl implements OrderService {
 	public Order update(Order order) {
 		return orderRepository.save(order);
 	}
+	@Override
+	public List<Order> searchByUsernameAndStatus(String username, String status) {
+		return orderRepository.findByUsernameAndStatus(username, status);
+	}
+
 
 }

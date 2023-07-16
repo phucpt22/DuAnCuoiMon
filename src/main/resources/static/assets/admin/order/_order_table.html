@@ -1,5 +1,20 @@
 <div class="card h-100 card-responsive">
+
+
+
     <div class="card-header pb-0 p-3">
+        <div class="input-group input-group-dynamic mb-4">
+            <input type="text" class="form-control" ng-model="searchUsername" placeholder="Username">
+            <select type="text" class="form-control" ng-model="searchStatus">
+
+                <option value="">Chờ xác nhận</option>
+                <option>Đang giao</option>
+                <option>Đã giao</option>
+                <option>Đã hủy</option>
+            </select>
+            <button class="form-control" ng-click="searchOrders(searchUsername, searchStatus)">Tìm kiếm</button>
+
+        </div>
         <div class="nav-wrapper position-relative end-0">
             <ul class="nav nav-pills nav-fill p-1" role="tablist">
                 <li class="nav-item">
@@ -44,7 +59,7 @@
                 </thead>
                 <!-- Nội dung bảng -->
                 <tbody>
-                <tr ng-repeat="item in items_order" ng-click="show(item)">
+                <tr ng-repeat="item in pager.items" ng-click="show(item)">
                     <td class="col-4">
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center col-width">
@@ -87,6 +102,12 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="text-center">
+                <button type="button" ng-click="pager.first()" class="btn btn-outline-primary btn-sm">First</button>
+                <button type="button" ng-click="pager.prev()" class="btn btn-outline-secondary btn-sm">Prev</button>
+                <button type="button" ng-click="pager.next()" class="btn btn-outline-secondary btn-sm">Next</button>
+                <button type="button" ng-click="pager.last()" class="btn btn-outline-primary btn-sm">Last</button>
+            </div>
         </div>
 
     </div>
