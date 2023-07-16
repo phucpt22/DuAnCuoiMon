@@ -1,5 +1,6 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.TopProduct;
 import com.poly.da2.model.ProductPageOutPut;
 import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.entity.Product;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -85,5 +87,9 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.count();
 	}
 
+	@GetMapping("top-product")
+	public List<TopProduct> getTopProduct(){
+		return productRepository.getTopProduct();
+	}
 
 }

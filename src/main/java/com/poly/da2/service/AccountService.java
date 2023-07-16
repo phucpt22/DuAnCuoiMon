@@ -2,6 +2,7 @@ package com.poly.da2.service;
 
 
 import com.poly.da2.entity.Account;
+import com.poly.da2.entity.NewUserEachMonth;
 import com.poly.da2.entity.PasswordResetToken;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface AccountService {
 	void sendResetEmail(Account user, PasswordResetToken resetToken);
 	void resetPassword(Account user, String newPassword);
 	PasswordResetToken findPasswordResetToken(String token);
+
+	List<NewUserEachMonth> getNewUserEachMonth(int year);
 }

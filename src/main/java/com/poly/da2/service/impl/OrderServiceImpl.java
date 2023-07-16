@@ -1,11 +1,9 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.entity.Userss;
+import com.poly.da2.entity.*;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.OrderRepository;
 import com.poly.da2.repository.OrderDetailRepository;
-import com.poly.da2.entity.Order;
-import com.poly.da2.entity.OrderDetail;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.OrderService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,7 +62,16 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public long getTotalMoneyOrderToday() {
-		return orderRepository.getTotalMoneyOrderToday();
+		try{
+			return orderRepository.getTotalMoneyOrderToday();
+		}catch (Exception e){
+			return 0;
+		}
+	}
+
+	@Override
+	public List<TotalMoneyEachMonth> getTotalEachMonthInSpecificYear(int year) {
+		return orderRepository.totalPriceSpecificYear(year);
 	}
 
 

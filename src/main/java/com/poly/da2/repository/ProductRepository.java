@@ -1,6 +1,7 @@
 package com.poly.da2.repository;
 
 import com.poly.da2.entity.Product;
+import com.poly.da2.entity.TopProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,4 +33,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "SELECT COUNT(*) FROM Product p")
 	long count();
+
+
+	@Query("SELECT new TopProduct (p.id, p.name, p.image_urls, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
+			"from Product p\n" +
+			"\tinner join OrderDetail od\n" +
+			"\ton od.product.id = p.id\n" +
+			"\tgroup by p.id, p.name, p.image_urls")
+	List<TopProduct> getTopProduct();
+
 }

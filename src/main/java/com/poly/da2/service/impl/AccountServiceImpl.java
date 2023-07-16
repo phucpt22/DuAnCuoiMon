@@ -1,5 +1,6 @@
 package com.poly.da2.service.impl;
 
+import com.poly.da2.entity.NewUserEachMonth;
 import com.poly.da2.entity.PasswordResetToken;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.entity.Account;
@@ -97,6 +98,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public PasswordResetToken findPasswordResetToken(String token) {
 		return passwordResetTokenRepository.findByToken(token);
+	}
+
+	@Override
+	public List<NewUserEachMonth> getNewUserEachMonth(int year) {
+		return acc.getNewUserEachMonth(year);
 	}
 
 	@Override

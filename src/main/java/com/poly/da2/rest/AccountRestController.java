@@ -1,12 +1,23 @@
 package com.poly.da2.rest;
 
+import com.poly.da2.entity.NewUserEachMonth;
+import com.poly.da2.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 //@CrossOrigin("*")
-//@RestController
-//@RequestMapping("/rest/accounts")
+@RestController
+@RequestMapping("/rest/accounts")
 public class AccountRestController {
-//	@Autowired
-//	AccountService accountService;
-//
+    @Autowired
+    AccountService accountService;
+
+    //
 //	@GetMapping
 //	public List<Account> getAccounts(@RequestParam("admin")Optional<Boolean> admin) {
 //		if (admin.orElse(false)) {
@@ -39,4 +50,8 @@ public class AccountRestController {
 //	public void delete(@PathVariable("id")String id) {
 //		accountService.delete(id);
 //	}
+    @GetMapping("new-user-each-month{year}")
+    public List<NewUserEachMonth> getNewUserEachMonth(@PathVariable int year) {
+        return accountService.getNewUserEachMonth(year);
+    }
 }

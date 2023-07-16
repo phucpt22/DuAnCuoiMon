@@ -2,9 +2,12 @@ package com.poly.da2.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.da2.entity.Order;
+import com.poly.da2.entity.TopProduct;
+import com.poly.da2.entity.TotalMoneyEachMonth;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -17,4 +20,7 @@ public interface OrderService {
 	List<Order> findAll();
 
 	long getTotalMoneyOrderToday();
+
+	List<TotalMoneyEachMonth> getTotalEachMonthInSpecificYear(int year);
+
 }
