@@ -31,10 +31,6 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findById(id).get();
 	}
 
-	@Override
-	public Page<Product> findByCategoryId(String cid, Pageable pageable) {
-		return productRepository.getByCategoryId(cid,pageable);
-	}
 
 	@Override
 	public Product create(Product product) {
@@ -51,10 +47,6 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteById(id);
 	}
 
-	@Override
-	public Page<Product> searchProducts(String name, Pageable pageable) {
-		return productRepository.getByName(name,pageable);
-	}
 
 	@Override
 	public List<Product> sanPhamLienQuan(String cid, Pageable pageable) {
@@ -80,5 +72,24 @@ public class ProductServiceImpl implements ProductService {
 		return productPageOutPut;
 	}
 
+	@Override
+	public List<Product> sanPhamMoiNhat() {
+		return productRepository.sanPhamMoiNhat();
+	}
+
+	@Override
+	public List<Product> sanPhamMoiNhatCate1() {
+		return productRepository.sanPhamMoiCate1();
+	}
+
+	@Override
+	public List<Product> sanPhamMoiNhatCate2() {
+		return productRepository.sanPhamMoiCate2();
+	}
+
+	@Override
+	public List<Product> sanPhamMoiNhatCate6() {
+		return productRepository.sanPhamMoiCate6();
+	}
 
 }
