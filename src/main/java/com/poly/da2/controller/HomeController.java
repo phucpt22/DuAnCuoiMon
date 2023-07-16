@@ -1,11 +1,8 @@
 package com.poly.da2.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -21,9 +18,9 @@ public class HomeController {
 
 		return "redirect:/assets/admin/index.html";
 	}
-	@RequestMapping(value = {"/homepage"})
+	@RequestMapping("/homepage")
 	public String aa() {
-		return "user/index";
+		return "index";
 	}
 
 }
