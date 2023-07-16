@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +18,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +48,6 @@ public class LoginService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
 			Account account = accRepository.findById(username).get();
-			Integer userID = accRepository.findAcc(username).getUser().getId();
 			String password = account.getPassword();
 			List<Authority> a =account.getUser().getAuthorities();
 			String[] roles = a.stream().map(au -> au.getRole().getId())
@@ -57,25 +59,23 @@ public class LoginService implements UserDetailsService {
 		}
 	}
 
-	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {
-		String email = oauth2.getPrincipal().getAttribute("gmail");
-		String fullname = oauth2.getPrincipal().getAttribute("fullname");
-		//String password = Long.toHexString(System.currentTimeMillis());
-		UserDetails user = User.withUsername(email).password("123").roles("r2").build();
-		Authentication auth =new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
+	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2,@AuthenticationPrincipal OAuth2User principal) {
+		String email1 = principal.getAttribute("email");
+		//String email = oauth2.getPrincipal().getAttribute("email");
+		UserDetails user = User.withUsername(email1).roles("r2").build();
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		if(uRepository.findByEmail(email) == null){
-			Userss o = new Userss();
-			Account a = new Account();
-			o.setGmail(email);
-			a.setUser(o);
-			a.setUsername(email);
-			uRepository.save(o);
-			accRepository.save(a);
-		}else{
-
-		}
-
+//		if (accRepository.findByEmail(email) == null) {
+//			Userss o = new Userss();
+//			Account a = new Account();
+//			o.setGmail(email);
+//			a.setUser(o);
+//			a.setUsername(email);
+//			uRepository.save(o);
+//			accRepository.save(a);
+//		} else {
+//
+//		}
 	}
 
 }

@@ -5,6 +5,8 @@ import com.poly.da2.entity.Product;
 import com.poly.da2.repository.ProductRepository;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -20,8 +22,9 @@ public class HomeController {
 	ProductRepository dao;
 
 	@RequestMapping(value = {"/","/home/index"})
-	public String home() {
-
+	public String home(@AuthenticationPrincipal OAuth2User principal) {
+		String email1 = principal.getAttribute("email");
+		System.out.println(email1);
 		return "redirect:/products";
 	}
 
