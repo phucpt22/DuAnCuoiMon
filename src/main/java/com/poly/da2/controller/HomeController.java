@@ -23,8 +23,8 @@ public class HomeController {
 
 	@RequestMapping(value = {"/","/home/index"})
 	public String home(@AuthenticationPrincipal OAuth2User principal) {
-		String email1 = principal.getAttribute("email");
-		System.out.println(email1);
+//		String email1 = principal.getAttribute("email");
+//		System.out.println(email1);
 		return "redirect:/products";
 	}
 

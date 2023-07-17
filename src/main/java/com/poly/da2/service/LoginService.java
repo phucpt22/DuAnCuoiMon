@@ -59,23 +59,22 @@ public class LoginService implements UserDetailsService {
 		}
 	}
 
-	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2,@AuthenticationPrincipal OAuth2User principal) {
-		String email1 = principal.getAttribute("email");
-		//String email = oauth2.getPrincipal().getAttribute("email");
-		UserDetails user = User.withUsername(email1).roles("r2").build();
+	public void loginFormOAuth2(OAuth2AuthenticationToken oauth2) {
+		String email = oauth2.getPrincipal().getAttribute("email");
+		UserDetails user = User.withUsername(email).password(pe.encode("123")).roles("r2").build();
 		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-//		if (accRepository.findByEmail(email) == null) {
-//			Userss o = new Userss();
-//			Account a = new Account();
-//			o.setGmail(email);
-//			a.setUser(o);
-//			a.setUsername(email);
-//			uRepository.save(o);
-//			accRepository.save(a);
-//		} else {
-//
-//		}
+		if (accRepository.findByEmail(email) == null) {
+			Userss o = new Userss();
+			Account a = new Account();
+			o.setGmail(email);
+			a.setUser(o);
+			a.setUsername(email);
+			uRepository.save(o);
+			accRepository.save(a);
+		} else {
+
+		}
 	}
 
 }

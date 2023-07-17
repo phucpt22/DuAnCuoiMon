@@ -68,8 +68,8 @@ public class SecurityController {
     }
 
     @RequestMapping("/oauth2/login/success")
-    public String success(OAuth2AuthenticationToken oauth2,@AuthenticationPrincipal OAuth2User principal) {
-        loginService.loginFormOAuth2(oauth2,principal);
+    public String success(OAuth2AuthenticationToken oauth2) {
+        loginService.loginFormOAuth2(oauth2);
         return "redirect:/security/login/success";
     }
 

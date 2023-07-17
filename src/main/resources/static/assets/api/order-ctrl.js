@@ -103,14 +103,6 @@ app.controller("order-ctrl", function($scope, $http) {
             });
     };
 
-
-
-
-
-
-
-
-
     $scope.pager = {
         page: 0,
         size: 5,
