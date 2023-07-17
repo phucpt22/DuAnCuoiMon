@@ -582,7 +582,13 @@
 
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json, text/plain, */*");
-
+    const createColorArr =()=>{
+        let colors=[];
+        for(let i = 0; i<12;i++){
+            colors.push("#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0"))
+        }
+        return colors
+    }
     const requestOptions = {
         method: 'GET',
         headers: myHeaders,
@@ -634,17 +640,25 @@
                 }
 
                 const newUserEl = document.getElementById('income-chart');
+
                 new Chart(newUserEl, {
                     type: 'bar',
                     data: {
-                        labels: objectArray.map((object) => object.month),
-                        datasets: [{
-                            label: 'VNĐ',
-                            data: objectArray.map((object) => object.totalPrice),
-                            borderWidth: 1
-                        }]
+                        labels:  objectArray.map((object) => object.month),
+                        datasets: [
+                            {
+                                data: objectArray.map((object) => object.totalPrice),
+                                borderWidth: 1,
+                                backgroundColor:createColorArr()
+                            },
+                        ]
                     },
                     options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true
@@ -679,12 +693,17 @@
                     data: {
                         labels: objectArray.map((object) => object.month),
                         datasets: [{
-                            label: 'Unit',
                             data: objectArray.map((object) => object.count),
-                            borderWidth: 1
+                            borderWidth: 1,
+                            backgroundColor: createColorArr()
                         }]
                     },
                     options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true
