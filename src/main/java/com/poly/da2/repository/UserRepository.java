@@ -19,4 +19,9 @@ public interface UserRepository extends JpaRepository<Userss, Integer> {
 
     @Query("SELECT a FROM Userss a WHERE a.id = ?1")
     Userss findOneById(Integer id);
+    @Query("SELECT COUNT(*) FROM Userss a ")
+    long count();
+
+    @Query("SELECT COUNT(*) FROM Userss a where convert(varchar(10), a.createDate, 102) = convert(varchar(10), getdate(), 102)")
+    long countNewUsers();
 }

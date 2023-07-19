@@ -16,6 +16,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8"/>
@@ -45,9 +46,22 @@
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.min.js"></script>
+    <style>
+        .ellipsis-text{
+            overflow-x: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 900px;
+        }
+    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200" ng-app="admin-app">
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
        id="sidenav-main">
     <div class="sidenav-header">
@@ -75,7 +89,7 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
-                    <span class="nav-link-text ms-1">Product</span>
+                    <span class="nav-link-text ms-1">Product <span th:text="${session.totalMoney}"></span></span>
                 </a>
             </li>
             <li class="nav-item">
@@ -570,5 +584,200 @@
         onload="gisLoaded()"
 ></script>
 </body>
+<script>
 
+    const myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json, text/plain, */*");
+    const createColorArr =()=>{
+        let colors=[];
+        for(let i = 0; i<12;i++){
+            colors.push("#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0"))
+        }
+        return colors
+    }
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    function setTable(x){
+        fetch("http://localhost:8080/rest/orders/total-money", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-money-today").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/total-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-user").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/products/count", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-product-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/new-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("new-user-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/orders/total-money-every-mounth"+new Date().getFullYear(), requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const objectArray = [];
+                for (let i = 1; i <= 12; i++) {
+                    const object = {
+                        month: i,
+                        totalPrice: 0,
+                    };
+                    objectArray.push(object);
+                }
+
+                for (const data of result) {
+                    const month = data.month;
+                    const totalPrice = data.totalPrice;
+                    const object = objectArray[month - 1];
+                    object.totalPrice = totalPrice;
+                }
+
+                const newUserEl = document.getElementById('income-chart');
+
+                new Chart(newUserEl, {
+                    type: 'bar',
+                    data: {
+                        labels:  objectArray.map((object) => object.month),
+                        datasets: [
+                            {
+                                data: objectArray.map((object) => object.totalPrice),
+                                borderWidth: 1,
+                                backgroundColor:createColorArr()
+                            },
+                        ]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/accounts/new-user-each-month"+new Date().getFullYear(), requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const objectArray = [];
+                for (let i = 1; i <= 12; i++) {
+                    const object = {
+                        month: i,
+                        count: 0,
+                    };
+                    objectArray.push(object);
+                }
+
+                for (const data of result) {
+                    const month = data.month;
+                    const count = data.count;
+                    const object = objectArray[month - 1];
+                    object.count = count;
+                }
+
+                const ctx = document.getElementById('new-user-chart');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: objectArray.map((object) => object.month),
+                        datasets: [{
+                            data: objectArray.map((object) => object.count),
+                            borderWidth: 1,
+                            backgroundColor: createColorArr()
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/products/top-product", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+
+                const createNewRow = (dataRow)=>{
+                    const tbody = document.getElementById("top-product-table-body");
+                    const newRow = document.createElement("tr");
+
+                    const td1 = document.createElement("td");
+                    const div1 = document.createElement("div");
+                    div1.classList.add("d-flex","px-2","py-1")
+                    const divContainImage = document.createElement("div");
+                    const img1 = document.createElement("img");
+                    img1.classList.add("avatar","avatar-lg","me-3")
+                    img1.src = dataRow.url;
+                    img1.alt = "invision";
+                    divContainImage.appendChild(img1);
+                    const div2td1 = document.createElement("div");
+                    div2td1.classList.add("d-flex","flex-column","justify-content-center")
+                    const h61 = document.createElement("h6");
+                    h61.innerHTML = dataRow.name;
+                    h61.classList.add("mb-0","text-sm","ellipsis-text")
+                    div2td1.appendChild(h61)
+                    div1.appendChild(divContainImage)
+                    div1.appendChild(div2td1);
+                    td1.appendChild(div1);
+
+
+                    const td2 = document.createElement("td");
+                    const div1td2 = document.createElement("div");
+                    div1td2.classList.add("avatar-group","mt-2")
+                    div1td2.innerHTML=dataRow.count;
+                    td2.appendChild(div1td2);
+
+                    const td3 = document.createElement("td");
+                    const span1 = document.createElement("span");
+                    span1.textContent = dataRow.totalMoney;
+                    td3.appendChild(span1);
+
+                    newRow.appendChild(td1);
+                    newRow.appendChild(td2);
+                    newRow.appendChild(td3);
+
+                    tbody.appendChild(newRow);
+                }
+                result.forEach((e)=>{
+                    createNewRow(e)
+                })
+            })
+            .catch(error => console.log('error', error));
+        const ctx = document.getElementById('new-user-chart');
+        if(ctx){
+            clearInterval(x)
+        }
+
+    }
+    const setIntervalId = setInterval(()=>{
+        setTable(setIntervalId)
+    },500)
+
+</script>
 </html>

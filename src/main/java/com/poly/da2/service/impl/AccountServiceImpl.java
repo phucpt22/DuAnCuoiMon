@@ -1,6 +1,8 @@
 package com.poly.da2.service.impl;
 
 import com.poly.da2.entity.PasswordResetToken;
+import com.poly.da2.entity.NewUserEachMonth;
+import com.poly.da2.entity.PasswordResetToken;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.entity.Account;
 import com.poly.da2.repository.PasswordResetTokenRepository;
@@ -111,6 +113,10 @@ public class AccountServiceImpl implements AccountService {
 		user.setPassword(newPassword);
 		// Lưu người dùng đã được cập nhật
 		acc.save(user);
+	}
+	@Override
+	public List<NewUserEachMonth> getNewUserEachMonth(int year) {
+		return acc.getNewUserEachMonth(year);
 	}
 
 }

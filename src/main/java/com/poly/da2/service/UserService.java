@@ -22,4 +22,9 @@ public interface UserService {
 
     void updateUserImage(int id, String nameImage) throws ChangeSetPersister.NotFoundException;
 
+    void updateUserImage(int id,String nameImage) throws ChangeSetPersister.NotFoundException;
+
+    long count() ;
+
+    long countNewUsers() ;
 }

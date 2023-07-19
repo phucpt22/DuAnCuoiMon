@@ -1,7 +1,7 @@
 package com.poly.da2.rest;
 
 import com.poly.da2.entity.Account;
-
+import com.poly.da2.entity.NewUserEachMonth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -75,4 +75,8 @@ public class AccountRestController {
 
 
 
+    @GetMapping("new-user-each-month{year}")
+    public List<NewUserEachMonth> getNewUserEachMonth(@PathVariable int year) {
+        return accountService.getNewUserEachMonth(year);
+    }
 }

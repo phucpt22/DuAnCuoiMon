@@ -53,4 +53,15 @@ public class UserServiceImpl implements UserService {
         user.setPhoto(nameImage);
         u.save(user);
     }
+
+    @Override
+    public long count() {
+        return u.count();
+    }
+
+    @Override
+    public long countNewUsers() {
+        return u.countNewUsers();
+    }
+
 }
