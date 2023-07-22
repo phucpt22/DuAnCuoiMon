@@ -35,8 +35,6 @@ public class HomeController {
 	@Autowired
 	UserService us;
 
-	@Autowired
-	ProductService ps;
 
 	@RequestMapping(value = {"/","/home/index"})
 	public String home(@AuthenticationPrincipal OAuth2User principal) {
@@ -50,7 +48,7 @@ public class HomeController {
 		request.setAttribute("totalMoney",os.getTotalMoneyOrderToday());
 		request.setAttribute("totalUsers",us.count());
 		request.setAttribute("newUsers",us.countNewUsers());
-		request.setAttribute("numberOfProducts",ps.count());
+		request.setAttribute("numberOfProducts",productService.count());
 
 		return "redirect:/assets/admin/index.html";
 	}

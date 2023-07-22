@@ -31,7 +31,6 @@ public interface ProductService {
 	List<Product> sanPhamMoiNhatCate1();
 	List<Product> sanPhamMoiNhatCate2();
 	List<Product> sanPhamMoiNhatCate6();
-	ProductPageOutPut filterProducts(String name, String cid, Double min_price, Double max_price, Pageable pageable);
 
 	long count();
 

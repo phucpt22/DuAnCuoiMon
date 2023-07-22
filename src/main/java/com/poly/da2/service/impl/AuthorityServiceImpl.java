@@ -1,7 +1,5 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.entity.Account;
-import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.AuthorityRepository;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.entity.Authority;

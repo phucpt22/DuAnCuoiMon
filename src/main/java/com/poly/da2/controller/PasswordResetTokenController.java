@@ -4,7 +4,7 @@ import com.poly.da2.entity.Account;
 import com.poly.da2.entity.PasswordResetToken;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.repository.PasswordResetTokenRepository;
-import com.poly.da2.service.AccountService;
+
 import com.poly.da2.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,12 +30,6 @@ public class PasswordResetTokenController {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Autowired
     private AccountRepository accountRepository;

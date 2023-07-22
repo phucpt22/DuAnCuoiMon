@@ -87,14 +87,14 @@ public class SecurityController {
             u.setPhoto("noimage.png");
             nd.setPassword(password);
             nd.setUsername(username);
-            accdao.save(nd);
             udao.save(u);
+            nd.setUser(u);
+            accdao.save(nd);
             request.setAttribute("messageS", "Đăng ký thành công bạn có thể đăng nhập ngay bây giờ!");
 
         } else {
             request.setAttribute("messageS", "Mật khẩu và nhập lại mật khẩu không trùng khớp!");
         }
-
         return "redirect:/security/login/success";
     }
 }

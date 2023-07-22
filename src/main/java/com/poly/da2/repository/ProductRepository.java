@@ -44,11 +44,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	long count();
 
 
-	@Query("SELECT new TopProduct (p.id, p.name, p.image_urls, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
+	@Query("SELECT new TopProduct (p.id, p.name, p.thumbnail_url, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
 			"from Product p\n" +
 			"\tinner join OrderDetail od\n" +
 			"\ton od.product.id = p.id\n" +
-			"\tgroup by p.id, p.name, p.image_urls")
+			"\tgroup by p.id, p.name, p.thumbnail_url")
 	List<TopProduct> getTopProduct();
 
 }
