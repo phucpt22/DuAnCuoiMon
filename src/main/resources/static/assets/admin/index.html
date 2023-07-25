@@ -57,9 +57,7 @@
 
 <body class="g-sidenav-show  bg-gray-200" ng-app="admin-app">
 
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
        id="sidenav-main">
@@ -571,6 +569,7 @@
         src="https://apis.google.com/js/api.js"
         onload="gapiLoaded()"
 ></script>
+
 <script
         async
         deferl
@@ -758,17 +757,80 @@
 
                     tbody.appendChild(newRow);
                 }
-                result.forEach((e)=>{
+                result.slice(0,10).forEach((e)=>{
                     createNewRow(e)
                 })
             })
             .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/categories/revenue-by-category", requestOptions)
+            .then(response => response.json()
+                .then(result => {
+                    const createColorArr =(length)=>{
+                        let colors=[];
+                        for(let i = 0; i<12;i++){
+                            colors.push("#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0"))
+                        }
+                        return colors
+                    }
+                    const ctx = document.getElementById('revenue-category');
+                    const data = {
+                        labels: result.map((object) => object.name),
+                        datasets: [
+                            {
+                                label: 'Dataset 1',
+                                data:  result.map((object) => object.money),
+                                backgroundColor: createColorArr(result.length),
+                            }
+                        ]
+                    };
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                tooltip:{
+                                    enable:true
+                                },
+                                datalabels: {
+                                   /* formatter: (value, context) => {
+                                        // const datapoints = context.chart.data.datasets[0].data;
+                                        //
+                                        // function totalSum(total, datapoint) {
+                                        //     return total + datapoint;
+                                        // }
+                                        //
+                                        // const totalvalue = datapoints.reduce(totalSum, 0)
+                                        // const percentageValue = (value / totalvalue * 100).toFixed(1)
+                                        // // const display =[value,percentageValue]
+                                        // const display = [value, percentageValue]
+                                        return 500 + " - " + 20 + "%"
+                                    },*/
+                                    font: {
+                                        size: 30
+                                    }
+                                },
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Revenue each categories Pie Chart'
+                                }
+                            }
+                        },
+                        // plugins: [ChartDataLabels]
+                    });
+                })
+                .catch(error => console.log('error', error)));
+
         const ctx = document.getElementById('new-user-chart');
         if(ctx){
             clearInterval(x)
         }
 
     }
+
     const setIntervalId = setInterval(()=>{
         setTable(setIntervalId)
     },500)

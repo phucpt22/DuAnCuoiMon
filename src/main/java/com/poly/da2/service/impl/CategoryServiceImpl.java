@@ -1,11 +1,15 @@
 package com.poly.da2.service.impl;
 
+import com.nimbusds.oauth2.sdk.util.date.SimpleDate;
 import com.poly.da2.entity.Category;
+import com.poly.da2.entity.RevenueByCateGory;
 import com.poly.da2.repository.CategoryRepository;
 import com.poly.da2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,5 +47,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(String id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RevenueByCateGory> getRevenueByCategory(Date from, Date to) {
+        return categoryRepository.getRevenueByCategory();
     }
 }

@@ -1,11 +1,18 @@
 package com.poly.da2.rest;
 
+import com.nimbusds.oauth2.sdk.util.date.SimpleDate;
 import com.poly.da2.entity.Category;
+import com.poly.da2.entity.RevenueByCateGory;
 import com.poly.da2.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -38,5 +45,12 @@ public class CategoryRestController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") String id) {
         categoryService.delete(id);
+    }
+
+    @GetMapping("revenue-by-category")
+    public List<RevenueByCateGory> getRevenueByCategory() throws ParseException {
+       return  categoryService.getRevenueByCategory(
+               new SimpleDateFormat("yyyy-MM-dd").parse("0001-01-01"),
+               new SimpleDateFormat("yyyy-MM-dd").parse("9999-01-01"));
     }
 }

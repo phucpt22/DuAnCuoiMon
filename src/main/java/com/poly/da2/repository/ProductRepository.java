@@ -39,7 +39,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			"from Product p\n" +
 			"\tinner join OrderDetail od\n" +
 			"\ton od.product.id = p.id\n" +
-			"\tgroup by p.id, p.name, p.image_urls")
+			"\tgroup by p.id, p.name, p.image_urls\n" +
+			"\torder by SUM( od.quantity * od.price) desc\n")
 	List<TopProduct> getTopProduct();
 
 }
