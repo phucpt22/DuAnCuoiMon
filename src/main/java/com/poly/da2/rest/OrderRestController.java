@@ -23,17 +23,25 @@ import java.util.Map;
 public class OrderRestController {
 	@Autowired
 	OrderService orderService;
-	
+	List<String> notifications = new ArrayList<>();
+
 	@PostMapping()
 	public ResponseEntity<Order> create(@RequestBody JsonNode orderData) {
 		try {
 			Order order = orderService.create(orderData);
+			notifications.add("Hãy kiểm tra mã đơn hàng " + order.getId());
 			return new ResponseEntity<>(order, HttpStatus.OK);
-		}catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+	@GetMapping("/notifications")
+	public ResponseEntity<List<String>> getNotifications() {
+		return new ResponseEntity<>(notifications, HttpStatus.OK);
+	}
+
+
 	@GetMapping("")
 	public List<Order> getAll() {
 		return orderService.findAll();
@@ -60,7 +68,6 @@ public class OrderRestController {
 			return orderService.getByOrderStatus("Chờ xác nhận");
 		}
 	}
-
 
 	@PutMapping("/{id}")
 	public Order update(@PathVariable("id") Integer id, @RequestBody Order order) {

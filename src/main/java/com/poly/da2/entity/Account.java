@@ -35,9 +35,6 @@ public class Account implements Serializable {
     @JsonBackReference
     private Userss user;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "username", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private PasswordResetToken passwordResetToken;
 
     public Account(String gmail, String password) {
     }

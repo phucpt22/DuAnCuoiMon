@@ -1,28 +1,20 @@
 package com.poly.da2.service.impl;
 
-import com.poly.da2.entity.PasswordResetToken;
 import com.poly.da2.entity.NewUserEachMonth;
-import com.poly.da2.entity.PasswordResetToken;
 import com.poly.da2.repository.AccountRepository;
 import com.poly.da2.entity.Account;
-import com.poly.da2.repository.PasswordResetTokenRepository;
 
 import com.poly.da2.service.AccountService;
-import com.poly.da2.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	AccountRepository acc;
-	@Autowired
-	PasswordResetTokenRepository passwordResetTokenRepository;
 
 
 	@Override
