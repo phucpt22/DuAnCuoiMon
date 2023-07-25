@@ -6,12 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-@SuppressWarnings("serial")
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,9 +35,6 @@ public class Account implements Serializable {
     @JsonBackReference
     private Userss user;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "username", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private PasswordResetToken passwordResetToken;
 
     public Account(String gmail, String password) {
     }

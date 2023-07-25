@@ -1,6 +1,7 @@
 package com.poly.da2.rest;
 
 import com.poly.da2.entity.Product;
+import com.poly.da2.entity.TopProduct;
 import com.poly.da2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,4 +53,13 @@ public class ProductRestController {
     public void delete(@PathVariable("id") Integer id) {
         productService.delete(id);
     }
+	@GetMapping("count")
+	public long count(){
+		return productService.count();
+	}
+
+	@GetMapping("top-product")
+	public List<TopProduct> getTopProduct(){
+		return productService.getTopProduct();
+	}
 }

@@ -1,6 +1,7 @@
 package com.poly.da2.repository;
 
 import com.poly.da2.entity.Product;
+import com.poly.da2.entity.TopProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,5 +39,16 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> sanPhamMoiCate2();
 	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate6' ORDER BY createdate DESC", nativeQuery = true)
 	List<Product> sanPhamMoiCate6();
+
+	@Query(value = "SELECT COUNT(*) FROM Product p")
+	long count();
+
+
+	@Query("SELECT new TopProduct (p.id, p.name, p.thumbnail_url, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
+			"from Product p\n" +
+			"\tinner join OrderDetail od\n" +
+			"\ton od.product.id = p.id\n" +
+			"\tgroup by p.id, p.name, p.thumbnail_url")
+	List<TopProduct> getTopProduct();
 
 }

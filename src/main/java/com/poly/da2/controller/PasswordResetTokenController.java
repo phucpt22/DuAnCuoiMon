@@ -1,29 +1,17 @@
 package com.poly.da2.controller;
 
 import com.poly.da2.entity.Account;
-import com.poly.da2.entity.PasswordResetToken;
 import com.poly.da2.repository.AccountRepository;
-import com.poly.da2.repository.PasswordResetTokenRepository;
-import com.poly.da2.service.AccountService;
+
 import com.poly.da2.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Controller
 public class PasswordResetTokenController {

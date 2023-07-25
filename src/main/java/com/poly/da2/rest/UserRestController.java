@@ -48,4 +48,13 @@ public class UserRestController {
     public void delete(@PathVariable("id") Integer id) {
         uService.delete(id);
     }
+
+    @GetMapping("new-user")
+    public long countNewUser(){
+        return uService.countNewUsers();
+    }
+    @GetMapping("total-user")
+    public long countTotalUser(){
+        return uService.count();
+    }
 }

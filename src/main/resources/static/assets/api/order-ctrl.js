@@ -88,4 +88,48 @@ app.controller("order-ctrl", function($scope, $http) {
                 console.log("Error", error);
             });
     };
+
+
+
+    $scope.searchOrders = function(username, status) {
+        $http.get("/rest/orders/search", { params: { username: username, status: status } })
+            .then(function(resp) {
+                $scope.items_order = resp.data;
+                $scope.items_order_detail = [];
+                $scope.show(null);
+            })
+            .catch(function(error) {
+                console.log("Error", error);
+            });
+    };
+
+    $scope.pager = {
+        page: 0,
+        size: 5,
+        get items() {
+            const start = this.page * this.size;
+            return $scope.items_order.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.items_order.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    }
 });

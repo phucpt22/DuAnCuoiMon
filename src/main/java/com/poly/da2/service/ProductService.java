@@ -1,6 +1,7 @@
 package com.poly.da2.service;
 
 import com.poly.da2.entity.Product;
+import com.poly.da2.entity.TopProduct;
 import com.poly.da2.model.ProductPageOutPut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,4 +31,9 @@ public interface ProductService {
 	List<Product> sanPhamMoiNhatCate1();
 	List<Product> sanPhamMoiNhatCate2();
 	List<Product> sanPhamMoiNhatCate6();
+
+	long count();
+
+	List<TopProduct> getTopProduct();
+
 }
