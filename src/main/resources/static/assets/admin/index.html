@@ -594,79 +594,70 @@
         redirect: 'follow'
     };
 
-    function setTable(x){
-        fetch("http://localhost:8080/rest/orders/total-money", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("total-money-today").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/users/total-user", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("total-user").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/products/count", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("total-product-count").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/users/new-user", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("new-user-count").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/orders/total-money-every-mounth"+new Date().getFullYear(), requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                const objectArray = [];
-                for (let i = 1; i <= 12; i++) {
-                    const object = {
-                        month: i,
-                        totalPrice: 0,
-                    };
-                    objectArray.push(object);
-                }
-
-                for (const data of result) {
-                    const month = data.month;
-                    const totalPrice = data.totalPrice;
-                    const object = objectArray[month - 1];
-                    object.totalPrice = totalPrice;
-                }
-
-                const newUserEl = document.getElementById('income-chart');
-
-                new Chart(newUserEl, {
-                    type: 'bar',
-                    data: {
-                        labels:  objectArray.map((object) => object.month),
+    const createPieChart =()=>{
+        fetch("http://localhost:8080/rest/categories/revenue-by-category", requestOptions)
+            .then(response => response.json()
+                .then(result => {
+                    const createColorArr =(length)=>{
+                        let colors=[];
+                        for(let i = 0; i<12;i++){
+                            colors.push("#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0"))
+                        }
+                        return colors
+                    }
+                    const ctx = document.getElementById('revenue-category');
+                    const data = {
+                        labels: result.map((object) => object.name),
                         datasets: [
                             {
-                                data: objectArray.map((object) => object.totalPrice),
-                                borderWidth: 1,
-                                backgroundColor:createColorArr()
-                            },
+                                label: 'Dataset 1',
+                                data:  result.map((object) => object.money),
+                                backgroundColor: createColorArr(result.length),
+                            }
                         ]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: false
+                    };
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                tooltip:{
+                                    enable:true
+                                },
+                                datalabels: {
+                                    /* formatter: (value, context) => {
+                                         // const datapoints = context.chart.data.datasets[0].data;
+                                         //
+                                         // function totalSum(total, datapoint) {
+                                         //     return total + datapoint;
+                                         // }
+                                         //
+                                         // const totalvalue = datapoints.reduce(totalSum, 0)
+                                         // const percentageValue = (value / totalvalue * 100).toFixed(1)
+                                         // // const display =[value,percentageValue]
+                                         // const display = [value, percentageValue]
+                                         return 500 + " - " + 20 + "%"
+                                     },*/
+                                    font: {
+                                        size: 30
+                                    }
+                                },
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Revenue each categories Pie Chart'
+                                }
                             }
                         },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            })
-            .catch(error => console.log('error', error));
+                        // plugins: [ChartDataLabels]
+                    });
+                })
+                .catch(error => console.log('error', error)));
+    }
+    const createNewClientChart=()=>{
         fetch("http://localhost:8080/rest/accounts/new-user-each-month"+new Date().getFullYear(), requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -712,6 +703,8 @@
                 });
             })
             .catch(error => console.log('error', error));
+    }
+    const createTopProduct =()=>{
         fetch("http://localhost:8080/rest/products/top-product", requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -762,68 +755,89 @@
                 })
             })
             .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/categories/revenue-by-category", requestOptions)
-            .then(response => response.json()
-                .then(result => {
-                    const createColorArr =(length)=>{
-                        let colors=[];
-                        for(let i = 0; i<12;i++){
-                            colors.push("#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0"))
-                        }
-                        return colors
-                    }
-                    const ctx = document.getElementById('revenue-category');
-                    const data = {
-                        labels: result.map((object) => object.name),
+    }
+    const initialValue = ()=>{
+        fetch("http://localhost:8080/rest/orders/total-money", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-money-today").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/total-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-user").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/products/count", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-product-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/new-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("new-user-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+    }
+    const createIncomeChart= ()=>{
+        fetch("http://localhost:8080/rest/orders/total-money-every-mounth"+new Date().getFullYear(), requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const objectArray = [];
+                for (let i = 1; i <= 12; i++) {
+                    const object = {
+                        month: i,
+                        totalPrice: 0,
+                    };
+                    objectArray.push(object);
+                }
+
+                for (const data of result) {
+                    const month = data.month;
+                    const totalPrice = data.totalPrice;
+                    const object = objectArray[month - 1];
+                    object.totalPrice = totalPrice;
+                }
+
+                const newUserEl = document.getElementById('income-chart');
+
+                new Chart(newUserEl, {
+                    type: 'bar',
+                    data: {
+                        labels:  objectArray.map((object) => object.month),
                         datasets: [
                             {
-                                label: 'Dataset 1',
-                                data:  result.map((object) => object.money),
-                                backgroundColor: createColorArr(result.length),
-                            }
+                                data: objectArray.map((object) => object.totalPrice),
+                                borderWidth: 1,
+                                backgroundColor:createColorArr()
+                            },
                         ]
-                    };
-                    new Chart(ctx, {
-                        type: 'pie',
-                        data: data,
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                tooltip:{
-                                    enable:true
-                                },
-                                datalabels: {
-                                   /* formatter: (value, context) => {
-                                        // const datapoints = context.chart.data.datasets[0].data;
-                                        //
-                                        // function totalSum(total, datapoint) {
-                                        //     return total + datapoint;
-                                        // }
-                                        //
-                                        // const totalvalue = datapoints.reduce(totalSum, 0)
-                                        // const percentageValue = (value / totalvalue * 100).toFixed(1)
-                                        // // const display =[value,percentageValue]
-                                        // const display = [value, percentageValue]
-                                        return 500 + " - " + 20 + "%"
-                                    },*/
-                                    font: {
-                                        size: 30
-                                    }
-                                },
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Revenue each categories Pie Chart'
-                                }
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
                             }
                         },
-                        // plugins: [ChartDataLabels]
-                    });
-                })
-                .catch(error => console.log('error', error)));
-
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log('error', error));
+    }
+    function setTable(x){
+        initialValue()
+        createPieChart();
+        createNewClientChart();
+        createIncomeChart();
+        createTopProduct()
         const ctx = document.getElementById('new-user-chart');
         if(ctx){
             clearInterval(x)
