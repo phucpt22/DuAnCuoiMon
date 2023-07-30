@@ -51,6 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<RevenueByCateGory> getRevenueByCategory(Date from, Date to) {
-        return categoryRepository.getRevenueByCategory();
+        return categoryRepository.getRevenueByCategory(from,to);
     }
 }

@@ -12,6 +12,7 @@ app.controller("product-ctrl", function ($scope, $http) {
         });
         $http.get("/rest/categories").then((resp) => {
             $scope.cates = resp.data;
+            console.log(resp.data)
         });
     };
     $scope.search = function (p) {

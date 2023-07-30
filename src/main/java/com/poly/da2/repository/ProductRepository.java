@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -31,6 +32,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT p FROM Product p WHERE p.category.id = ?1 ORDER BY NEWID()")
 	List<Product> SanPhamLienQuan(String cid, Pageable pageable);
 
+	@Query(value = "SELECT TOP 6 * FROM products ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiNhat();
+	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate1' ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiCate1();
+	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate2' ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiCate2();
+	@Query(value = "SELECT TOP 3 * FROM products WHERE categoryid like 'cate6' ORDER BY createdate DESC", nativeQuery = true)
+	List<Product> sanPhamMoiCate6();
+
 	@Query(value = "SELECT COUNT(*) FROM Product p")
 	long count();
 
@@ -39,8 +49,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			"from Product p\n" +
 			"\tinner join OrderDetail od\n" +
 			"\ton od.product.id = p.id\n" +
+			"\tinner join Order o\n" +
+			"\ton o.id = od.order.id\n" +
+			"\t where o.createDate BETWEEN  ?1  AND ?2 \n" +
 			"\tgroup by p.id, p.name, p.image_urls\n" +
 			"\torder by SUM( od.quantity * od.price) desc\n")
-	List<TopProduct> getTopProduct();
+	List<TopProduct> getTopProduct(Date from, Date to);
 
 }

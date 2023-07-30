@@ -19,8 +19,8 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
             "INNER JOIN Product p ON c.id = p.category.id\n" +
             "INNER JOIN OrderDetail od ON p.id = od.product.id\n" +
             "INNER JOIN Order o on o.id = od.order.id\n" +
-            "WHERE o.createDate BETWEEN  '2023-01-01' AND '2023-12-31' \n" +
+            "WHERE o.createDate BETWEEN  ?1  AND ?2 \n" +
             "GROUP BY c.name,c.id\n")
-    List<RevenueByCateGory> getRevenueByCategory();
+    List<RevenueByCateGory> getRevenueByCategory(Date from, Date to);
 
 }

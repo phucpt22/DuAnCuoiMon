@@ -3,9 +3,6 @@ package com.poly.da2.rest;
 import com.poly.da2.entity.Userss;
 import com.poly.da2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +25,12 @@ public class UserRestController {
 
     @GetMapping("/all")
     public List<Userss> getAll() {
-        return uService.findAll();
+        List<Userss> result = uService.findAll();
+        return result;
     }
 
     @GetMapping("{id}")
-    public Userss getOne(@PathVariable("id" )Integer id) {
+    public Userss getOne(@PathVariable("id") Integer id) {
         return uService.findById(id);
     }
 
@@ -42,12 +40,12 @@ public class UserRestController {
     }
 
     @PutMapping("{id}")
-    public Userss update(@PathVariable("id")String id, @RequestBody Userss Userss) {
+    public Userss update(@PathVariable("id") String id, @RequestBody Userss Userss) {
         return uService.update(Userss);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id")Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
         uService.delete(id);
     }
 

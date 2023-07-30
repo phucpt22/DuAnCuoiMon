@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,6 @@ public class CategoryRestController {
 
     @GetMapping
     public List<Category> getAll() {
-// test
         return categoryService.findAll();
     }
 
@@ -48,9 +48,9 @@ public class CategoryRestController {
     }
 
     @GetMapping("revenue-by-category")
-    public List<RevenueByCateGory> getRevenueByCategory() throws ParseException {
+    public List<RevenueByCateGory> getRevenueByCategory(@RequestParam("from") String from,@RequestParam("to")  String to) throws ParseException {
        return  categoryService.getRevenueByCategory(
-               new SimpleDateFormat("yyyy-MM-dd").parse("0001-01-01"),
-               new SimpleDateFormat("yyyy-MM-dd").parse("9999-01-01"));
+               new SimpleDateFormat("yyyy-MM-dd").parse(from),
+               new SimpleDateFormat("yyyy-MM-dd").parse(to));
     }
 }

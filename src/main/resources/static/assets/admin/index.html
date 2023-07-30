@@ -45,6 +45,7 @@
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.min.js"></script>
+    <script src="./assets/api/cart.js"></script>
     <style>
         .ellipsis-text{
             overflow-x: hidden;
@@ -57,7 +58,9 @@
 
 <body class="g-sidenav-show  bg-gray-200" ng-app="admin-app">
 
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
        id="sidenav-main">
@@ -111,6 +114,14 @@
                         <i class="material-icons opacity-10">notifications</i>
                     </div>
                     <span class="nav-link-text ms-1">Category</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white " href="#!authority">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">notifications</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Authority</span>
                 </a>
             </li>
             <li class="nav-item mt-3">
@@ -197,70 +208,15 @@
                                 <a class="dropdown-item border-radius-md" href="javascript:;">
                                     <div class="d-flex py-1">
                                         <div class="my-auto">
-                                            <img src="./assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                                            <i class="icon"></i>
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
+                                        <div class="notification d-flex flex-column justify-content-center">
                                             <h6 class="text-sm font-weight-normal mb-1">
-                                                <span class="font-weight-bold">New message</span> from Laur
+                                                <span class="message font-weight-bold"></span>
                                             </h6>
                                             <p class="text-xs text-secondary mb-0">
                                                 <i class="fa fa-clock me-1"></i>
                                                 13 minutes ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="mb-2">
-                                <a class="dropdown-item border-radius-md" href="javascript:;">
-                                    <div class="d-flex py-1">
-                                        <div class="my-auto">
-                                            <img src="./assets/img/small-logos/logo-spotify.svg"
-                                                 class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="text-sm font-weight-normal mb-1">
-                                                <span class="font-weight-bold">New album</span> by Travis Scott
-                                            </h6>
-                                            <p class="text-xs text-secondary mb-0">
-                                                <i class="fa fa-clock me-1"></i>
-                                                1 day
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item border-radius-md" href="javascript:;">
-                                    <div class="d-flex py-1">
-                                        <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                                 xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                <title>credit-card</title>
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                                       fill-rule="nonzero">
-                                                        <g transform="translate(1716.000000, 291.000000)">
-                                                            <g transform="translate(453.000000, 454.000000)">
-                                                                <path class="color-background"
-                                                                      d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                                                      opacity="0.593633743"></path>
-                                                                <path class="color-background"
-                                                                      d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="text-sm font-weight-normal mb-1">
-                                                Payment successfully completed
-                                            </h6>
-                                            <p class="text-xs text-secondary mb-0">
-                                                <i class="fa fa-clock me-1"></i>
-                                                2 days
                                             </p>
                                         </div>
                                     </div>
@@ -429,6 +385,7 @@
 <script src="/assets/api/account-ctrl.js"></script>
 <script src="/assets/api/order-ctrl.js"></script>
 <script src="/assets/api/category-ctrl.js"></script>
+<script src="/assets/api/authority-ctrl.js"></script>
 <script type="text/javascript">
     /* exported gapiLoaded */
     /* exported gisLoaded */
@@ -593,9 +550,146 @@
         headers: myHeaders,
         redirect: 'follow'
     };
+    var newClientChart= null
+    var incomeChart= null
+    var pieChart= null
+    const initialValue = ()=>{
+        fetch("http://localhost:8080/rest/orders/total-money", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-money-today").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/total-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-user").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/products/count", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("total-product-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+        fetch("http://localhost:8080/rest/users/new-user", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("new-user-count").innerHTML=result
+            })
+            .catch(error => console.log('error', error));
+    }
+    const createNewClientChart=(year)=>{
+        fetch("http://localhost:8080/rest/accounts/new-user-each-month"+year, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const objectArray = [];
+                for (let i = 1; i <= 12; i++) {
+                    const object = {
+                        month: i,
+                        count: 0,
+                    };
+                    objectArray.push(object);
+                }
 
-    const createPieChart =()=>{
-        fetch("http://localhost:8080/rest/categories/revenue-by-category", requestOptions)
+                for (const data of result) {
+                    const month = data.month;
+                    const count = data.count;
+                    const object = objectArray[month - 1];
+                    object.count = count;
+                }
+
+                const ctx = document.getElementById('new-user-chart');
+               if(newClientChart){
+                   newClientChart.destroy();
+               }
+                newClientChart=  new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: objectArray.map((object) => object.month),
+                        datasets: [{
+                            data: objectArray.map((object) => object.count),
+                            borderWidth: 1,
+                            backgroundColor: createColorArr()
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log('error', error));
+    }
+    const createIncomeChart= (year)=>{
+        fetch("http://localhost:8080/rest/orders/total-money-every-mounth"+year, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const objectArray = [];
+                for (let i = 1; i <= 12; i++) {
+                    const object = {
+                        month: i,
+                        totalPrice: 0,
+                    };
+                    objectArray.push(object);
+                }
+
+                for (const data of result) {
+                    const month = data.month;
+                    const totalPrice = data.totalPrice;
+                    const object = objectArray[month - 1];
+                    object.totalPrice = totalPrice;
+                }
+
+                const newUserEl = document.getElementById('income-chart');
+                if(incomeChart){
+                    incomeChart.destroy();
+                }
+                incomeChart =  new Chart(newUserEl, {
+                    type: 'bar',
+                    data: {
+                        labels:  objectArray.map((object) => object.month),
+                        datasets: [
+                            {
+                                data: objectArray.map((object) => object.totalPrice),
+                                borderWidth: 1,
+                                backgroundColor:createColorArr()
+                            },
+                        ]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log('error', error));
+    }
+    const createPieChart =(from,to)=>{
+        if(!from){
+            from ="0000-01-01"
+        }
+        if(!to){
+            to ="9999-01-01"
+        }
+        const url ="http://localhost:8080/rest/categories/revenue-by-category?from="+from+"&to="+to
+        fetch(url, requestOptions)
             .then(response => response.json()
                 .then(result => {
                     const createColorArr =(length)=>{
@@ -616,7 +710,10 @@
                             }
                         ]
                     };
-                    new Chart(ctx, {
+                    if(pieChart){
+                        pieChart.destroy();
+                    }
+                    pieChart=   new Chart(ctx, {
                         type: 'pie',
                         data: data,
                         options: {
@@ -657,58 +754,18 @@
                 })
                 .catch(error => console.log('error', error)));
     }
-    const createNewClientChart=()=>{
-        fetch("http://localhost:8080/rest/accounts/new-user-each-month"+new Date().getFullYear(), requestOptions)
+    const createTopProduct =(from,to)=>{
+        if(!from){
+            from ="0000-01-01"
+        }
+        if(!to){
+            to ="9999-01-01"
+        }
+        fetch("http://localhost:8080/rest/products/top-product?from="+from+"&to="+to, requestOptions)
             .then(response => response.json())
             .then(result => {
-                const objectArray = [];
-                for (let i = 1; i <= 12; i++) {
-                    const object = {
-                        month: i,
-                        count: 0,
-                    };
-                    objectArray.push(object);
-                }
-
-                for (const data of result) {
-                    const month = data.month;
-                    const count = data.count;
-                    const object = objectArray[month - 1];
-                    object.count = count;
-                }
-
-                const ctx = document.getElementById('new-user-chart');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: objectArray.map((object) => object.month),
-                        datasets: [{
-                            data: objectArray.map((object) => object.count),
-                            borderWidth: 1,
-                            backgroundColor: createColorArr()
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            })
-            .catch(error => console.log('error', error));
-    }
-    const createTopProduct =()=>{
-        fetch("http://localhost:8080/rest/products/top-product", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-
+                const tbody = document.getElementById("top-product-table-body");
+                tbody.innerHTML=""
                 const createNewRow = (dataRow)=>{
                     const tbody = document.getElementById("top-product-table-body");
                     const newRow = document.createElement("tr");
@@ -756,95 +813,39 @@
             })
             .catch(error => console.log('error', error));
     }
-    const initialValue = ()=>{
-        fetch("http://localhost:8080/rest/orders/total-money", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("total-money-today").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/users/total-user", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("total-user").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/products/count", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("total-product-count").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-        fetch("http://localhost:8080/rest/users/new-user", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("new-user-count").innerHTML=result
-            })
-            .catch(error => console.log('error', error));
-    }
-    const createIncomeChart= ()=>{
-        fetch("http://localhost:8080/rest/orders/total-money-every-mounth"+new Date().getFullYear(), requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                const objectArray = [];
-                for (let i = 1; i <= 12; i++) {
-                    const object = {
-                        month: i,
-                        totalPrice: 0,
-                    };
-                    objectArray.push(object);
-                }
-
-                for (const data of result) {
-                    const month = data.month;
-                    const totalPrice = data.totalPrice;
-                    const object = objectArray[month - 1];
-                    object.totalPrice = totalPrice;
-                }
-
-                const newUserEl = document.getElementById('income-chart');
-
-                new Chart(newUserEl, {
-                    type: 'bar',
-                    data: {
-                        labels:  objectArray.map((object) => object.month),
-                        datasets: [
-                            {
-                                data: objectArray.map((object) => object.totalPrice),
-                                borderWidth: 1,
-                                backgroundColor:createColorArr()
-                            },
-                        ]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            })
-            .catch(error => console.log('error', error));
-    }
     function setTable(x){
-        initialValue()
-        createPieChart();
-        createNewClientChart();
-        createIncomeChart();
-        createTopProduct()
+
         const ctx = document.getElementById('new-user-chart');
         if(ctx){
+            const newClientSelect = document.getElementById("year-new-client-select")
+            newClientSelect.addEventListener("change",(e)=>{
+                createNewClientChart(e.target.value)
+            })
+            const yearIncomeSelect = document.getElementById("year-income-select")
+            yearIncomeSelect.addEventListener("change",(e)=>{
+                createIncomeChart(e.target.value)
+            })
+            const pieBtn = document.getElementById("pie-btn")
+            pieBtn.addEventListener("click",(e)=>{
+                const fromInput = document.getElementById("from-revenue-category-date")
+                const toInput = document.getElementById("to-revenue-category-date")
+                createPieChart(fromInput.value,toInput.value)
+            })
+            const topProductBtn = document.getElementById("top-product-btn")
+            topProductBtn.addEventListener("click",(e)=>{
+                const fromInput = document.getElementById("from-top-product-date")
+                const toInput = document.getElementById("to-top-product-date")
+                createTopProduct(fromInput.value,toInput.value)
+            })
+            initialValue();
+            createNewClientChart(new Date().getFullYear());
+            createIncomeChart(new Date().getFullYear());
+            createPieChart();
+            createTopProduct()
             clearInterval(x)
         }
 
     }
-
     const setIntervalId = setInterval(()=>{
         setTable(setIntervalId)
     },500)

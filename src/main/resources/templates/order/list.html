@@ -79,7 +79,7 @@
 											<td>[[${order.status_order}]]</td>
 											<td>[[${order.origninal_price}]]</td>
 											<td>
-												<a th:href="@{/order/cancel/{orderId}(orderId=${order.id})}" class="btn btn-outline-danger" onclick="showConfirmBox(event, ${order.id})">
+												<a th:attr="onclick='showConfirmBox(\'' + ${order.id} + '\')'" class="btn btn-outline-danger" onclick="showConfirmBox(event, ${order.id})">
 													<i class="fa-solid fa-rotate-left"></i>
 													<b>Hủy đơn</b>
 												</a>
@@ -197,8 +197,8 @@
 			</div>
 		</div>
 		<script>
-			function showConfirmBox(event, orderId) {
-				event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+			function showConfirmBox(orderId) {
+				//event.preventDefault(); // Ngăn chặn hành động mặc định của nút
 				Swal.fire({
 					title: 'Xác nhận hủy đơn',
 					text: 'Bạn có chắc chắn muốn hủy đơn hàng?',
@@ -214,6 +214,20 @@
 					}
 				});
 			}
+			function autoClick(element) {
+				var event = new MouseEvent('click', {
+					bubbles: true,
+					cancelable: true,
+					view: window
+				});
+				element.dispatchEvent(event);
+			}
+
+			$(document).ready(function() {
+				var button = document.getElementById('nav-home-tab');
+
+				autoClick(button);
+			});
 		</script>
 	</main>
   </body>

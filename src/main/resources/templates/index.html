@@ -1,41 +1,365 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/layout :: dynamic(~{::main})}">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Thanh toán</title>
-</head>
+		<title>Technology Product Store</title>
 
-<body>
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <img th:src="@{/vnpay-logo.png}" style="width: 200px">
-                    <h2 class="card-title">Thanh Toán Đơn Hàng</h2>
-                    <form th:action="@{/submitOrder}" method="post">
-                        <div class="form-group">
-                            <label for="amount">Số tiền:</label>
-                            <input type="number" class="form-control" id="amount" name="amount" required value="299999">
-                        </div>
-                        <div class="form-group">
-                            <label for="orderInfo">Thông tin đơn hàng:</label>
-                            <input type="text" class="form-control" id="orderInfo" name="orderInfo" required value="Thanh toan don hang 2923">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thanh toán</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
+    </head>
+	<body>
+		<!-- /SECTION -->
+	<main>
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- shop -->
+					<div class="col-md-4 col-xs-6">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="https://cdn.tgdd.vn/Products/Images/44/253636/apple-macbook-pro-16-m1-pro-2021-10-core-cpu-600x600.jpg" alt="">
+							</div>
+							<div class="shop-body">
+								<h3>Laptop<br>Collection</h3>
+								<a th:href="@{|/products?cid=${'cate1'}&page=${0}&min_price=${0}&max_price=${90000000}|}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- /shop -->
 
+					<!-- shop -->
+					<div class="col-md-4 col-xs-6">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="https://cdn.tgdd.vn/Products/Images/4547/243202/co-co-day-gaming-razer-blackwidow-2-org.jpg" alt="">
+							</div>
+							<div class="shop-body">
+								<h3>Keyboard<br>Collection</h3>
+								<a th:href="@{|/products?cid=${'cate2'}&page=${0}&min_price=${0}&max_price=${90000000}|}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- /shop -->
+
+					<!-- shop -->
+					<div class="col-md-4 col-xs-6">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="https://cdn.tgdd.vn/Products/Images/7923/199956/tui-chong-soc-laptop-15-wiwu-bo-goc-xam-1-org.jpg" alt="">
+							</div>
+							<div class="shop-body">
+								<h3>Bag<br>Collection</h3>
+								<a th:href="@{|/products?cid=${'cate6'}&page=${0}&min_price=${0}&max_price=${90000000}|}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- /shop -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">New Products</h3>
+
+						</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="products-tabs">
+							<!-- tab -->
+							<div id="tab1" class="tab-pane active">
+								<div class="products-slick" data-nav="#slick-nav-1">
+									<!-- product -->
+									<div  th:each="p : ${spm}"  class="product">
+										<div class="product-img">
+											<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
+											<div class="product-label">
+												<span th:if="${p.discount > 0}" class="sale" th:text="${p.discount + '%'}">Sale</span>
+												<span class="new">New</span>
+											</div>
+										</div>
+										<div class="product-body">
+											<p class="product-category" th:text="${p.category.name}"></p>
+											<h3 class="product-name" th:text="${p.name}"></h3>
+											<h4 hidden="hidden" class="product-price" th:text="${p.currentprice}"> </h4>
+											<div>
+												<h4 class="product-price" th:text="${p.formatCurrent_Price}"> </h4>
+												<del th:if="${p.discount > 0}" th:text="${p.formatPrice}"></del>
+												<div style="height: 20px;" th:if="${p.discount == 0}"></div>
+											</div>
+											<div class="product-rating">
+												<div class="rating-stars"><span th:each="i : ${#numbers.sequence(1, 5)}"> <i
+														th:if="${p.rating_average >= i}" class="fa fa-star"
+														style="color: red;"></i> <i
+														th:if="${(p.rating_average < i) && (p.rating_average >= (i-0.5))}"
+														class="fa fa-star-half-o" style="color: red;"></i> </span></div>
+											</div>
+											<!--                                    <input type="hidden" th:value="${p.category.id}" name="idcate">-->
+											<div class="product-btns">
+												<a th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"><i
+														class="fa fa-eye"></i> See more...
+												</a>
+												<a><i class="fa-solid fa-thumbs-up"></i> Like
+												</a>
+											</div>
+										</div>
+										<div class="add-to-cart">
+											<button th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart-btn"><i
+													class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+									<!-- /product -->
+								</div>
+								<div id="slick-nav-1" class="products-slick-nav"></div>
+							</div>
+							<!-- /tab -->
+						</div>
+					</div>
+					<!-- Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- HOT DEAL SECTION -->
+		<div id="hot-deal" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="hot-deal">
+							<ul class="hot-deal-countdown">
+								<li>
+									<div>
+										<h3>02</h3>
+										<span>Days</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3>10</h3>
+										<span>Hours</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3>34</h3>
+										<span>Mins</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3>60</h3>
+										<span>Secs</span>
+									</div>
+								</li>
+							</ul>
+							<h2 class="text-uppercase">hot deal this week</h2>
+							<p>New Collection Up to 50% OFF</p>
+							<a class="primary-btn cta-btn" href="#">Shop now</a>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /HOT DEAL SECTION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">Top selling</h3>
+
+						</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab2" class="tab-pane fade in active">
+									<div class="products-slick" data-nav="#slick-nav-2">
+										<!-- product -->
+										<div  th:each="p : ${bestseller}" class="product">
+											<div class="product-img">
+												<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
+												<div class="product-label">
+													<span th:if="${p.discount > 0}" class="sale" th:text="${p.discount + '%'}">Sale</span>
+													<span class="new">New</span>
+												</div>
+											</div>
+											<div class="product-body">
+												<p class="product-category" th:text="${p.category.name}"></p>
+												<h3 class="product-name" th:text="${p.name}"></h3>
+												<h4 hidden="hidden" class="product-price" th:text="${p.currentprice}"> </h4>
+												<div>
+													<h4 class="product-price" th:text="${p.formatCurrent_Price}"> </h4>
+													<del th:if="${p.discount > 0}" th:text="${p.formatPrice}"></del>
+													<div style="height: 20px;" th:if="${p.discount == 0}"></div>
+												</div>
+												<div class="product-rating">
+													<div class="rating-stars"><span th:each="i : ${#numbers.sequence(1, 5)}"> <i
+															th:if="${p.rating_average >= i}" class="fa fa-star"
+															style="color: red;"></i> <i
+															th:if="${(p.rating_average < i) && (p.rating_average >= (i-0.5))}"
+															class="fa fa-star-half-o" style="color: red;"></i> </span></div>
+												</div>
+												<!--                                    <input type="hidden" th:value="${p.category.id}" name="idcate">-->
+												<div class="product-btns">
+													<a th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"><i
+															class="fa fa-eye"></i> See more...
+													</a>
+													<a><i class="fa-solid fa-thumbs-up"></i> Like
+													</a>
+												</div>
+											</div>
+											<div class="add-to-cart">
+												<button th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart-btn"><i
+														class="fa fa-shopping-cart"></i> add to cart
+												</button>
+											</div>
+										</div>
+										<!-- /product -->
+									</div>
+									<div id="slick-nav-2" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
+					<!-- /Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-4 col-xs-6">
+						<div class="section-title">
+							<h4 class="title">New Laptop</h4>
+							<div class="section-nav">
+								<div id="slick-nav-3" class="products-slick-nav"></div>
+							</div>
+						</div>
+
+						<div th:each="p : ${spmCate1}" class="products-widget-slick" data-nav="#slick-nav-3">
+							<div>
+								<!-- product widget -->
+								<div class="product-widget">
+									<div class="product-img">
+										<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
+									</div>
+									<div class="product-body">
+										<p class="product-category" th:text="${p.category.name}"></p>
+										<h3 class="product-name"><a th:text="${p.name}" th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"></a></h3>
+										<h4 class="product-price" th:text="${p.formatCurrent_Price}"> <del th:if="${p.discount > 0}" th:text="${p.formatPrice}" class="product-old-price"></del></h4>
+									</div>
+								</div>
+								<!-- /product widget -->
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4 col-xs-6">
+						<div class="section-title">
+							<h4 class="title">New Keyboard</h4>
+							<div class="section-nav">
+								<div id="slick-nav-4" class="products-slick-nav"></div>
+							</div>
+						</div>
+
+						<div th:each="p : ${spmCate2}" class="products-widget-slick" data-nav="#slick-nav-4">
+							<div>
+								<!-- product widget -->
+								<div class="product-widget">
+									<div class="product-img">
+										<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
+									</div>
+									<div class="product-body">
+										<p class="product-category" th:text="${p.category.name}"></p>
+										<h3 class="product-name"><a th:text="${p.name}" th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"></a></h3>
+										<h4 class="product-price" th:text="${p.formatCurrent_Price}"> <del th:if="${p.discount > 0}" th:text="${p.formatPrice}" class="product-old-price"></del></h4>
+									</div>
+								</div>
+								<!-- /product widget -->
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix visible-sm visible-xs"></div>
+
+					<div class="col-md-4 col-xs-6">
+						<div class="section-title">
+							<h4 class="title">New Bag</h4>
+							<div class="section-nav">
+								<div id="slick-nav-5" class="products-slick-nav"></div>
+							</div>
+						</div>
+						<div th:each="p : ${spmCate6}" class="products-widget-slick" data-nav="#slick-nav-5">
+							<div>
+								<!-- product widget -->
+								<div class="product-widget">
+									<div class="product-img">
+										<img src="" th:src="@{|${p.thumbnail_url}|}" alt="">
+									</div>
+									<div class="product-body">
+										<p class="product-category" th:text="${p.category.name}"></p>
+										<h3 class="product-name"><a th:text="${p.name}" th:href="@{|/product/detail/${p.id}?idcate=${p.category.id}|}"></a></h3>
+										<h4 class="product-price" th:text="${p.formatCurrent_Price}"> <del th:if="${p.discount > 0}" th:text="${p.formatPrice}" class="product-old-price"></del></h4>
+									</div>
+								</div>
+								<!-- /product widget -->
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+	</main>
+	</body>
 </html>

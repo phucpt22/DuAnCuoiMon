@@ -10,7 +10,9 @@ import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.LoginService;
 import com.poly.da2.service.ParamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,7 +70,6 @@ public class SecurityController {
     @RequestMapping("/oauth2/login/success")
     public String success(OAuth2AuthenticationToken oauth2) {
         loginService.loginFormOAuth2(oauth2);
-
         return "redirect:/security/login/success";
     }
 
@@ -86,14 +87,14 @@ public class SecurityController {
             u.setPhoto("noimage.png");
             nd.setPassword(password);
             nd.setUsername(username);
-            accdao.save(nd);
             udao.save(u);
+            nd.setUser(u);
+            accdao.save(nd);
             request.setAttribute("messageS", "Đăng ký thành công bạn có thể đăng nhập ngay bây giờ!");
 
         } else {
             request.setAttribute("messageS", "Mật khẩu và nhập lại mật khẩu không trùng khớp!");
         }
-
         return "redirect:/security/login/success";
     }
 }

@@ -119,14 +119,14 @@
                     <div class="h4 fw-bold">Filter : </div>
                     <span style="padding-top: 10px; display: flex; justify-content: space-around" >
                         <div style="line-height: 36px;font-size: 18px" > From date : </div>
-                        <input id="from-revenue-category-date" style="font-size: 17px;padding: 8px 12px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                        <input id="from-revenue-category-date" style="font-size: 16px;padding: 7px 10px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
                     </span>
                     <span style="padding-top: 10px; display: flex; justify-content: space-around" >
                         <div style="line-height: 36px;font-size: 18px;" > To date : </div>
-                        <input id="to-revenue-category-date" style="font-size: 17px;padding: 8px 12px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                        <input id="to-revenue-category-date" style="font-size: 16px;padding: 7px 10px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
                     </span>
                     <span style="display: flex; justify-content: center;margin-top: 15px">
-                        <button style="font-size: 16px;color:#343434;padding: 8px 20px" class="btn btn-warning" >Submit</button>
+                        <button style="font-size: 16px;color:#343434;padding: 8px 20px" type="button"  id="pie-btn" class="btn btn-warning" >Submit</button>
                     </span>
                 </div>
                 <div class="col-lg-5  px-0 pb-2">
@@ -150,19 +150,12 @@
                             </p>
                         </div>
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <div class="dropdown float-lg-end pe-4">
-                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v text-secondary"></i>
-                                </a>
-                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a>
-                                    </li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Another
-                                        action</a></li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else
-                                        here</a></li>
-                                </ul>
+                            <div  style="flex-direction: row; display: flex;justify-content: center;align-items: center">
+                                <div > From date : </div>
+                                <input id="from-top-product-date" style="font-size: 15px;padding: 5px 8px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                                <div style="padding-left: 10px" > To date : </div>
+                                <input id="to-top-product-date" style="font-size: 15px;padding: 5px 8px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                                <button style="font-size: 15px;color:#343434;padding: 5px 8px;margin-left: 15px;margin-bottom: 0" type="button"  id="top-product-btn" class="btn btn-warning" >Submit</button>
                             </div>
                         </div>
                     </div>
@@ -189,8 +182,16 @@
                     </div>
                 </div>
             </div>
+            <div class="card-body">
+                <h6 class="mb-0 ">New Clients Chart</h6>
+
+                <hr class="dark horizontal">
+
+            </div>
         </div>
     </div>
-
     </div>
+
+</div>
+</div>
 

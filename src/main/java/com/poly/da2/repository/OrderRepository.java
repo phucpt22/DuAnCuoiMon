@@ -14,6 +14,10 @@ import java.util.Map;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 	@Query("SELECT o FROM Order o Where o.user.account.username=?1 and o.status_order=?2")
     List<Order> findByUsername(String username, String status);
+    @Query("SELECT o FROM Order o Where o.status_order=?1")
+    List<Order> getByOderStatus(String status);
+    @Query("SELECT o FROM Order o Where o.user.account.username=?1 and o.status_order=?2")
+    List<Order> findByUsernameAndStatus(String username, String status);
     @Query("SELECT SUM(total_price) from Order where  convert(varchar(10), updateDate, 102) = convert(varchar(10), getdate(), 102)")
     long getTotalMoneyOrderToday();
 
