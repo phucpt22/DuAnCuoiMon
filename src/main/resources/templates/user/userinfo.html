@@ -81,7 +81,7 @@
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                             <form action="{{'http://localhost:8080/userinfo/image?id='+userInfo.id}}"  method="post" enctype="multipart/form-data">
                                 <img class="rounded-circle mt-5" width="150px" id="image-avatar"
-                                     src="./assets/user/img/{{userInfo.photo}}"
+                                     th:src="@{${'./assets/user/img/{{userInfo.photo}}'}}"
                                 >
                                 <br/>
                                 <span class="font-weight-bold">{{fullName}}</span>
