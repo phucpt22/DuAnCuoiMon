@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -44,11 +45,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	long count();
 
 
-	@Query("SELECT new TopProduct (p.id, p.name, p.thumbnail_url, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
+	@Query("SELECT new TopProduct (p.id, p.name, p.image_urls, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
 			"from Product p\n" +
 			"\tinner join OrderDetail od\n" +
 			"\ton od.product.id = p.id\n" +
-			"\tgroup by p.id, p.name, p.thumbnail_url")
-	List<TopProduct> getTopProduct();
+			"\tinner join Order o\n" +
+			"\ton o.id = od.order.id\n" +
+			"\t where o.createDate BETWEEN  ?1  AND ?2 \n" +
+			"\tgroup by p.id, p.name, p.image_urls\n" +
+			"\torder by SUM( od.quantity * od.price) desc\n")
+	List<TopProduct> getTopProduct(Date from, Date to);
 
 }

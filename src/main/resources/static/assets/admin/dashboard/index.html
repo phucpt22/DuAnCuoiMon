@@ -2,7 +2,7 @@
 
 <!-- End Navbar -->
 <!--<div class="container-fluid py-4">-->
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
             <div class="card-header p-3 pt-2">
@@ -78,11 +78,15 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <h6 class="mb-0 ">New Clients Chart</h6>
-
+            <div class="card-body" style="padding: 15px">
+                <div style="display: flex;justify-content: space-between">
+                    <h6 class="mb-0 "  style="line-height: 36px" >New Clients Chart</h6>
+                    <span style="display: flex; justify-content: center; align-items: center" >
+                            <div style="line-height: 36px;font-size: 18px;" > Year : </div>
+                            <input id="year-new-client-select" style="font-size: 18px;padding: 8px 12px; margin-left: 15px;margin-bottom: 0" class="btn btn-success" type="number" min="1900" max="2099" step="1" value="2023" />
+                        </span>
+                </div>
                 <hr class="dark horizontal">
-
             </div>
         </div>
     </div>
@@ -95,12 +99,43 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <h6 class="mb-0 ">Income chart</h6>
+            <div class="card-body" style="padding: 15px">
+                <div style="display: flex;justify-content: space-between">
+                    <h6 class="mb-0 "  style="line-height: 36px">Income chart</h6>
+                    <span style=" display: flex; justify-content: center; align-items: center" >
+                            <div style="line-height: 36px;font-size: 18px" > Year : </div>
+                            <input id="year-income-select" style="font-size: 18px;padding: 8px 12px; margin-left: 15px;margin-bottom: 0" class="btn btn-success" type="number" min="1900" max="2099" step="1" value="2023" />
+                        </span>
+                </div>
                 <hr class="dark horizontal">
             </div>
         </div>
     </div>
+</div>
+<div class="row mb-4">
+    <div class="col-lg-12 col-md-6 mb-md-0 mb-4" >
+        <div class="card row " style="display:flex; justify-content: center;align-items: center;flex-direction: row">
+            <div class="col-lg-3 px-0 pb-2">
+                <div class="h4 fw-bold">Filter : </div>
+                <span style="padding-top: 10px; display: flex; justify-content: space-around" >
+                        <div style="line-height: 36px;font-size: 18px" > From date : </div>
+                        <input id="from-revenue-category-date" style="font-size: 16px;padding: 7px 10px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                    </span>
+                <span style="padding-top: 10px; display: flex; justify-content: space-around" >
+                        <div style="line-height: 36px;font-size: 18px;" > To date : </div>
+                        <input id="to-revenue-category-date" style="font-size: 16px;padding: 7px 10px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                    </span>
+                <span style="display: flex; justify-content: center;margin-top: 15px">
+                        <button style="font-size: 16px;color:#343434;padding: 8px 20px" type="button"  id="pie-btn" class="btn btn-warning" >Submit</button>
+                    </span>
+            </div>
+            <div class="col-lg-5  px-0 pb-2">
+                <canvas id="revenue-category" class="chart-canvas" ></canvas>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 <div class="row mb-4">
     <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
@@ -115,19 +150,12 @@
                         </p>
                     </div>
                     <div class="col-lg-6 col-5 my-auto text-end">
-                        <div class="dropdown float-lg-end pe-4">
-                            <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                <i class="fa fa-ellipsis-v text-secondary"></i>
-                            </a>
-                            <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a>
-                                </li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Another
-                                    action</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else
-                                    here</a></li>
-                            </ul>
+                        <div  style="flex-direction: row; display: flex;justify-content: center;align-items: center">
+                            <div > From date : </div>
+                            <input id="from-top-product-date" style="font-size: 15px;padding: 5px 8px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                            <div style="padding-left: 10px" > To date : </div>
+                            <input id="to-top-product-date" style="font-size: 15px;padding: 5px 8px; margin-left: 15px;margin-bottom: 0" class="btn btn-primary" type="date"  />
+                            <button style="font-size: 15px;color:#343434;padding: 5px 8px;margin-left: 15px;margin-bottom: 0" type="button"  id="top-product-btn" class="btn btn-warning" >Submit</button>
                         </div>
                     </div>
                 </div>
@@ -154,7 +182,15 @@
                 </div>
             </div>
         </div>
+        <div class="card-body">
+            <h6 class="mb-0 ">New Clients Chart</h6>
+
+            <hr class="dark horizontal">
+
+        </div>
     </div>
+</div>
+</div>
 
 </div>
 </div>

@@ -6506,7 +6506,7 @@ fieldset:disabled .btn {
 }
 
 .modal {
-  --bs-modal-zindex: 1050;
+  --bs-modal-zindex: 2;
   --bs-modal-width: 500px;
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
@@ -6599,7 +6599,7 @@ fieldset:disabled .btn {
 }
 
 .modal-backdrop {
-  --bs-backdrop-zindex: 1040;
+  --bs-backdrop-zindex: 1;
   --bs-backdrop-bg: #000;
   --bs-backdrop-opacity: 0.5;
   position: fixed;
