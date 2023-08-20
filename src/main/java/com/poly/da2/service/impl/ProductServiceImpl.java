@@ -85,25 +85,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<TopProduct> getTopProduct(Date from, Date to){
 		return productRepository.getTopProduct( from,  to);
 	}
-	@Override
-	public List<Product> sanPhamMoiNhat() {
-		return productRepository.sanPhamMoiNhat();
-	}
 
-	@Override
-	public List<Product> sanPhamMoiNhatCate1() {
-		return productRepository.sanPhamMoiCate1();
-	}
-
-	@Override
-	public List<Product> sanPhamMoiNhatCate2() {
-		return productRepository.sanPhamMoiCate2();
-	}
-
-	@Override
-	public List<Product> sanPhamMoiNhatCate6() {
-		return productRepository.sanPhamMoiCate6();
-	}
 	@Override
 	public List<Product> sanPhamMoiNhat() {
 		return productRepository.sanPhamMoiNhat();

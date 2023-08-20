@@ -76,7 +76,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li><a href="#"><i class="fa fa-dollar"></i> VN </a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle" href="#" role="button" >
+                        <a class="nav-link active dropdown-toggle" href="#" role="button">
                             <i class="fa fa-user-o"></i>
                             <span th:if="${#request.remoteUser}">Chào mừng [[${#request.remoteUser}]]</span>
                             <span th:unless="${#request.remoteUser}">Account</span>
@@ -168,8 +168,56 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /Cart -->
 
+                        <!-- /Cart -->
+                        <div>
+                            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                                <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-bell fa-xl" style="color: #ffffff;"></i>
+                                    <span style="background: #D10024; position: absolute; top: -5px;"
+                                          class="start-100 translate-middle badge rounded-pill bg-danger unread-notifications">
+                                        <span class="visually-hidden"></span>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                                        <div style="width: 350px; padding: 16px;" class="d-flex py-1">
+                                            <th:block th:if="${#request.isUserInRole('r1')}">
+                                                <div style="color: black; font-size: 12px; "
+                                                     th:each="no : ${notifications}"
+                                                     class="notification d-flex flex-column justify-content-center unread">
+                                                    <div style="margin-bottom: 14px;"
+                                                         class="text-sm font-weight-normal mb-1">
+                                                        <a href="/orderhref" class="message font-weight-bold"
+                                                           th:text="${no.content}"> </a>
+                                                    </div>
+                                                    <p class="text-xs text-secondary mb-0">
+                                                        <i class="fa fa-clock me-1"></i>
+                                                        <span th:text="${no.create_date}"></span>
+                                                    </p>
+                                                    <hr>
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                    </a>
+                                </ul>
+                            </li>
+                            <span style="color: white; font-size: 12px">Notifications</span>
+                        </div>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            var unreadNotifications = $('.notification.unread').length;
+                            $('.unread-notifications').text(unreadNotifications);
+
+                            $('.notification').click(function() {
+                                $(this).removeClass('unread');
+                                unreadNotifications--;
+                                $('.unread-notifications').text(unreadNotifications);
+                            });
+                        </script>
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
                             <a href="#">
@@ -202,10 +250,10 @@
                 var menuItems = document.querySelectorAll('.main-nav li');
 
                 // Xử lý sự kiện click cho từng phần tử
-                menuItems.forEach(function(item) {
-                    item.addEventListener('click', function() {
+                menuItems.forEach(function (item) {
+                    item.addEventListener('click', function () {
                         // Loại bỏ class "active" khỏi tất cả các phần tử
-                        menuItems.forEach(function(item) {
+                        menuItems.forEach(function (item) {
                             item.classList.remove('active');
                         });
 

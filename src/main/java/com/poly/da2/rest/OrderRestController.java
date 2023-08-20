@@ -1,21 +1,19 @@
 package com.poly.da2.rest;
 
+import com.poly.da2.entity.Notification;
 import com.poly.da2.entity.Order;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.poly.da2.entity.OrderDetail;
-import com.poly.da2.entity.Product;
-import com.poly.da2.entity.TopProduct;
 import com.poly.da2.entity.TotalMoneyEachMonth;
+import com.poly.da2.repository.NotificationRepository;
+import com.poly.da2.service.NotificationService;
 import com.poly.da2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -23,28 +21,31 @@ import java.util.Map;
 public class OrderRestController {
 	@Autowired
 	OrderService orderService;
-	List<String> notifications = new ArrayList<>();
-
+	@Autowired
+	NotificationService notificationService;
+	@Autowired
+	NotificationRepository notificationRepository;
 	@PostMapping()
-	public ResponseEntity<Order> create(@RequestBody JsonNode orderData) {
+	public ResponseEntity<Order> create(@RequestBody JsonNode orderData, Notification notification) {
 		try {
 			Order order = orderService.create(orderData);
-			notifications.add("Hãy kiểm tra mã đơn hàng " + order.getId());
+			notification.setContent("Đơn hàng "+order.getId()+" đã được mua chờ bạn xác nhận");
+			notification.setParam_id_order(order.getId());
+			notificationRepository.save(notification);
 			return new ResponseEntity<>(order, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@GetMapping("/notifications")
-	public ResponseEntity<List<String>> getNotifications() {
-		return new ResponseEntity<>(notifications, HttpStatus.OK);
-	}
-
-
 	@GetMapping("")
 	public List<Order> getAll() {
 		return orderService.findAll();
+	}
+
+	@GetMapping("/notification")
+	public List<Notification> getNotification() {
+		return notificationService.findAll6();
 	}
 
 

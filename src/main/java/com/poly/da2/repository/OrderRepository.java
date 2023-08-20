@@ -14,7 +14,7 @@ import java.util.Map;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 	@Query("SELECT o FROM Order o Where o.user.account.username=?1 and o.status_order=?2")
     List<Order> findByUsername(String username, String status);
-    @Query("SELECT o FROM Order o Where o.status_order=?1")
+    @Query("SELECT o FROM Order o Where o.status_order=?1 order by o.createDate desc ")
     List<Order> getByOderStatus(String status);
     @Query("SELECT o FROM Order o Where o.user.account.username=?1 and o.status_order=?2")
     List<Order> findByUsernameAndStatus(String username, String status);
@@ -24,5 +24,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT  new TotalMoneyEachMonth (MONTH(o.createDate), SUM(o.total_price))   FROM Order o WHERE YEAR(o.createDate) = ?1 GROUP BY  MONTH(o.createDate) ORDER BY MONTH(o.createDate) asc")
     List<TotalMoneyEachMonth>totalPriceSpecificYear(int year);
 
+    @Query("SELECT o FROM Order o order by o.createDate desc ")
+    List<Order>findAlldesc();
 
 }

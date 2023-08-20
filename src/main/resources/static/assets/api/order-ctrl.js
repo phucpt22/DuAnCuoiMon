@@ -2,15 +2,22 @@ app.controller("order-ctrl", function($scope, $http) {
     $scope.items_order = [];
     $scope.form = {};
     $scope.items_order_detail=[];
-
+    $scope.notification = [];
 
     $scope.initialize = function() {
         $http.get("/rest/orders").then((resp) => {
             $scope.items_order = resp.data;
             $scope.getOrdersByStatus("Chờ xác nhận")
         });
-
+        $scope.notification();
     };
+    $scope.notification = function() {
+        $http.get("/rest/orders/notification").then((resp) => {
+            $scope.notification = resp.data;
+            console.log(resp.data);
+        });
+    };
+
     $scope.getOrdersByStatus = function(status) {
         $http.get("/rest/orders/orders", { params: { status: status } })
             .then((resp) => {

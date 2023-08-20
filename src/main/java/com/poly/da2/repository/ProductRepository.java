@@ -20,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.category.id=?1")
 	Page<Product> getByCategoryId(String cid, Pageable pageable);
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
-	Page<Product> getByName(String name, Pageable pageable);
+	List<Product> getByName(String name);
 
 	@Procedure(name="filterProduct")
 	List<Product> filterProduct(@Param("name") String name, @Param("cid") String cid, @Param("min_price") Double min_price, @Param("max_price") Double max_price);
@@ -45,14 +45,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	long count();
 
 
-	@Query("SELECT new TopProduct (p.id, p.name, p.image_urls, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
+	@Query("SELECT new TopProduct (p.id, p.name, p.thumbnail_url, SUM(od.quantity),SUM( od.quantity * od.price))\n" +
 			"from Product p\n" +
 			"\tinner join OrderDetail od\n" +
 			"\ton od.product.id = p.id\n" +
 			"\tinner join Order o\n" +
 			"\ton o.id = od.order.id\n" +
 			"\t where o.createDate BETWEEN  ?1  AND ?2 \n" +
-			"\tgroup by p.id, p.name, p.image_urls\n" +
+			"\tgroup by p.id, p.name, p.thumbnail_url\n" +
 			"\torder by SUM( od.quantity * od.price) desc\n")
 	List<TopProduct> getTopProduct(Date from, Date to);
 
