@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +35,6 @@ public interface ProductService {
 
 	long count();
 
-	List<TopProduct> getTopProduct();
+	List<TopProduct> getTopProduct(Date from, Date to);
 
 }

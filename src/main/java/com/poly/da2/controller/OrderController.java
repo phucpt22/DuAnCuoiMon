@@ -77,4 +77,9 @@ public class OrderController {
         return "index";
     }
 
+    @GetMapping("/orderhref")
+    public String hrefOrder() {
+        return "redirect:/assets/admin/index.html#!/order";
+    }
+
 }

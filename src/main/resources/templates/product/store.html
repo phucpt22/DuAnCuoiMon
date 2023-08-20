@@ -60,11 +60,8 @@
                                 </button>
                             </form>
                         </div>
-
-
                     </div>
                     <!-- /aside Widget -->
-
                     <!-- aside Widget -->
                     <div class="aside">
                         <h3 class="aside-title">Top selling</h3>
@@ -84,23 +81,44 @@
                     <!--	 /aside Widget-->
                 </div>
                 <!-- /ASIDE -->
-
                 <!-- STORE -->
                 <div id="store" class="col-md-9">
                     <!-- store top filter -->
                     <div class="header-search">
                         <form method="get" th:action="@{/products}">
-                        <input type="hidden" name="cid" th:value="${cid}">
-                        <input type="hidden" name="page" th:value="${currentPage}">
+                            <input type="hidden" name="cid" th:value="${cid}">
+                            <input type="hidden" name="page" th:value="${currentPage}">
                             <input  th:value="${min_price}" name="min_price" type="hidden">
                             <input  th:value="${max_price}" name="max_price" type="hidden">
-                        <input style="width: 84%; border-radius: 15px 0px 0px 15px;" type="text" id="searchTerm"
+                            <input style="width: 84%; border-radius: 15px 0px 0px 15px;" type="text" id="searchTerm"
                                th:value="${name}"
                                name="name" class="input" placeholder="Search here">
-                        <button style="color: white;background-color: #de1313; height: 40px; border: none;
+                            <button style="color: white;background-color: #de1313; height: 40px; border: none;
                                 width: 128px; border-radius: 0px 15px 15px 0px; font-weight: bold" type="submit"
                                 class="search-btn">Search
-                        </button>
+                            </button>
+                            <div id="suggestions"></div>
+                            <script>
+
+                                $(document).ready(function() {
+                                    $('#searchTerm').on('input', function() {
+                                        var keyword = $(this).val();
+
+                                        if (keyword.length >= 4) {
+                                            $.ajax({
+                                                url: '/suggest',
+                                                type: 'GET',
+                                                data: { name: keyword },
+                                                success: function(response) {
+                                                    $('#suggestions').text(response);
+                                                }
+                                            });
+                                        } else {
+                                            $('#suggestions').empty();
+                                        }
+                                    });
+                                });
+                            </script>
                         </form>
                     </div>
                     <div class="store-filter clearfix">

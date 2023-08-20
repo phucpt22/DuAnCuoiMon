@@ -1,12 +1,10 @@
 package com.poly.da2.controller;
 
 import com.poly.da2.Utils.NumberUtils;
-import com.poly.da2.entity.Reviews;
-import com.poly.da2.entity.Userss;
+import com.poly.da2.entity.*;
 import com.poly.da2.model.ProductPageOutPut;
+import com.poly.da2.repository.NotificationRepository;
 import com.poly.da2.repository.ProductRepository;
-import com.poly.da2.entity.Category;
-import com.poly.da2.entity.Product;
 import com.poly.da2.repository.ReviewRepository;
 import com.poly.da2.repository.UserRepository;
 import com.poly.da2.service.*;
@@ -46,6 +44,8 @@ public class ProductController {
 	@Autowired
 	UserRepository uRepository;
 	private String a = NumberUtils.maxNumber;
+	@Autowired
+	NotificationService notificationService;
 
 	@RequestMapping("/product/detail/{id}")
 	public String detail(Model model,
@@ -91,6 +91,8 @@ public class ProductController {
 		model.addAttribute("name", name);
 		model.addAttribute("min_price", min_price);
 		model.addAttribute("max_price", max_price);
+		List<Notification> notifications = notificationService.findAll();
+		model.addAttribute("notifications",notifications);
 		return "product/store";
 	}
 	@PostMapping("/reviews")
@@ -130,5 +132,12 @@ public class ProductController {
 		}
 		return "redirect:/product/detail/" + idProduct+ "?idcate=" + request.getParameter("idcate");
 	}
+	@GetMapping("/suggest")
+	public String suggest(@RequestParam("name") String keyword, Model model) {
+		List<Product> products = dao.getByName(keyword);
+		model.addAttribute("products", products);
+		return "suggestions :: results";
+	}
+
 
 }

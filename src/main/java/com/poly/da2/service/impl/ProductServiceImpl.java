@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -80,9 +82,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@GetMapping("top-product")
-	public List<TopProduct> getTopProduct(){
-		return productRepository.getTopProduct();
+	public List<TopProduct> getTopProduct(Date from, Date to){
+		return productRepository.getTopProduct( from,  to);
 	}
+
 	@Override
 	public List<Product> sanPhamMoiNhat() {
 		return productRepository.sanPhamMoiNhat();

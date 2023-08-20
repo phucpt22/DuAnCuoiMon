@@ -8,10 +8,9 @@
         <version>2.6.10</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.fpoly.doan</groupId>
+    <groupId>com.phucnguyen</groupId>
     <artifactId>TechStore</artifactId>
-    <version>1.0.0</version>
-    <packaging>war</packaging>
+    <version>0.0.1-SNAPSHOT</version>
     <name>TechStore</name>
     <description>Your technology world</description>
     <properties>
@@ -31,6 +30,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <!-- live reload -->
         <dependency>
@@ -113,6 +116,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

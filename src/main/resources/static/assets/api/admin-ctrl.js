@@ -29,10 +29,19 @@ app.config(function($routeProvider) {
         })
         .otherwise({
             templateUrl: "/assets/admin/dashboard/index.html",
-            //templateUrl: "/assert/admin-ctrl/index.html"
+            //controller: "/assert/admin-ctrl/index.html"
         })
 
 })
-app.controller("HomeController", function($scope) {
+app.controller("HomeController", function($scope, $http) {
     // Controller logic for the home view
+    $scope.item_notification = [];
+
+    $scope.initialize = function() {
+        $http.get("/rest/orders/notification").then((resp) => {
+            $scope.item_notification = resp.data;
+            console.log(resp.data);
+        });
+    };
+
 });

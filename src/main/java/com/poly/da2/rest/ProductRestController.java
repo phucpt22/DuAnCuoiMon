@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -53,13 +55,15 @@ public class ProductRestController {
     public void delete(@PathVariable("id") Integer id) {
         productService.delete(id);
     }
-	@GetMapping("count")
-	public long count(){
-		return productService.count();
-	}
 
-	@GetMapping("top-product")
-	public List<TopProduct> getTopProduct(){
-		return productService.getTopProduct();
-	}
+    @GetMapping("count")
+    public long count(){
+        return productService.count();
+    }
+
+    @GetMapping("top-product")
+    public List<TopProduct> getTopProduct(@RequestParam("from") String from,@RequestParam("to")  String to) throws ParseException {
+        return productService.getTopProduct( new SimpleDateFormat("yyyy-MM-dd").parse(from),
+                new SimpleDateFormat("yyyy-MM-dd").parse(to));
+    }
 }
