@@ -44,6 +44,7 @@ app.controller("product-ctrl", function ($scope, $http) {
     };
     $scope.create = function () {
         var item = angular.copy($scope.form);
+        item.thumbnail_url =  document.getElementById("imageShow").src;
         $http
             .post(`/rest/products`, item)
             .then((resp) => {

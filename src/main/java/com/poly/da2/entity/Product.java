@@ -39,11 +39,13 @@ public class Product implements Serializable {
 	private double discount;
 	public String getFormatCurrent_Price() {
 		DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+		if(currentprice == null) return "";
 		String formattedPrice = decimalFormat.format(currentprice);
 		return formattedPrice;
 	}
 	public String getFormatPrice() {
 		DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+		if(price == null) return  "";
 		String formattedPrice = decimalFormat.format(price);
 		return formattedPrice;
 	}
