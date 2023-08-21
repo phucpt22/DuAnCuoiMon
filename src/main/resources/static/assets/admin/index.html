@@ -461,6 +461,7 @@
      * Displays the file details of the user's selection.
      * @param {object} data - Containers the user selection from the picker
      */
+
     async function pickerCallback(data) {
         if (data.action === google.picker.Action.PICKED) {
             var x = data["docs"][0]["id"];
