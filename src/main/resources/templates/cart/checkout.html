@@ -133,13 +133,13 @@
                         </div>
                     </div>
                     <div class="input-checkbox">
-                        <input type="checkbox" id="terms">
+                        <input type="checkbox" id="terms" ng-model="termsAccepted">
                         <label for="terms">
                             <span></span>
                             I've read and accept the <a href="#">terms & conditions</a>
                         </label>
                     </div>
-                    <a href="#" ng-click="order.purchase()" class="primary-btn order-submit">Place order</a>
+                    <a href="#" ng-click="order.purchase()" class="primary-btn order-submit" ng-disabled="!termsAccepted">Place order</a>
                 </div>
                 </form>
                 <!-- /Order Details -->

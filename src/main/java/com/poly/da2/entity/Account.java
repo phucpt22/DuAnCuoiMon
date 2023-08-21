@@ -27,8 +27,8 @@ public class Account implements Serializable {
     private String username;
     private String password;
     private String gmail;
-    private Date createDate;
-    private Date updateDate;
+    private Date createDate = new Date();
+    private Date updateDate = new Date();
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
